@@ -1,7 +1,6 @@
 package v1_test
 
 import (
-	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"strings"
@@ -104,7 +103,7 @@ func TestFixtureValidationForTriggers(t *testing.T) {
 		},
 	}
 	for _, test := range tcs {
-		t.Run(fmt.Sprintf("%s", test.Name), func(t *testing.T) {
+		t.Run(test.Name, func(t *testing.T) {
 			b, err := ioutil.ReadFile(test.File)
 			require.NoError(t, err)
 
