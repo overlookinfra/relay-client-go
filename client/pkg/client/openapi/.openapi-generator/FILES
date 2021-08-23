@@ -1,6 +1,7 @@
 api_notifications.go
 api_subscriptions.go
 api_tokens.go
+api_views.go
 client.go
 configuration.go
 model_deleted_resource.go
@@ -43,5 +44,15 @@ model_user_workflow_subscriptions.go
 model_user_workflow_subscriptions_summary.go
 model_user_workflow_subscriptions_summary_all_of.go
 model_user_workflows_subscriptions.go
+model_workflow_identifier.go
+model_workflow_relay_source.go
+model_workflow_revision_identifier.go
+model_workflow_run_identifier.go
+model_workflow_run_state_summary.go
+model_workflow_run_view.go
+model_workflow_run_view_all_of.go
+model_workflow_view.go
+model_workflow_view_all_of.go
+model_workflows_view.go
 response.go
 utils.go
