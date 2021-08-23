@@ -108,13 +108,10 @@ func yamlWorkflowDataToWorkflowData(ywd *YAMLWorkflowData) (*WorkflowData, error
 			when := make([]interface{}, 0)
 			when = append(when, approval)
 
-			// pre-existing conditions should always be supported...
 			if step.When.Tree != nil {
 				existing, ok := step.When.Tree.([]interface{})
 				if ok {
-					for _, condition := range existing {
-						when = append(when, condition)
-					}
+					when = append(when, existing...)
 				} else {
 					when = append(when, step.When.Tree)
 				}
