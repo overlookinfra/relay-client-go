@@ -10,7 +10,7 @@ defaults:
   run:
     working-directory: client
 jobs:
-  generate:
+  check:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-go@v2
@@ -27,6 +27,7 @@ jobs:
           ${{ runner.os }}-go-
     - name: Check
       run: |
+        go run github.com/golangci/golangci-lint/cmd/golangci-lint run --timeout 10m
         go generate ./...
         if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
           exit 1
