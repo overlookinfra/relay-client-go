@@ -70,6 +70,8 @@ type APIClient struct {
 
 	TokensApi *TokensApiService
 
+	ViewsApi *ViewsApiService
+
 	WorkflowRevisionsApi *WorkflowRevisionsApiService
 
 	WorkflowRunsApi *WorkflowRunsApiService
@@ -108,6 +110,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.SubscriptionsApi = (*SubscriptionsApiService)(&c.common)
 	c.TermsApi = (*TermsApiService)(&c.common)
 	c.TokensApi = (*TokensApiService)(&c.common)
+	c.ViewsApi = (*ViewsApiService)(&c.common)
 	c.WorkflowRevisionsApi = (*WorkflowRevisionsApiService)(&c.common)
 	c.WorkflowRunsApi = (*WorkflowRunsApiService)(&c.common)
 	c.WorkflowSecretsApi = (*WorkflowSecretsApiService)(&c.common)
