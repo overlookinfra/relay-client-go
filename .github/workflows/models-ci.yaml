@@ -32,3 +32,21 @@ jobs:
         if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
           exit 1
         fi
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '1.16'
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ~/go/pkg/mod
+          ~/go/pkg/sumdb
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+    - name: Test
+      run: |
+        go run gotest.tools/gotestsum -f testname --no-summary output --rerun-fails --packages ./... -- -race --cover
