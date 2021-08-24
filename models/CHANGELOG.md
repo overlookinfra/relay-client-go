@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+* Finalize migration from [puppetlabs/relay-core](https://github.com/puppetlabs/relay-core).
+
 ## [1.0.0] - 2021-08-23
 
 ### Added

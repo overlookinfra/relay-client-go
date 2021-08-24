@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
+	v1 "github.com/puppetlabs/relay-client-go/models/pkg/workflow/types/v1"
 	"github.com/puppetlabs/relay-core/pkg/util/typeutil"
-	v1 "github.com/puppetlabs/relay-core/pkg/workflow/types/v1"
 	"github.com/stretchr/testify/require"
 )
 

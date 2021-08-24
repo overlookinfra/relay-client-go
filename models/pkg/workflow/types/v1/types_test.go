@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	v1 "github.com/puppetlabs/relay-core/pkg/workflow/types/v1"
+	v1 "github.com/puppetlabs/relay-client-go/models/pkg/workflow/types/v1"
 	"github.com/stretchr/testify/require"
 	yaml "gopkg.in/yaml.v3"
 )
