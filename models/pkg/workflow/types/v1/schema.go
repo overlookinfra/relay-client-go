@@ -1,8 +1,8 @@
 package v1
 
 import (
+	"github.com/puppetlabs/relay-client-go/models/pkg/workflow/asset"
 	"github.com/puppetlabs/relay-core/pkg/util/typeutil"
-	"github.com/puppetlabs/relay-core/pkg/workflow/asset"
 	"github.com/xeipuuv/gojsonschema"
 )
 

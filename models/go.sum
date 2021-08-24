@@ -1132,8 +1132,8 @@ github.com/puppetlabs/leg/stringutil v0.1.0/go.mod h1:xIQbHjzTxuqVz/GpY5ReCqxGWp
 github.com/puppetlabs/leg/timeutil v0.3.0/go.mod h1:FHkZ9rYegF0STjS4az6hsjdvcBHcG+FB4CsY5mx1DfI=
 github.com/puppetlabs/leg/workdir v0.1.0/go.mod h1:wqtQ5F1GvWJ2OH0OaDYkZnF4Iq+yV9uojU6kBub6jcA=
 github.com/puppetlabs/pvpool v0.3.0/go.mod h1:yxvaQJGhcIuzUrpmWnVKG+86JRDK1JR0RepBbImMM+Q=
-github.com/puppetlabs/relay-core v0.0.0-20210816202946-cdb56ed33218 h1:J6UUJZGJeMaIuxSdyRWCtUjhzuEuXMNNTRv2BZHlrN0=
-github.com/puppetlabs/relay-core v0.0.0-20210816202946-cdb56ed33218/go.mod h1:cd9GBBn8EW93gSHaEkCpnPqJ/3uPZq+YWART96YhEXQ=
+github.com/puppetlabs/relay-core v0.0.0-20210824082855-2dea243b2a1a h1:yZt8aqSbnLZSIFqRCpsPSPcavETok+EJirq+KB6yGRo=
+github.com/puppetlabs/relay-core v0.0.0-20210824082855-2dea243b2a1a/go.mod h1:Po/T1Snd3HCHcFQY/uWDir951Yx4cjZxFlAyZmDyG+I=
 github.com/puppetlabs/relay-pls v0.0.0-20201125074651-13575df50b51/go.mod h1:xtYyc7gvvVZtfAn5kM89ihJj6v5zdBjNjMfp+a6z+8o=
 github.com/qri-io/starlib v0.4.2-0.20200213133954-ff2e8cd5ef8d/go.mod h1:7DPO4domFU579Ga6E61sB9VFNaniPVwJP5C4bBCu3wA=
 github.com/quasilyte/go-consistent v0.0.0-20190521200055-c6f3937de18c/go.mod h1:5STLWrekHfjyYwxBRVRXNOSewLJ3PWfDJd1VyTS21fI=

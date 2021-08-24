@@ -6,7 +6,7 @@ require (
 	github.com/golangci/golangci-lint v1.36.0
 	github.com/puppetlabs/leg/httputil v0.1.4
 	github.com/puppetlabs/leg/stringutil v0.1.0
-	github.com/puppetlabs/relay-core v0.0.0-20210816202946-cdb56ed33218
+	github.com/puppetlabs/relay-core v0.0.0-20210824082855-2dea243b2a1a
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/shurcooL/vfsgen v0.0.0-20200824052919-0d455de96546
 	github.com/stretchr/testify v1.7.0
