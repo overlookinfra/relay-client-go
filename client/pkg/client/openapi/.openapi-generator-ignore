@@ -22,8 +22,6 @@ api_workflows.go
 
 model_any_workflow_step.go
 model_approval_workflow_step.go
-model_connection_provider_auth.go
-model_connection_provider.go
 model_container_workflow_step.go
 model_expression_or_expressions.go
 model_inline_response_200_1.go
@@ -41,7 +39,6 @@ model_inline_response_200_13.go
 model_inline_response_200_14.go
 model_inline_response_200_15.go
 model_inline_response_200_16.go
-model_o_auth2*.go
 model_workflow.go
 model_workflow_all_of.go
 model_workflow_data_references.go

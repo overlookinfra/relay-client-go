@@ -25,6 +25,8 @@ model_connection_auth_status_all_of.go
 model_connection_availability.go
 model_connection_entity.go
 model_connection_identifier.go
+model_connection_provider.go
+model_connection_provider_auth.go
 model_connection_provider_capability.go
 model_connection_provider_entity.go
 model_connection_reference.go
@@ -71,6 +73,10 @@ model_notification_summary.go
 model_notification_summary_all_of.go
 model_notifications.go
 model_notifications_response.go
+model_o_auth2_connection_auth_input.go
+model_o_auth2_connection_auth_status.go
+model_o_auth2_connection_provider_auth.go
+model_o_auth2_connection_provider_auth_scope.go
 model_permission.go
 model_permission_grant.go
 model_permission_identifier.go
