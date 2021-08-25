@@ -17,7 +17,6 @@ api_revisions.go
 api_terms.go
 api_workflow_revisions.go
 api_workflow_runs.go
-api_workflow_secrets.go
 api_workflow_triggers.go
 api_workflows.go
 
@@ -57,7 +56,6 @@ model_workflow_run_state.go
 model_workflow_run_step_state.go
 model_workflow_run_summary_all_of.go
 model_workflow_run_summary.go
-model_workflow_secret_summary.go
 model_workflow_source.go
 model_workflow_summary_all_of.go
 model_workflow_summary.go

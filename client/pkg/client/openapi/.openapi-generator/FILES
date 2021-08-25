@@ -2,6 +2,7 @@ api_notifications.go
 api_subscriptions.go
 api_tokens.go
 api_views.go
+api_workflow_secrets.go
 client.go
 configuration.go
 model_accepted_terms.go
@@ -141,6 +142,10 @@ model_workflow_run_parameter.go
 model_workflow_run_state_summary.go
 model_workflow_run_view.go
 model_workflow_run_view_all_of.go
+model_workflow_secret.go
+model_workflow_secret_summary.go
+model_workflow_secret_value.go
+model_workflow_secrets_summary.go
 model_workflow_trigger_binding.go
 model_workflow_trigger_identifier.go
 model_workflow_trigger_summary.go
