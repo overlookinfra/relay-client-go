@@ -15,14 +15,8 @@ import (
 	"time"
 )
 
-// ApprovalWorkflowRunStepState struct for ApprovalWorkflowRunStepState
+// ApprovalWorkflowRunStepState State representation of an approval step
 type ApprovalWorkflowRunStepState struct {
-	// Time at which the step execution ended
-	EndedAt NullableTime `json:"ended_at,omitempty"`
-	// Time at which step execution started
-	StartedAt NullableTime `json:"started_at,omitempty"`
-	// Workflow run step status
-	Status string `json:"status"`
 	// Workflow run step approval for manual gates
 	Approval *string `json:"approval,omitempty"`
 	// Time at which the step was approved or rejected
@@ -36,9 +30,8 @@ type ApprovalWorkflowRunStepState struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApprovalWorkflowRunStepState(status string, type_ string) *ApprovalWorkflowRunStepState {
+func NewApprovalWorkflowRunStepState(type_ string) *ApprovalWorkflowRunStepState {
 	this := ApprovalWorkflowRunStepState{}
-	this.Status = status
 	var approval string = "waiting"
 	this.Approval = &approval
 	this.Type = type_
@@ -53,114 +46,6 @@ func NewApprovalWorkflowRunStepStateWithDefaults() *ApprovalWorkflowRunStepState
 	var approval string = "waiting"
 	this.Approval = &approval
 	return &this
-}
-
-// GetEndedAt returns the EndedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ApprovalWorkflowRunStepState) GetEndedAt() time.Time {
-	if o == nil || o.EndedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.EndedAt.Get()
-}
-
-// GetEndedAtOk returns a tuple with the EndedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ApprovalWorkflowRunStepState) GetEndedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.EndedAt.Get(), o.EndedAt.IsSet()
-}
-
-// HasEndedAt returns a boolean if a field has been set.
-func (o *ApprovalWorkflowRunStepState) HasEndedAt() bool {
-	if o != nil && o.EndedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetEndedAt gets a reference to the given NullableTime and assigns it to the EndedAt field.
-func (o *ApprovalWorkflowRunStepState) SetEndedAt(v time.Time) {
-	o.EndedAt.Set(&v)
-}
-// SetEndedAtNil sets the value for EndedAt to be an explicit nil
-func (o *ApprovalWorkflowRunStepState) SetEndedAtNil() {
-	o.EndedAt.Set(nil)
-}
-
-// UnsetEndedAt ensures that no value is present for EndedAt, not even an explicit nil
-func (o *ApprovalWorkflowRunStepState) UnsetEndedAt() {
-	o.EndedAt.Unset()
-}
-
-// GetStartedAt returns the StartedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ApprovalWorkflowRunStepState) GetStartedAt() time.Time {
-	if o == nil || o.StartedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.StartedAt.Get()
-}
-
-// GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ApprovalWorkflowRunStepState) GetStartedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.StartedAt.Get(), o.StartedAt.IsSet()
-}
-
-// HasStartedAt returns a boolean if a field has been set.
-func (o *ApprovalWorkflowRunStepState) HasStartedAt() bool {
-	if o != nil && o.StartedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetStartedAt gets a reference to the given NullableTime and assigns it to the StartedAt field.
-func (o *ApprovalWorkflowRunStepState) SetStartedAt(v time.Time) {
-	o.StartedAt.Set(&v)
-}
-// SetStartedAtNil sets the value for StartedAt to be an explicit nil
-func (o *ApprovalWorkflowRunStepState) SetStartedAtNil() {
-	o.StartedAt.Set(nil)
-}
-
-// UnsetStartedAt ensures that no value is present for StartedAt, not even an explicit nil
-func (o *ApprovalWorkflowRunStepState) UnsetStartedAt() {
-	o.StartedAt.Unset()
-}
-
-// GetStatus returns the Status field value
-func (o *ApprovalWorkflowRunStepState) GetStatus() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value
-// and a boolean to check if the value has been set.
-func (o *ApprovalWorkflowRunStepState) GetStatusOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Status, true
-}
-
-// SetStatus sets field value
-func (o *ApprovalWorkflowRunStepState) SetStatus(v string) {
-	o.Status = v
 }
 
 // GetApproval returns the Approval field value if set, zero value otherwise.
@@ -295,15 +180,6 @@ func (o *ApprovalWorkflowRunStepState) SetType(v string) {
 
 func (o ApprovalWorkflowRunStepState) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EndedAt.IsSet() {
-		toSerialize["ended_at"] = o.EndedAt.Get()
-	}
-	if o.StartedAt.IsSet() {
-		toSerialize["started_at"] = o.StartedAt.Get()
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
 	if o.Approval != nil {
 		toSerialize["approval"] = o.Approval
 	}

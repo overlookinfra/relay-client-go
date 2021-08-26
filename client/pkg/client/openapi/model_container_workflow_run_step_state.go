@@ -12,17 +12,10 @@ package openapi
 
 import (
 	"encoding/json"
-	"time"
 )
 
-// ContainerWorkflowRunStepState struct for ContainerWorkflowRunStepState
+// ContainerWorkflowRunStepState State representation of a container step
 type ContainerWorkflowRunStepState struct {
-	// Time at which the step execution ended
-	EndedAt NullableTime `json:"ended_at,omitempty"`
-	// Time at which step execution started
-	StartedAt NullableTime `json:"started_at,omitempty"`
-	// Workflow run step status
-	Status string `json:"status"`
 	// Type of step
 	Type string `json:"type"`
 }
@@ -31,9 +24,8 @@ type ContainerWorkflowRunStepState struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewContainerWorkflowRunStepState(status string, type_ string) *ContainerWorkflowRunStepState {
+func NewContainerWorkflowRunStepState(type_ string) *ContainerWorkflowRunStepState {
 	this := ContainerWorkflowRunStepState{}
-	this.Status = status
 	this.Type = type_
 	return &this
 }
@@ -44,114 +36,6 @@ func NewContainerWorkflowRunStepState(status string, type_ string) *ContainerWor
 func NewContainerWorkflowRunStepStateWithDefaults() *ContainerWorkflowRunStepState {
 	this := ContainerWorkflowRunStepState{}
 	return &this
-}
-
-// GetEndedAt returns the EndedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ContainerWorkflowRunStepState) GetEndedAt() time.Time {
-	if o == nil || o.EndedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.EndedAt.Get()
-}
-
-// GetEndedAtOk returns a tuple with the EndedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ContainerWorkflowRunStepState) GetEndedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.EndedAt.Get(), o.EndedAt.IsSet()
-}
-
-// HasEndedAt returns a boolean if a field has been set.
-func (o *ContainerWorkflowRunStepState) HasEndedAt() bool {
-	if o != nil && o.EndedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetEndedAt gets a reference to the given NullableTime and assigns it to the EndedAt field.
-func (o *ContainerWorkflowRunStepState) SetEndedAt(v time.Time) {
-	o.EndedAt.Set(&v)
-}
-// SetEndedAtNil sets the value for EndedAt to be an explicit nil
-func (o *ContainerWorkflowRunStepState) SetEndedAtNil() {
-	o.EndedAt.Set(nil)
-}
-
-// UnsetEndedAt ensures that no value is present for EndedAt, not even an explicit nil
-func (o *ContainerWorkflowRunStepState) UnsetEndedAt() {
-	o.EndedAt.Unset()
-}
-
-// GetStartedAt returns the StartedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ContainerWorkflowRunStepState) GetStartedAt() time.Time {
-	if o == nil || o.StartedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.StartedAt.Get()
-}
-
-// GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ContainerWorkflowRunStepState) GetStartedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.StartedAt.Get(), o.StartedAt.IsSet()
-}
-
-// HasStartedAt returns a boolean if a field has been set.
-func (o *ContainerWorkflowRunStepState) HasStartedAt() bool {
-	if o != nil && o.StartedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetStartedAt gets a reference to the given NullableTime and assigns it to the StartedAt field.
-func (o *ContainerWorkflowRunStepState) SetStartedAt(v time.Time) {
-	o.StartedAt.Set(&v)
-}
-// SetStartedAtNil sets the value for StartedAt to be an explicit nil
-func (o *ContainerWorkflowRunStepState) SetStartedAtNil() {
-	o.StartedAt.Set(nil)
-}
-
-// UnsetStartedAt ensures that no value is present for StartedAt, not even an explicit nil
-func (o *ContainerWorkflowRunStepState) UnsetStartedAt() {
-	o.StartedAt.Unset()
-}
-
-// GetStatus returns the Status field value
-func (o *ContainerWorkflowRunStepState) GetStatus() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value
-// and a boolean to check if the value has been set.
-func (o *ContainerWorkflowRunStepState) GetStatusOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Status, true
-}
-
-// SetStatus sets field value
-func (o *ContainerWorkflowRunStepState) SetStatus(v string) {
-	o.Status = v
 }
 
 // GetType returns the Type field value
@@ -180,15 +64,6 @@ func (o *ContainerWorkflowRunStepState) SetType(v string) {
 
 func (o ContainerWorkflowRunStepState) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EndedAt.IsSet() {
-		toSerialize["ended_at"] = o.EndedAt.Get()
-	}
-	if o.StartedAt.IsSet() {
-		toSerialize["started_at"] = o.StartedAt.Get()
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
 	if true {
 		toSerialize["type"] = o.Type
 	}
