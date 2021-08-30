@@ -1,3 +1,4 @@
+api_events.go
 api_notifications.go
 api_subscriptions.go
 api_tokens.go
@@ -53,6 +54,9 @@ model_event.go
 model_event_all_of.go
 model_event_entity.go
 model_event_identifier.go
+model_event_request.go
+model_event_response.go
+model_event_response_all_of.go
 model_event_source.go
 model_event_source_trigger.go
 model_event_summary.go

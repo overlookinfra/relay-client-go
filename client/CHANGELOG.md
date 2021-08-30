@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+* Add client generation for updated events.
+
+### Fixed
+* Added event key to event payload.
+
 ## [0.2.0] - 2021-08-26
 
 ### Added

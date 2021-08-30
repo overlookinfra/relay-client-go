@@ -21,6 +21,8 @@ type EventAllOf struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The attribute data for this event
 	Data *map[string]interface{} `json:"data,omitempty"`
+	// An optional key for this event
+	Key *string `json:"key,omitempty"`
 	Source *EventSource `json:"source,omitempty"`
 }
 
@@ -105,6 +107,38 @@ func (o *EventAllOf) SetData(v map[string]interface{}) {
 	o.Data = &v
 }
 
+// GetKey returns the Key field value if set, zero value otherwise.
+func (o *EventAllOf) GetKey() string {
+	if o == nil || o.Key == nil {
+		var ret string
+		return ret
+	}
+	return *o.Key
+}
+
+// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EventAllOf) GetKeyOk() (*string, bool) {
+	if o == nil || o.Key == nil {
+		return nil, false
+	}
+	return o.Key, true
+}
+
+// HasKey returns a boolean if a field has been set.
+func (o *EventAllOf) HasKey() bool {
+	if o != nil && o.Key != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKey gets a reference to the given string and assigns it to the Key field.
+func (o *EventAllOf) SetKey(v string) {
+	o.Key = &v
+}
+
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *EventAllOf) GetSource() EventSource {
 	if o == nil || o.Source == nil {
@@ -144,6 +178,9 @@ func (o EventAllOf) MarshalJSON() ([]byte, error) {
 	}
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
+	}
+	if o.Key != nil {
+		toSerialize["key"] = o.Key
 	}
 	if o.Source != nil {
 		toSerialize["source"] = o.Source
