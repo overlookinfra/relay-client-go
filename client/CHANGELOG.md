@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.3.0] - 2021-08-30
+
 ### Added
 * Add client generation for updated events.
 
@@ -29,6 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Client generation for workflow view specification changes.
 * Initial migration from [puppetlabs/relay](https://github.com/puppetlabs/relay).
 
-[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.2.0...HEAD
+[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.3.0...HEAD
+[0.3.0]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.2.0...client/v0.3.0
 [0.2.0]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.1.0...client/v0.2.0
 [0.1.0]: https://github.com/puppetlabs/relay-client-go/compare/dbd4bbfeab459f0f38cad0e56a76eefc0fe78be7...client/v0.1.0
