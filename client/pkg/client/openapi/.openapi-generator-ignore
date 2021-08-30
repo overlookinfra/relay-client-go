@@ -12,7 +12,6 @@ api_auth.go
 api_billing.go
 api_connection_providers.go
 api_connections.go
-api_events.go
 api_revisions.go
 api_terms.go
 api_workflow_revisions.go

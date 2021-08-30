@@ -12,15 +12,10 @@ package openapi
 
 import (
 	"encoding/json"
-	"time"
 )
 
-// Event struct for Event
-type Event struct {
-	// The unique identifier of this event
-	Id string `json:"id"`
-	// The time this event was received
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+// EventRequest Required fields to create an event
+type EventRequest struct {
 	// The attribute data for this event
 	Data *map[string]interface{} `json:"data,omitempty"`
 	// An optional key for this event
@@ -28,82 +23,25 @@ type Event struct {
 	Source *EventSource `json:"source,omitempty"`
 }
 
-// NewEvent instantiates a new Event object
+// NewEventRequest instantiates a new EventRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEvent(id string) *Event {
-	this := Event{}
-	this.Id = id
+func NewEventRequest() *EventRequest {
+	this := EventRequest{}
 	return &this
 }
 
-// NewEventWithDefaults instantiates a new Event object
+// NewEventRequestWithDefaults instantiates a new EventRequest object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewEventWithDefaults() *Event {
-	this := Event{}
+func NewEventRequestWithDefaults() *EventRequest {
+	this := EventRequest{}
 	return &this
-}
-
-// GetId returns the Id field value
-func (o *Event) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *Event) GetIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *Event) SetId(v string) {
-	o.Id = v
-}
-
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Event) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Event) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *Event) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *Event) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *Event) GetData() map[string]interface{} {
+func (o *EventRequest) GetData() map[string]interface{} {
 	if o == nil || o.Data == nil {
 		var ret map[string]interface{}
 		return ret
@@ -113,7 +51,7 @@ func (o *Event) GetData() map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetDataOk() (*map[string]interface{}, bool) {
+func (o *EventRequest) GetDataOk() (*map[string]interface{}, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -121,7 +59,7 @@ func (o *Event) GetDataOk() (*map[string]interface{}, bool) {
 }
 
 // HasData returns a boolean if a field has been set.
-func (o *Event) HasData() bool {
+func (o *EventRequest) HasData() bool {
 	if o != nil && o.Data != nil {
 		return true
 	}
@@ -130,12 +68,12 @@ func (o *Event) HasData() bool {
 }
 
 // SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
-func (o *Event) SetData(v map[string]interface{}) {
+func (o *EventRequest) SetData(v map[string]interface{}) {
 	o.Data = &v
 }
 
 // GetKey returns the Key field value if set, zero value otherwise.
-func (o *Event) GetKey() string {
+func (o *EventRequest) GetKey() string {
 	if o == nil || o.Key == nil {
 		var ret string
 		return ret
@@ -145,7 +83,7 @@ func (o *Event) GetKey() string {
 
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetKeyOk() (*string, bool) {
+func (o *EventRequest) GetKeyOk() (*string, bool) {
 	if o == nil || o.Key == nil {
 		return nil, false
 	}
@@ -153,7 +91,7 @@ func (o *Event) GetKeyOk() (*string, bool) {
 }
 
 // HasKey returns a boolean if a field has been set.
-func (o *Event) HasKey() bool {
+func (o *EventRequest) HasKey() bool {
 	if o != nil && o.Key != nil {
 		return true
 	}
@@ -162,12 +100,12 @@ func (o *Event) HasKey() bool {
 }
 
 // SetKey gets a reference to the given string and assigns it to the Key field.
-func (o *Event) SetKey(v string) {
+func (o *EventRequest) SetKey(v string) {
 	o.Key = &v
 }
 
 // GetSource returns the Source field value if set, zero value otherwise.
-func (o *Event) GetSource() EventSource {
+func (o *EventRequest) GetSource() EventSource {
 	if o == nil || o.Source == nil {
 		var ret EventSource
 		return ret
@@ -177,7 +115,7 @@ func (o *Event) GetSource() EventSource {
 
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetSourceOk() (*EventSource, bool) {
+func (o *EventRequest) GetSourceOk() (*EventSource, bool) {
 	if o == nil || o.Source == nil {
 		return nil, false
 	}
@@ -185,7 +123,7 @@ func (o *Event) GetSourceOk() (*EventSource, bool) {
 }
 
 // HasSource returns a boolean if a field has been set.
-func (o *Event) HasSource() bool {
+func (o *EventRequest) HasSource() bool {
 	if o != nil && o.Source != nil {
 		return true
 	}
@@ -194,18 +132,12 @@ func (o *Event) HasSource() bool {
 }
 
 // SetSource gets a reference to the given EventSource and assigns it to the Source field.
-func (o *Event) SetSource(v EventSource) {
+func (o *EventRequest) SetSource(v EventSource) {
 	o.Source = &v
 }
 
-func (o Event) MarshalJSON() ([]byte, error) {
+func (o EventRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
 	}
@@ -218,38 +150,38 @@ func (o Event) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableEvent struct {
-	value *Event
+type NullableEventRequest struct {
+	value *EventRequest
 	isSet bool
 }
 
-func (v NullableEvent) Get() *Event {
+func (v NullableEventRequest) Get() *EventRequest {
 	return v.value
 }
 
-func (v *NullableEvent) Set(val *Event) {
+func (v *NullableEventRequest) Set(val *EventRequest) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableEvent) IsSet() bool {
+func (v NullableEventRequest) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableEvent) Unset() {
+func (v *NullableEventRequest) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableEvent(val *Event) *NullableEvent {
-	return &NullableEvent{value: val, isSet: true}
+func NewNullableEventRequest(val *EventRequest) *NullableEventRequest {
+	return &NullableEventRequest{value: val, isSet: true}
 }
 
-func (v NullableEvent) MarshalJSON() ([]byte, error) {
+func (v NullableEventRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableEvent) UnmarshalJSON(src []byte) error {
+func (v *NullableEventRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
