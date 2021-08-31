@@ -33,11 +33,15 @@ func (dst *Token) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into UserToken
 	err = json.Unmarshal(data, &dst.UserToken)
 	if err == nil {
-		jsonUserToken, _ := json.Marshal(dst.UserToken)
-		if string(jsonUserToken) == "{}" { // empty struct
-			dst.UserToken = nil
+		jsonUserToken, err := json.Marshal(dst.UserToken)
+		if err == nil {
+			if string(jsonUserToken) == "{}" { // empty struct
+				dst.UserToken = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.UserToken = nil
 		}
 	} else {
 		dst.UserToken = nil

@@ -33,11 +33,15 @@ func (dst *ConnectionAuthInput) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into SecretConnectionAuthInput
 	err = json.Unmarshal(data, &dst.SecretConnectionAuthInput)
 	if err == nil {
-		jsonSecretConnectionAuthInput, _ := json.Marshal(dst.SecretConnectionAuthInput)
-		if string(jsonSecretConnectionAuthInput) == "{}" { // empty struct
-			dst.SecretConnectionAuthInput = nil
+		jsonSecretConnectionAuthInput, err := json.Marshal(dst.SecretConnectionAuthInput)
+		if err == nil {
+			if string(jsonSecretConnectionAuthInput) == "{}" { // empty struct
+				dst.SecretConnectionAuthInput = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.SecretConnectionAuthInput = nil
 		}
 	} else {
 		dst.SecretConnectionAuthInput = nil

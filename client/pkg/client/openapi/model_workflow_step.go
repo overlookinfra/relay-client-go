@@ -39,11 +39,15 @@ func (dst *WorkflowStep) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into ApprovalWorkflowStep
 	err = json.Unmarshal(data, &dst.ApprovalWorkflowStep)
 	if err == nil {
-		jsonApprovalWorkflowStep, _ := json.Marshal(dst.ApprovalWorkflowStep)
-		if string(jsonApprovalWorkflowStep) == "{}" { // empty struct
-			dst.ApprovalWorkflowStep = nil
+		jsonApprovalWorkflowStep, err := json.Marshal(dst.ApprovalWorkflowStep)
+		if err == nil {
+			if string(jsonApprovalWorkflowStep) == "{}" { // empty struct
+				dst.ApprovalWorkflowStep = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.ApprovalWorkflowStep = nil
 		}
 	} else {
 		dst.ApprovalWorkflowStep = nil
@@ -52,11 +56,15 @@ func (dst *WorkflowStep) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into ContainerWorkflowStep
 	err = json.Unmarshal(data, &dst.ContainerWorkflowStep)
 	if err == nil {
-		jsonContainerWorkflowStep, _ := json.Marshal(dst.ContainerWorkflowStep)
-		if string(jsonContainerWorkflowStep) == "{}" { // empty struct
-			dst.ContainerWorkflowStep = nil
+		jsonContainerWorkflowStep, err := json.Marshal(dst.ContainerWorkflowStep)
+		if err == nil {
+			if string(jsonContainerWorkflowStep) == "{}" { // empty struct
+				dst.ContainerWorkflowStep = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.ContainerWorkflowStep = nil
 		}
 	} else {
 		dst.ContainerWorkflowStep = nil

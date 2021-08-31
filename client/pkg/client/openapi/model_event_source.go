@@ -33,11 +33,15 @@ func (dst *EventSource) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into EventSourceTrigger
 	err = json.Unmarshal(data, &dst.EventSourceTrigger)
 	if err == nil {
-		jsonEventSourceTrigger, _ := json.Marshal(dst.EventSourceTrigger)
-		if string(jsonEventSourceTrigger) == "{}" { // empty struct
-			dst.EventSourceTrigger = nil
+		jsonEventSourceTrigger, err := json.Marshal(dst.EventSourceTrigger)
+		if err == nil {
+			if string(jsonEventSourceTrigger) == "{}" { // empty struct
+				dst.EventSourceTrigger = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.EventSourceTrigger = nil
 		}
 	} else {
 		dst.EventSourceTrigger = nil

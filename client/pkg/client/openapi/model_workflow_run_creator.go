@@ -39,11 +39,15 @@ func (dst *WorkflowRunCreator) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into EventWorkflowRunCreator
 	err = json.Unmarshal(data, &dst.EventWorkflowRunCreator)
 	if err == nil {
-		jsonEventWorkflowRunCreator, _ := json.Marshal(dst.EventWorkflowRunCreator)
-		if string(jsonEventWorkflowRunCreator) == "{}" { // empty struct
-			dst.EventWorkflowRunCreator = nil
+		jsonEventWorkflowRunCreator, err := json.Marshal(dst.EventWorkflowRunCreator)
+		if err == nil {
+			if string(jsonEventWorkflowRunCreator) == "{}" { // empty struct
+				dst.EventWorkflowRunCreator = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.EventWorkflowRunCreator = nil
 		}
 	} else {
 		dst.EventWorkflowRunCreator = nil
@@ -52,11 +56,15 @@ func (dst *WorkflowRunCreator) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into UserWorkflowRunCreator
 	err = json.Unmarshal(data, &dst.UserWorkflowRunCreator)
 	if err == nil {
-		jsonUserWorkflowRunCreator, _ := json.Marshal(dst.UserWorkflowRunCreator)
-		if string(jsonUserWorkflowRunCreator) == "{}" { // empty struct
-			dst.UserWorkflowRunCreator = nil
+		jsonUserWorkflowRunCreator, err := json.Marshal(dst.UserWorkflowRunCreator)
+		if err == nil {
+			if string(jsonUserWorkflowRunCreator) == "{}" { // empty struct
+				dst.UserWorkflowRunCreator = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.UserWorkflowRunCreator = nil
 		}
 	} else {
 		dst.UserWorkflowRunCreator = nil
