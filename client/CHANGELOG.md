@@ -7,8 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Fixed
-* Added `required` fields to workflow run creator types.
+* Added `required` fields to workflow run creator models.
 * Fix `oneOf` generation using forked build.
+
+### Added
+* Added new revision source models.
 
 ### Changed
 * Updated [openapi-generator](https://github.com/OpenAPITools/openapi-generator) to [v5.2.1](https://github.com/OpenAPITools/openapi-generator/releases/tag/v5.2.1).

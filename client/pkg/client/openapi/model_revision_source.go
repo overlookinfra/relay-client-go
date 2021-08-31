@@ -15,7 +15,7 @@ import (
 	"fmt"
 )
 
-// RevisionSource - The source of a revision
+// RevisionSource - struct for RevisionSource
 type RevisionSource struct {
 	RevisionRelaySource *RevisionRelaySource
 	RevisionRepositorySource *RevisionRepositorySource
