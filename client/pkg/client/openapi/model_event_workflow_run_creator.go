@@ -16,7 +16,7 @@ import (
 
 // EventWorkflowRunCreator A summary of the event that created a workflow run
 type EventWorkflowRunCreator struct {
-	Event *Event `json:"event,omitempty"`
+	Event Event `json:"event"`
 	// The event key used for this workflow run
 	Key interface{} `json:"key,omitempty"`
 	// The type of creator
@@ -27,8 +27,9 @@ type EventWorkflowRunCreator struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEventWorkflowRunCreator(type_ string) *EventWorkflowRunCreator {
+func NewEventWorkflowRunCreator(event Event, type_ string) *EventWorkflowRunCreator {
 	this := EventWorkflowRunCreator{}
+	this.Event = event
 	this.Type = type_
 	return &this
 }
@@ -41,36 +42,28 @@ func NewEventWorkflowRunCreatorWithDefaults() *EventWorkflowRunCreator {
 	return &this
 }
 
-// GetEvent returns the Event field value if set, zero value otherwise.
+// GetEvent returns the Event field value
 func (o *EventWorkflowRunCreator) GetEvent() Event {
-	if o == nil || o.Event == nil {
+	if o == nil {
 		var ret Event
 		return ret
 	}
-	return *o.Event
+
+	return o.Event
 }
 
-// GetEventOk returns a tuple with the Event field value if set, nil otherwise
+// GetEventOk returns a tuple with the Event field value
 // and a boolean to check if the value has been set.
 func (o *EventWorkflowRunCreator) GetEventOk() (*Event, bool) {
-	if o == nil || o.Event == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Event, true
+	return &o.Event, true
 }
 
-// HasEvent returns a boolean if a field has been set.
-func (o *EventWorkflowRunCreator) HasEvent() bool {
-	if o != nil && o.Event != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEvent gets a reference to the given Event and assigns it to the Event field.
+// SetEvent sets field value
 func (o *EventWorkflowRunCreator) SetEvent(v Event) {
-	o.Event = &v
+	o.Event = v
 }
 
 // GetKey returns the Key field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -132,7 +125,7 @@ func (o *EventWorkflowRunCreator) SetType(v string) {
 
 func (o EventWorkflowRunCreator) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Event != nil {
+	if true {
 		toSerialize["event"] = o.Event
 	}
 	if o.Key != nil {

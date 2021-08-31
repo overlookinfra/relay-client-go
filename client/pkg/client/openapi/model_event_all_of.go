@@ -23,15 +23,16 @@ type EventAllOf struct {
 	Data *map[string]interface{} `json:"data,omitempty"`
 	// An optional key for this event
 	Key *string `json:"key,omitempty"`
-	Source *EventSource `json:"source,omitempty"`
+	Source EventSource `json:"source"`
 }
 
 // NewEventAllOf instantiates a new EventAllOf object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEventAllOf() *EventAllOf {
+func NewEventAllOf(source EventSource) *EventAllOf {
 	this := EventAllOf{}
+	this.Source = source
 	return &this
 }
 
@@ -139,36 +140,28 @@ func (o *EventAllOf) SetKey(v string) {
 	o.Key = &v
 }
 
-// GetSource returns the Source field value if set, zero value otherwise.
+// GetSource returns the Source field value
 func (o *EventAllOf) GetSource() EventSource {
-	if o == nil || o.Source == nil {
+	if o == nil {
 		var ret EventSource
 		return ret
 	}
-	return *o.Source
+
+	return o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *EventAllOf) GetSourceOk() (*EventSource, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Source, true
+	return &o.Source, true
 }
 
-// HasSource returns a boolean if a field has been set.
-func (o *EventAllOf) HasSource() bool {
-	if o != nil && o.Source != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSource gets a reference to the given EventSource and assigns it to the Source field.
+// SetSource sets field value
 func (o *EventAllOf) SetSource(v EventSource) {
-	o.Source = &v
+	o.Source = v
 }
 
 func (o EventAllOf) MarshalJSON() ([]byte, error) {
@@ -182,7 +175,7 @@ func (o EventAllOf) MarshalJSON() ([]byte, error) {
 	if o.Key != nil {
 		toSerialize["key"] = o.Key
 	}
-	if o.Source != nil {
+	if true {
 		toSerialize["source"] = o.Source
 	}
 	return json.Marshal(toSerialize)

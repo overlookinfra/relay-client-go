@@ -39,11 +39,15 @@ func (dst *BinaryString) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into BinaryStringOneOf
 	err = json.Unmarshal(data, &dst.BinaryStringOneOf)
 	if err == nil {
-		jsonBinaryStringOneOf, _ := json.Marshal(dst.BinaryStringOneOf)
-		if string(jsonBinaryStringOneOf) == "{}" { // empty struct
-			dst.BinaryStringOneOf = nil
+		jsonBinaryStringOneOf, err := json.Marshal(dst.BinaryStringOneOf)
+		if err == nil {
+			if string(jsonBinaryStringOneOf) == "{}" { // empty struct
+				dst.BinaryStringOneOf = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.BinaryStringOneOf = nil
 		}
 	} else {
 		dst.BinaryStringOneOf = nil
@@ -52,11 +56,15 @@ func (dst *BinaryString) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into string
 	err = json.Unmarshal(data, &dst.string)
 	if err == nil {
-		jsonstring, _ := json.Marshal(dst.string)
-		if string(jsonstring) == "{}" { // empty struct
-			dst.string = nil
+		jsonstring, err := json.Marshal(dst.string)
+		if err == nil {
+			if string(jsonstring) == "{}" { // empty struct
+				dst.string = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.string = nil
 		}
 	} else {
 		dst.string = nil

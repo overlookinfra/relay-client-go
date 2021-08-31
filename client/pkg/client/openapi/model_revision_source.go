@@ -15,7 +15,7 @@ import (
 	"fmt"
 )
 
-// RevisionSource - The source of a revision
+// RevisionSource - struct for RevisionSource
 type RevisionSource struct {
 	RevisionRelaySource *RevisionRelaySource
 	RevisionRepositorySource *RevisionRepositorySource
@@ -39,11 +39,15 @@ func (dst *RevisionSource) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into RevisionRelaySource
 	err = json.Unmarshal(data, &dst.RevisionRelaySource)
 	if err == nil {
-		jsonRevisionRelaySource, _ := json.Marshal(dst.RevisionRelaySource)
-		if string(jsonRevisionRelaySource) == "{}" { // empty struct
-			dst.RevisionRelaySource = nil
+		jsonRevisionRelaySource, err := json.Marshal(dst.RevisionRelaySource)
+		if err == nil {
+			if string(jsonRevisionRelaySource) == "{}" { // empty struct
+				dst.RevisionRelaySource = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.RevisionRelaySource = nil
 		}
 	} else {
 		dst.RevisionRelaySource = nil
@@ -52,11 +56,15 @@ func (dst *RevisionSource) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into RevisionRepositorySource
 	err = json.Unmarshal(data, &dst.RevisionRepositorySource)
 	if err == nil {
-		jsonRevisionRepositorySource, _ := json.Marshal(dst.RevisionRepositorySource)
-		if string(jsonRevisionRepositorySource) == "{}" { // empty struct
-			dst.RevisionRepositorySource = nil
+		jsonRevisionRepositorySource, err := json.Marshal(dst.RevisionRepositorySource)
+		if err == nil {
+			if string(jsonRevisionRepositorySource) == "{}" { // empty struct
+				dst.RevisionRepositorySource = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.RevisionRepositorySource = nil
 		}
 	} else {
 		dst.RevisionRepositorySource = nil

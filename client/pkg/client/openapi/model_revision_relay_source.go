@@ -16,8 +16,9 @@ import (
 
 // RevisionRelaySource struct for RevisionRelaySource
 type RevisionRelaySource struct {
-	// The type discriminator for this repository source
-	Type *string `json:"type,omitempty"`
+	SourceData map[string]interface{} `json:"source_data,omitempty"`
+	// Where this revision originated from
+	SourceType *string `json:"source_type,omitempty"`
 }
 
 // NewRevisionRelaySource instantiates a new RevisionRelaySource object
@@ -37,42 +38,78 @@ func NewRevisionRelaySourceWithDefaults() *RevisionRelaySource {
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *RevisionRelaySource) GetType() string {
-	if o == nil || o.Type == nil {
-		var ret string
+// GetSourceData returns the SourceData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RevisionRelaySource) GetSourceData() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Type
+	return o.SourceData
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetSourceDataOk returns a tuple with the SourceData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RevisionRelaySource) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RevisionRelaySource) GetSourceDataOk() (*map[string]interface{}, bool) {
+	if o == nil || o.SourceData == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.SourceData, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *RevisionRelaySource) HasType() bool {
-	if o != nil && o.Type != nil {
+// HasSourceData returns a boolean if a field has been set.
+func (o *RevisionRelaySource) HasSourceData() bool {
+	if o != nil && o.SourceData != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *RevisionRelaySource) SetType(v string) {
-	o.Type = &v
+// SetSourceData gets a reference to the given map[string]interface{} and assigns it to the SourceData field.
+func (o *RevisionRelaySource) SetSourceData(v map[string]interface{}) {
+	o.SourceData = v
+}
+
+// GetSourceType returns the SourceType field value if set, zero value otherwise.
+func (o *RevisionRelaySource) GetSourceType() string {
+	if o == nil || o.SourceType == nil {
+		var ret string
+		return ret
+	}
+	return *o.SourceType
+}
+
+// GetSourceTypeOk returns a tuple with the SourceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RevisionRelaySource) GetSourceTypeOk() (*string, bool) {
+	if o == nil || o.SourceType == nil {
+		return nil, false
+	}
+	return o.SourceType, true
+}
+
+// HasSourceType returns a boolean if a field has been set.
+func (o *RevisionRelaySource) HasSourceType() bool {
+	if o != nil && o.SourceType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSourceType gets a reference to the given string and assigns it to the SourceType field.
+func (o *RevisionRelaySource) SetSourceType(v string) {
+	o.SourceType = &v
 }
 
 func (o RevisionRelaySource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
+	if o.SourceData != nil {
+		toSerialize["source_data"] = o.SourceData
+	}
+	if o.SourceType != nil {
+		toSerialize["source_type"] = o.SourceType
 	}
 	return json.Marshal(toSerialize)
 }

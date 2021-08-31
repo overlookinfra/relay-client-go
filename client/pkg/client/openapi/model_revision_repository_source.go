@@ -16,32 +16,17 @@ import (
 
 // RevisionRepositorySource struct for RevisionRepositorySource
 type RevisionRepositorySource struct {
-	Connection ConnectionIdentifier `json:"connection"`
-	// The path to the workflow content file
-	Path string `json:"path"`
-	// The branch or tag
-	Ref string `json:"ref"`
-	// The repository name
-	Repository string `json:"repository"`
-	// The type discriminator for this repository source
-	Type *string `json:"type,omitempty"`
-	// The URL used for the repository source
-	Url *string `json:"url,omitempty"`
-	// The sha of the revision content
-	Sha string `json:"sha"`
+	SourceData *RevisionRepositorySourceSourceData `json:"source_data,omitempty"`
+	// Where this revision originated from
+	SourceType *string `json:"source_type,omitempty"`
 }
 
 // NewRevisionRepositorySource instantiates a new RevisionRepositorySource object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRevisionRepositorySource(connection ConnectionIdentifier, path string, ref string, repository string, sha string) *RevisionRepositorySource {
+func NewRevisionRepositorySource() *RevisionRepositorySource {
 	this := RevisionRepositorySource{}
-	this.Connection = connection
-	this.Path = path
-	this.Ref = ref
-	this.Repository = repository
-	this.Sha = sha
 	return &this
 }
 
@@ -53,212 +38,77 @@ func NewRevisionRepositorySourceWithDefaults() *RevisionRepositorySource {
 	return &this
 }
 
-// GetConnection returns the Connection field value
-func (o *RevisionRepositorySource) GetConnection() ConnectionIdentifier {
-	if o == nil {
-		var ret ConnectionIdentifier
+// GetSourceData returns the SourceData field value if set, zero value otherwise.
+func (o *RevisionRepositorySource) GetSourceData() RevisionRepositorySourceSourceData {
+	if o == nil || o.SourceData == nil {
+		var ret RevisionRepositorySourceSourceData
 		return ret
 	}
-
-	return o.Connection
+	return *o.SourceData
 }
 
-// GetConnectionOk returns a tuple with the Connection field value
+// GetSourceDataOk returns a tuple with the SourceData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RevisionRepositorySource) GetConnectionOk() (*ConnectionIdentifier, bool) {
-	if o == nil  {
+func (o *RevisionRepositorySource) GetSourceDataOk() (*RevisionRepositorySourceSourceData, bool) {
+	if o == nil || o.SourceData == nil {
 		return nil, false
 	}
-	return &o.Connection, true
+	return o.SourceData, true
 }
 
-// SetConnection sets field value
-func (o *RevisionRepositorySource) SetConnection(v ConnectionIdentifier) {
-	o.Connection = v
-}
-
-// GetPath returns the Path field value
-func (o *RevisionRepositorySource) GetPath() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Path
-}
-
-// GetPathOk returns a tuple with the Path field value
-// and a boolean to check if the value has been set.
-func (o *RevisionRepositorySource) GetPathOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Path, true
-}
-
-// SetPath sets field value
-func (o *RevisionRepositorySource) SetPath(v string) {
-	o.Path = v
-}
-
-// GetRef returns the Ref field value
-func (o *RevisionRepositorySource) GetRef() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Ref
-}
-
-// GetRefOk returns a tuple with the Ref field value
-// and a boolean to check if the value has been set.
-func (o *RevisionRepositorySource) GetRefOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Ref, true
-}
-
-// SetRef sets field value
-func (o *RevisionRepositorySource) SetRef(v string) {
-	o.Ref = v
-}
-
-// GetRepository returns the Repository field value
-func (o *RevisionRepositorySource) GetRepository() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Repository
-}
-
-// GetRepositoryOk returns a tuple with the Repository field value
-// and a boolean to check if the value has been set.
-func (o *RevisionRepositorySource) GetRepositoryOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Repository, true
-}
-
-// SetRepository sets field value
-func (o *RevisionRepositorySource) SetRepository(v string) {
-	o.Repository = v
-}
-
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *RevisionRepositorySource) GetType() string {
-	if o == nil || o.Type == nil {
-		var ret string
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RevisionRepositorySource) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *RevisionRepositorySource) HasType() bool {
-	if o != nil && o.Type != nil {
+// HasSourceData returns a boolean if a field has been set.
+func (o *RevisionRepositorySource) HasSourceData() bool {
+	if o != nil && o.SourceData != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *RevisionRepositorySource) SetType(v string) {
-	o.Type = &v
+// SetSourceData gets a reference to the given RevisionRepositorySourceSourceData and assigns it to the SourceData field.
+func (o *RevisionRepositorySource) SetSourceData(v RevisionRepositorySourceSourceData) {
+	o.SourceData = &v
 }
 
-// GetUrl returns the Url field value if set, zero value otherwise.
-func (o *RevisionRepositorySource) GetUrl() string {
-	if o == nil || o.Url == nil {
+// GetSourceType returns the SourceType field value if set, zero value otherwise.
+func (o *RevisionRepositorySource) GetSourceType() string {
+	if o == nil || o.SourceType == nil {
 		var ret string
 		return ret
 	}
-	return *o.Url
+	return *o.SourceType
 }
 
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// GetSourceTypeOk returns a tuple with the SourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RevisionRepositorySource) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+func (o *RevisionRepositorySource) GetSourceTypeOk() (*string, bool) {
+	if o == nil || o.SourceType == nil {
 		return nil, false
 	}
-	return o.Url, true
+	return o.SourceType, true
 }
 
-// HasUrl returns a boolean if a field has been set.
-func (o *RevisionRepositorySource) HasUrl() bool {
-	if o != nil && o.Url != nil {
+// HasSourceType returns a boolean if a field has been set.
+func (o *RevisionRepositorySource) HasSourceType() bool {
+	if o != nil && o.SourceType != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUrl gets a reference to the given string and assigns it to the Url field.
-func (o *RevisionRepositorySource) SetUrl(v string) {
-	o.Url = &v
-}
-
-// GetSha returns the Sha field value
-func (o *RevisionRepositorySource) GetSha() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Sha
-}
-
-// GetShaOk returns a tuple with the Sha field value
-// and a boolean to check if the value has been set.
-func (o *RevisionRepositorySource) GetShaOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Sha, true
-}
-
-// SetSha sets field value
-func (o *RevisionRepositorySource) SetSha(v string) {
-	o.Sha = v
+// SetSourceType gets a reference to the given string and assigns it to the SourceType field.
+func (o *RevisionRepositorySource) SetSourceType(v string) {
+	o.SourceType = &v
 }
 
 func (o RevisionRepositorySource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["connection"] = o.Connection
+	if o.SourceData != nil {
+		toSerialize["source_data"] = o.SourceData
 	}
-	if true {
-		toSerialize["path"] = o.Path
-	}
-	if true {
-		toSerialize["ref"] = o.Ref
-	}
-	if true {
-		toSerialize["repository"] = o.Repository
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.Url != nil {
-		toSerialize["url"] = o.Url
-	}
-	if true {
-		toSerialize["sha"] = o.Sha
+	if o.SourceType != nil {
+		toSerialize["source_type"] = o.SourceType
 	}
 	return json.Marshal(toSerialize)
 }

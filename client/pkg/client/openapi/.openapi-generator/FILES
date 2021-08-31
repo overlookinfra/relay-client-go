@@ -94,7 +94,7 @@ model_push_workflow_trigger_source.go
 model_push_workflow_trigger_source_state.go
 model_revision_relay_source.go
 model_revision_repository_source.go
-model_revision_repository_source_all_of.go
+model_revision_repository_source_source_data.go
 model_revision_source.go
 model_role.go
 model_role_identifier.go

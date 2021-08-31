@@ -39,11 +39,15 @@ func (dst *ConnectionProviderAuth) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into OAuth2ConnectionProviderAuth
 	err = json.Unmarshal(data, &dst.OAuth2ConnectionProviderAuth)
 	if err == nil {
-		jsonOAuth2ConnectionProviderAuth, _ := json.Marshal(dst.OAuth2ConnectionProviderAuth)
-		if string(jsonOAuth2ConnectionProviderAuth) == "{}" { // empty struct
-			dst.OAuth2ConnectionProviderAuth = nil
+		jsonOAuth2ConnectionProviderAuth, err := json.Marshal(dst.OAuth2ConnectionProviderAuth)
+		if err == nil {
+			if string(jsonOAuth2ConnectionProviderAuth) == "{}" { // empty struct
+				dst.OAuth2ConnectionProviderAuth = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.OAuth2ConnectionProviderAuth = nil
 		}
 	} else {
 		dst.OAuth2ConnectionProviderAuth = nil
@@ -52,11 +56,15 @@ func (dst *ConnectionProviderAuth) UnmarshalJSON(data []byte) error {
 	// try to unmarshal data into SecretConnectionProviderAuth
 	err = json.Unmarshal(data, &dst.SecretConnectionProviderAuth)
 	if err == nil {
-		jsonSecretConnectionProviderAuth, _ := json.Marshal(dst.SecretConnectionProviderAuth)
-		if string(jsonSecretConnectionProviderAuth) == "{}" { // empty struct
-			dst.SecretConnectionProviderAuth = nil
+		jsonSecretConnectionProviderAuth, err := json.Marshal(dst.SecretConnectionProviderAuth)
+		if err == nil {
+			if string(jsonSecretConnectionProviderAuth) == "{}" { // empty struct
+				dst.SecretConnectionProviderAuth = nil
+			} else {
+				match++
+			}
 		} else {
-			match++
+			dst.SecretConnectionProviderAuth = nil
 		}
 	} else {
 		dst.SecretConnectionProviderAuth = nil

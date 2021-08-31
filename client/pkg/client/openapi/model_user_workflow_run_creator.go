@@ -18,16 +18,17 @@ import (
 type UserWorkflowRunCreator struct {
 	// The type of creator
 	Type string `json:"type"`
-	User *UserSummary `json:"user,omitempty"`
+	User UserSummary `json:"user"`
 }
 
 // NewUserWorkflowRunCreator instantiates a new UserWorkflowRunCreator object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserWorkflowRunCreator(type_ string) *UserWorkflowRunCreator {
+func NewUserWorkflowRunCreator(type_ string, user UserSummary) *UserWorkflowRunCreator {
 	this := UserWorkflowRunCreator{}
 	this.Type = type_
+	this.User = user
 	return &this
 }
 
@@ -63,36 +64,28 @@ func (o *UserWorkflowRunCreator) SetType(v string) {
 	o.Type = v
 }
 
-// GetUser returns the User field value if set, zero value otherwise.
+// GetUser returns the User field value
 func (o *UserWorkflowRunCreator) GetUser() UserSummary {
-	if o == nil || o.User == nil {
+	if o == nil {
 		var ret UserSummary
 		return ret
 	}
-	return *o.User
+
+	return o.User
 }
 
-// GetUserOk returns a tuple with the User field value if set, nil otherwise
+// GetUserOk returns a tuple with the User field value
 // and a boolean to check if the value has been set.
 func (o *UserWorkflowRunCreator) GetUserOk() (*UserSummary, bool) {
-	if o == nil || o.User == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.User, true
+	return &o.User, true
 }
 
-// HasUser returns a boolean if a field has been set.
-func (o *UserWorkflowRunCreator) HasUser() bool {
-	if o != nil && o.User != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUser gets a reference to the given UserSummary and assigns it to the User field.
+// SetUser sets field value
 func (o *UserWorkflowRunCreator) SetUser(v UserSummary) {
-	o.User = &v
+	o.User = v
 }
 
 func (o UserWorkflowRunCreator) MarshalJSON() ([]byte, error) {
@@ -100,7 +93,7 @@ func (o UserWorkflowRunCreator) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["type"] = o.Type
 	}
-	if o.User != nil {
+	if true {
 		toSerialize["user"] = o.User
 	}
 	return json.Marshal(toSerialize)
