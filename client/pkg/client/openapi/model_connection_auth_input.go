@@ -29,34 +29,38 @@ func SecretConnectionAuthInputAsConnectionAuthInput(v *SecretConnectionAuthInput
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ConnectionAuthInput) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into SecretConnectionAuthInput
-	err = json.Unmarshal(data, &dst.SecretConnectionAuthInput)
-	if err == nil {
-		jsonSecretConnectionAuthInput, err := json.Marshal(dst.SecretConnectionAuthInput)
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = json.Unmarshal(data, &jsonDict)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+	}
+
+	// check if the discriminator value is 'SecretConnectionAuthInput'
+	if jsonDict["type"] == "SecretConnectionAuthInput" {
+		// try to unmarshal JSON data into SecretConnectionAuthInput
+		err = json.Unmarshal(data, &dst.SecretConnectionAuthInput)
 		if err == nil {
-			if string(jsonSecretConnectionAuthInput) == "{}" { // empty struct
-				dst.SecretConnectionAuthInput = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.SecretConnectionAuthInput, return on the first match
 		} else {
 			dst.SecretConnectionAuthInput = nil
+			return fmt.Errorf("Failed to unmarshal ConnectionAuthInput as SecretConnectionAuthInput: %s", err.Error())
 		}
-	} else {
-		dst.SecretConnectionAuthInput = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.SecretConnectionAuthInput = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(ConnectionAuthInput)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(ConnectionAuthInput)")
+	// check if the discriminator value is 'secret'
+	if jsonDict["type"] == "secret" {
+		// try to unmarshal JSON data into SecretConnectionAuthInput
+		err = json.Unmarshal(data, &dst.SecretConnectionAuthInput)
+		if err == nil {
+			return nil // data stored in dst.SecretConnectionAuthInput, return on the first match
+		} else {
+			dst.SecretConnectionAuthInput = nil
+			return fmt.Errorf("Failed to unmarshal ConnectionAuthInput as SecretConnectionAuthInput: %s", err.Error())
+		}
 	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

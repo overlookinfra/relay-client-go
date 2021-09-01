@@ -29,34 +29,38 @@ func UserTokenWithSecretAsTokenWithSecret(v *UserTokenWithSecret) TokenWithSecre
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *TokenWithSecret) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into UserTokenWithSecret
-	err = json.Unmarshal(data, &dst.UserTokenWithSecret)
-	if err == nil {
-		jsonUserTokenWithSecret, err := json.Marshal(dst.UserTokenWithSecret)
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = json.Unmarshal(data, &jsonDict)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+	}
+
+	// check if the discriminator value is 'UserTokenWithSecret'
+	if jsonDict["type"] == "UserTokenWithSecret" {
+		// try to unmarshal JSON data into UserTokenWithSecret
+		err = json.Unmarshal(data, &dst.UserTokenWithSecret)
 		if err == nil {
-			if string(jsonUserTokenWithSecret) == "{}" { // empty struct
-				dst.UserTokenWithSecret = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.UserTokenWithSecret, return on the first match
 		} else {
 			dst.UserTokenWithSecret = nil
+			return fmt.Errorf("Failed to unmarshal TokenWithSecret as UserTokenWithSecret: %s", err.Error())
 		}
-	} else {
-		dst.UserTokenWithSecret = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.UserTokenWithSecret = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(TokenWithSecret)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(TokenWithSecret)")
+	// check if the discriminator value is 'user'
+	if jsonDict["type"] == "user" {
+		// try to unmarshal JSON data into UserTokenWithSecret
+		err = json.Unmarshal(data, &dst.UserTokenWithSecret)
+		if err == nil {
+			return nil // data stored in dst.UserTokenWithSecret, return on the first match
+		} else {
+			dst.UserTokenWithSecret = nil
+			return fmt.Errorf("Failed to unmarshal TokenWithSecret as UserTokenWithSecret: %s", err.Error())
+		}
 	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
