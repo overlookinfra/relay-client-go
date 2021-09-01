@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+* Use `--additional-properties useOneOfDiscriminatorLookup=true` for improved `oneOf` handling.
+
 ## [0.4.0] - 2021-08-31
 
 ### Fixed

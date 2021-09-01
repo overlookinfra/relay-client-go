@@ -35,52 +35,62 @@ func ContainerWorkflowStepAsWorkflowStep(v *ContainerWorkflowStep) WorkflowStep 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *WorkflowStep) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into ApprovalWorkflowStep
-	err = json.Unmarshal(data, &dst.ApprovalWorkflowStep)
-	if err == nil {
-		jsonApprovalWorkflowStep, err := json.Marshal(dst.ApprovalWorkflowStep)
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = json.Unmarshal(data, &jsonDict)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+	}
+
+	// check if the discriminator value is 'ApprovalWorkflowStep'
+	if jsonDict["type"] == "ApprovalWorkflowStep" {
+		// try to unmarshal JSON data into ApprovalWorkflowStep
+		err = json.Unmarshal(data, &dst.ApprovalWorkflowStep)
 		if err == nil {
-			if string(jsonApprovalWorkflowStep) == "{}" { // empty struct
-				dst.ApprovalWorkflowStep = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.ApprovalWorkflowStep, return on the first match
 		} else {
 			dst.ApprovalWorkflowStep = nil
+			return fmt.Errorf("Failed to unmarshal WorkflowStep as ApprovalWorkflowStep: %s", err.Error())
 		}
-	} else {
-		dst.ApprovalWorkflowStep = nil
 	}
 
-	// try to unmarshal data into ContainerWorkflowStep
-	err = json.Unmarshal(data, &dst.ContainerWorkflowStep)
-	if err == nil {
-		jsonContainerWorkflowStep, err := json.Marshal(dst.ContainerWorkflowStep)
+	// check if the discriminator value is 'ContainerWorkflowStep'
+	if jsonDict["type"] == "ContainerWorkflowStep" {
+		// try to unmarshal JSON data into ContainerWorkflowStep
+		err = json.Unmarshal(data, &dst.ContainerWorkflowStep)
 		if err == nil {
-			if string(jsonContainerWorkflowStep) == "{}" { // empty struct
-				dst.ContainerWorkflowStep = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.ContainerWorkflowStep, return on the first match
 		} else {
 			dst.ContainerWorkflowStep = nil
+			return fmt.Errorf("Failed to unmarshal WorkflowStep as ContainerWorkflowStep: %s", err.Error())
 		}
-	} else {
-		dst.ContainerWorkflowStep = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.ApprovalWorkflowStep = nil
-		dst.ContainerWorkflowStep = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(WorkflowStep)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(WorkflowStep)")
+	// check if the discriminator value is 'approval'
+	if jsonDict["type"] == "approval" {
+		// try to unmarshal JSON data into ApprovalWorkflowStep
+		err = json.Unmarshal(data, &dst.ApprovalWorkflowStep)
+		if err == nil {
+			return nil // data stored in dst.ApprovalWorkflowStep, return on the first match
+		} else {
+			dst.ApprovalWorkflowStep = nil
+			return fmt.Errorf("Failed to unmarshal WorkflowStep as ApprovalWorkflowStep: %s", err.Error())
+		}
 	}
+
+	// check if the discriminator value is 'container'
+	if jsonDict["type"] == "container" {
+		// try to unmarshal JSON data into ContainerWorkflowStep
+		err = json.Unmarshal(data, &dst.ContainerWorkflowStep)
+		if err == nil {
+			return nil // data stored in dst.ContainerWorkflowStep, return on the first match
+		} else {
+			dst.ContainerWorkflowStep = nil
+			return fmt.Errorf("Failed to unmarshal WorkflowStep as ContainerWorkflowStep: %s", err.Error())
+		}
+	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

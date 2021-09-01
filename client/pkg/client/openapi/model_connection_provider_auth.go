@@ -35,52 +35,62 @@ func SecretConnectionProviderAuthAsConnectionProviderAuth(v *SecretConnectionPro
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ConnectionProviderAuth) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into OAuth2ConnectionProviderAuth
-	err = json.Unmarshal(data, &dst.OAuth2ConnectionProviderAuth)
-	if err == nil {
-		jsonOAuth2ConnectionProviderAuth, err := json.Marshal(dst.OAuth2ConnectionProviderAuth)
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = json.Unmarshal(data, &jsonDict)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+	}
+
+	// check if the discriminator value is 'OAuth2ConnectionProviderAuth'
+	if jsonDict["type"] == "OAuth2ConnectionProviderAuth" {
+		// try to unmarshal JSON data into OAuth2ConnectionProviderAuth
+		err = json.Unmarshal(data, &dst.OAuth2ConnectionProviderAuth)
 		if err == nil {
-			if string(jsonOAuth2ConnectionProviderAuth) == "{}" { // empty struct
-				dst.OAuth2ConnectionProviderAuth = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.OAuth2ConnectionProviderAuth, return on the first match
 		} else {
 			dst.OAuth2ConnectionProviderAuth = nil
+			return fmt.Errorf("Failed to unmarshal ConnectionProviderAuth as OAuth2ConnectionProviderAuth: %s", err.Error())
 		}
-	} else {
-		dst.OAuth2ConnectionProviderAuth = nil
 	}
 
-	// try to unmarshal data into SecretConnectionProviderAuth
-	err = json.Unmarshal(data, &dst.SecretConnectionProviderAuth)
-	if err == nil {
-		jsonSecretConnectionProviderAuth, err := json.Marshal(dst.SecretConnectionProviderAuth)
+	// check if the discriminator value is 'SecretConnectionProviderAuth'
+	if jsonDict["type"] == "SecretConnectionProviderAuth" {
+		// try to unmarshal JSON data into SecretConnectionProviderAuth
+		err = json.Unmarshal(data, &dst.SecretConnectionProviderAuth)
 		if err == nil {
-			if string(jsonSecretConnectionProviderAuth) == "{}" { // empty struct
-				dst.SecretConnectionProviderAuth = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.SecretConnectionProviderAuth, return on the first match
 		} else {
 			dst.SecretConnectionProviderAuth = nil
+			return fmt.Errorf("Failed to unmarshal ConnectionProviderAuth as SecretConnectionProviderAuth: %s", err.Error())
 		}
-	} else {
-		dst.SecretConnectionProviderAuth = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.OAuth2ConnectionProviderAuth = nil
-		dst.SecretConnectionProviderAuth = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(ConnectionProviderAuth)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(ConnectionProviderAuth)")
+	// check if the discriminator value is 'oauth2'
+	if jsonDict["type"] == "oauth2" {
+		// try to unmarshal JSON data into OAuth2ConnectionProviderAuth
+		err = json.Unmarshal(data, &dst.OAuth2ConnectionProviderAuth)
+		if err == nil {
+			return nil // data stored in dst.OAuth2ConnectionProviderAuth, return on the first match
+		} else {
+			dst.OAuth2ConnectionProviderAuth = nil
+			return fmt.Errorf("Failed to unmarshal ConnectionProviderAuth as OAuth2ConnectionProviderAuth: %s", err.Error())
+		}
 	}
+
+	// check if the discriminator value is 'secret'
+	if jsonDict["type"] == "secret" {
+		// try to unmarshal JSON data into SecretConnectionProviderAuth
+		err = json.Unmarshal(data, &dst.SecretConnectionProviderAuth)
+		if err == nil {
+			return nil // data stored in dst.SecretConnectionProviderAuth, return on the first match
+		} else {
+			dst.SecretConnectionProviderAuth = nil
+			return fmt.Errorf("Failed to unmarshal ConnectionProviderAuth as SecretConnectionProviderAuth: %s", err.Error())
+		}
+	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

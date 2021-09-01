@@ -29,34 +29,38 @@ func EventSourceTriggerAsEventSource(v *EventSourceTrigger) EventSource {
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *EventSource) UnmarshalJSON(data []byte) error {
 	var err error
-	match := 0
-	// try to unmarshal data into EventSourceTrigger
-	err = json.Unmarshal(data, &dst.EventSourceTrigger)
-	if err == nil {
-		jsonEventSourceTrigger, err := json.Marshal(dst.EventSourceTrigger)
+	// use discriminator value to speed up the lookup
+	var jsonDict map[string]interface{}
+	err = json.Unmarshal(data, &jsonDict)
+	if err != nil {
+		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+	}
+
+	// check if the discriminator value is 'EventSourceTrigger'
+	if jsonDict["type"] == "EventSourceTrigger" {
+		// try to unmarshal JSON data into EventSourceTrigger
+		err = json.Unmarshal(data, &dst.EventSourceTrigger)
 		if err == nil {
-			if string(jsonEventSourceTrigger) == "{}" { // empty struct
-				dst.EventSourceTrigger = nil
-			} else {
-				match++
-			}
+			return nil // data stored in dst.EventSourceTrigger, return on the first match
 		} else {
 			dst.EventSourceTrigger = nil
+			return fmt.Errorf("Failed to unmarshal EventSource as EventSourceTrigger: %s", err.Error())
 		}
-	} else {
-		dst.EventSourceTrigger = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.EventSourceTrigger = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(EventSource)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(EventSource)")
+	// check if the discriminator value is 'trigger'
+	if jsonDict["type"] == "trigger" {
+		// try to unmarshal JSON data into EventSourceTrigger
+		err = json.Unmarshal(data, &dst.EventSourceTrigger)
+		if err == nil {
+			return nil // data stored in dst.EventSourceTrigger, return on the first match
+		} else {
+			dst.EventSourceTrigger = nil
+			return fmt.Errorf("Failed to unmarshal EventSource as EventSourceTrigger: %s", err.Error())
+		}
 	}
+
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
