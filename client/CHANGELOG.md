@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.4.1] - 2021-09-01
+
 ### Fixed
 * Use `--additional-properties useOneOfDiscriminatorLookup=true` for improved `oneOf` handling.
 
@@ -46,7 +48,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Client generation for workflow view specification changes.
 * Initial migration from [puppetlabs/relay](https://github.com/puppetlabs/relay).
 
-[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.0...HEAD
+[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.1...HEAD
+[0.4.1]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.0...client/v0.4.1
 [0.4.0]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.3.0...client/v0.4.0
 [0.3.0]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.2.0...client/v0.3.0
 [0.2.0]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.1.0...client/v0.2.0
