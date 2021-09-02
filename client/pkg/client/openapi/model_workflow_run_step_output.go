@@ -17,17 +17,19 @@ import (
 // WorkflowRunStepOutput An output for a workflow run step
 type WorkflowRunStepOutput struct {
 	// Step output name
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// Step output value
-	Value interface{} `json:"value,omitempty"`
+	Value interface{} `json:"value"`
 }
 
 // NewWorkflowRunStepOutput instantiates a new WorkflowRunStepOutput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWorkflowRunStepOutput() *WorkflowRunStepOutput {
+func NewWorkflowRunStepOutput(name string, value interface{}) *WorkflowRunStepOutput {
 	this := WorkflowRunStepOutput{}
+	this.Name = name
+	this.Value = value
 	return &this
 }
 
@@ -39,48 +41,42 @@ func NewWorkflowRunStepOutputWithDefaults() *WorkflowRunStepOutput {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *WorkflowRunStepOutput) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunStepOutput) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *WorkflowRunStepOutput) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *WorkflowRunStepOutput) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetValue returns the Value field value
+// If the value is explicit nil, the zero value for interface{} will be returned
 func (o *WorkflowRunStepOutput) GetValue() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
+
 	return o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WorkflowRunStepOutput) GetValueOk() (*interface{}, bool) {
@@ -90,23 +86,14 @@ func (o *WorkflowRunStepOutput) GetValueOk() (*interface{}, bool) {
 	return &o.Value, true
 }
 
-// HasValue returns a boolean if a field has been set.
-func (o *WorkflowRunStepOutput) HasValue() bool {
-	if o != nil && o.Value != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given interface{} and assigns it to the Value field.
+// SetValue sets field value
 func (o *WorkflowRunStepOutput) SetValue(v interface{}) {
 	o.Value = v
 }
 
 func (o WorkflowRunStepOutput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if true {
 		toSerialize["name"] = o.Name
 	}
 	if o.Value != nil {
