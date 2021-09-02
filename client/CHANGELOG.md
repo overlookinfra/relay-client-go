@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+* Output fields `name` and `value` are now `required`.
+
 ## [0.4.1] - 2021-09-01
 
 ### Fixed
