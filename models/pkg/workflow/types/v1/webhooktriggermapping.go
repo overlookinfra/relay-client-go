@@ -89,13 +89,15 @@ func (m *DefaultWebhookTriggerEngineMapper) ToRuntimeObjectsManifest(tenant *v1b
 			TenantRef: corev1.LocalObjectReference{
 				Name: tenant.GetName(),
 			},
-			Name:    m.name,
-			Image:   m.image,
-			Input:   source.Input,
-			Command: source.Command,
-			Args:    source.Args,
-			Spec:    mapSpec(source.Spec),
-			Env:     mapSpec(source.Env),
+			Name: m.name,
+			Container: v1beta1.Container{
+				Image:   m.image,
+				Input:   source.Input,
+				Command: source.Command,
+				Args:    source.Args,
+				Spec:    mapSpec(source.Spec),
+				Env:     mapSpec(source.Env),
+			},
 		},
 	}
 
