@@ -18,8 +18,6 @@ const (
 	defaultNamespace       = "default"
 )
 
-// RunKubernetesObjectMapping is a result struct that contains the kubernets
-// objects created from translating a WorkflowData object.
 type RunKubernetesObjectMapping struct {
 	Namespace   *corev1.Namespace
 	WorkflowRun *nebulav1.WorkflowRun
@@ -34,9 +32,11 @@ type WebhookTriggerKubernetesObjectMapping struct {
 	WebhookTrigger *v1beta1.WebhookTrigger
 }
 
-// RunKubernetesEngineMapper translates a v1.WorkflowData object into a kubernets
-// object manifest. The results have not been applied or created on the
-// kubernetes server.
+type WorkflowMapping struct {
+	Namespace *corev1.Namespace
+	Workflow  *v1beta1.Workflow
+}
+
 type RunKubernetesEngineMapper interface {
 	ToRuntimeObjectsManifest(*WorkflowData) (*RunKubernetesObjectMapping, error)
 }
@@ -47,4 +47,8 @@ type TenantKubernetesEngineMapper interface {
 
 type WebhookTriggerKubernetesEngineMapper interface {
 	ToRuntimeObjectsManifest(source *WebhookWorkflowTriggerSource) (*WebhookTriggerKubernetesObjectMapping, error)
+}
+
+type WorkflowMapper interface {
+	Map(*WorkflowData) (*WorkflowMapping, error)
 }
