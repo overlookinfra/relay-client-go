@@ -29,12 +29,6 @@ func WithNamespaceOption(ns string) DefaultWorkflowMapperOption {
 	}
 }
 
-func WithParametersOption(params WorkflowParameters) DefaultWorkflowMapperOption {
-	return func(m *DefaultWorkflowMapper) {
-		m.parameters = params
-	}
-}
-
 func WithVaultEngineMountOption(mount string) DefaultWorkflowMapperOption {
 	return func(m *DefaultWorkflowMapper) {
 		m.vaultEngineMount = mount
@@ -50,7 +44,6 @@ func WithTenantOption(tenant *relayv1beta1.Tenant) DefaultWorkflowMapperOption {
 type DefaultWorkflowMapper struct {
 	name             string
 	namespace        string
-	parameters       WorkflowParameters
 	domainID         string
 	vaultEngineMount string
 	tenant           *relayv1beta1.Tenant
