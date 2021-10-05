@@ -18,6 +18,8 @@ api_workflow_revisions.go
 api_workflow_triggers.go
 api_workflows.go
 
+model_binary_string.go
+model_binary_string_one_of.go
 model_inline_response_200_1.go
 model_inline_response_200_3.go
 model_inline_response_200_4.go
@@ -33,8 +35,10 @@ model_inline_response_200_13.go
 model_inline_response_200_14.go
 model_inline_response_200_15.go
 model_inline_response_200_16.go
+model_revision_source.go
 model_workflow.go
 model_workflow_all_of.go
+model_workflow_error.go
 model_workflow_repository_source.go
 model_workflow_revision_all_of.go
 model_workflow_revision.go
