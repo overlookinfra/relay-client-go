@@ -10,7 +10,10 @@ import (
 )
 
 func TestTenantEngineMapping(t *testing.T) {
-	u, err := url.Parse("https://example.com/events")
+	eu, err := url.Parse("https://unit-testing.relay.sh/events")
+	require.NoError(t, err)
+
+	tu, err := url.Parse("https://unit-testing.relay.sh/workflow-run")
 	require.NoError(t, err)
 
 	mapper := NewDefaultTenantEngineMapper(
@@ -18,7 +21,8 @@ func TestTenantEngineMapping(t *testing.T) {
 		WithNameTenantOption("test-tenant"),
 		WithIDTenantOption("test-123"),
 		WithWorkflowIDTenantOption("workflow-123"),
-		WithEventURLTenantOption(u),
+		WithEventURLTenantOption(eu),
+		WithWorkflowExecutionURLTenantOption(tu),
 		WithTokenSecretNameTenantOption("test-token-secret"),
 	)
 
@@ -31,8 +35,12 @@ func TestTenantEngineMapping(t *testing.T) {
 	require.Equal(t, "test-tenant", manifest.Tenant.GetName())
 
 	require.NotNil(t, manifest.Tenant.Spec.TriggerEventSink)
-	require.Equal(t, u.String(), manifest.Tenant.Spec.TriggerEventSink.API.URL)
+	require.Equal(t, eu.String(), manifest.Tenant.Spec.TriggerEventSink.API.URL)
 	require.Equal(t, "test-token-secret", manifest.Tenant.Spec.TriggerEventSink.API.TokenFrom.SecretKeyRef.LocalObjectReference.Name)
+
+	require.NotNil(t, manifest.Tenant.Spec.WorkflowExecutionSink)
+	require.Equal(t, tu.String(), manifest.Tenant.Spec.WorkflowExecutionSink.API.URL)
+	require.Equal(t, "test-token-secret", manifest.Tenant.Spec.WorkflowExecutionSink.API.TokenFrom.SecretKeyRef.LocalObjectReference.Name)
 
 	require.NoError(t, json.NewEncoder(ioutil.Discard).Encode(manifest.Namespace))
 	require.NoError(t, json.NewEncoder(ioutil.Discard).Encode(manifest.Tenant))
