@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+* Downgrades klog/logr. The upgrade was unintentional and breaks downstream
+  projects that depend on relay-client-go/models (particularly
+  controller-runtime projects).
+
 ## [1.0.4] - 2021-10-06
 
 ### Added
