@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.5] - 2021-10-06
+
 ### Fixed
 
 * Downgrades klog/logr. The upgrade was unintentional and breaks downstream
@@ -42,7 +44,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * Initial migration from [puppetlabs/relay-core](https://github.com/puppetlabs/relay-core).
 
-[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.4...HEAD
+[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.5...HEAD
+[1.0.5]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.4...models/v1.0.5
 [1.0.4]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.3...models/v1.0.4
 [1.0.3]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.2...models/v1.0.3
 [1.0.2]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.1...models/v1.0.2
