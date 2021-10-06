@@ -46,6 +46,12 @@ func WithEventURLTenantOption(u *url.URL) DefaultTenantEngineMapperOption {
 	}
 }
 
+func WithWorkflowExecutionURLTenantOption(u *url.URL) DefaultTenantEngineMapperOption {
+	return func(m *DefaultTenantEngineMapper) {
+		m.workflowExecutionURL = u
+	}
+}
+
 func WithTokenSecretNameTenantOption(name string) DefaultTenantEngineMapperOption {
 	return func(m *DefaultTenantEngineMapper) {
 		m.tokenSecretName = name
@@ -59,14 +65,15 @@ func WithToolInjectionTenantOption(enabled bool) DefaultTenantEngineMapperOption
 }
 
 type DefaultTenantEngineMapper struct {
-	id                  string
-	name                string
-	namespace           string
-	workflowID          string
-	workflowName        string
-	tokenSecretName     string
-	eventURL            *url.URL
-	enableToolInjection bool
+	id                   string
+	name                 string
+	namespace            string
+	workflowID           string
+	workflowName         string
+	tokenSecretName      string
+	eventURL             *url.URL
+	workflowExecutionURL *url.URL
+	enableToolInjection  bool
 }
 
 func (m *DefaultTenantEngineMapper) ToRuntimeObjectsManifest() (*TenantKubernetesObjectMapping, error) {
@@ -123,6 +130,22 @@ func (m *DefaultTenantEngineMapper) ToRuntimeObjectsManifest() (*TenantKubernete
 		tenant.Spec.TriggerEventSink = v1beta1.TriggerEventSink{
 			API: &v1beta1.APITriggerEventSink{
 				URL: m.eventURL.String(),
+				TokenFrom: &v1beta1.APITokenSource{
+					SecretKeyRef: &v1beta1.SecretKeySelector{
+						LocalObjectReference: corev1.LocalObjectReference{
+							Name: m.tokenSecretName,
+						},
+						Key: "token",
+					},
+				},
+			},
+		}
+	}
+
+	if m.workflowExecutionURL != nil {
+		tenant.Spec.WorkflowExecutionSink = v1beta1.WorkflowExecutionSink{
+			API: &v1beta1.APIWorkflowExecutionSink{
+				URL: m.workflowExecutionURL.String(),
 				TokenFrom: &v1beta1.APITokenSource{
 					SecretKeyRef: &v1beta1.SecretKeySelector{
 						LocalObjectReference: corev1.LocalObjectReference{
