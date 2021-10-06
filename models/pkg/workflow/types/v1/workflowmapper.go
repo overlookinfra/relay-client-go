@@ -4,6 +4,7 @@ import (
 	"path"
 
 	relayv1beta1 "github.com/puppetlabs/relay-core/pkg/apis/relay.sh/v1beta1"
+	"github.com/puppetlabs/relay-core/pkg/expr/serialize"
 	"github.com/puppetlabs/relay-core/pkg/model"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -139,4 +140,15 @@ func mapWorkflowSteps(wd *WorkflowData) []*relayv1beta1.Step {
 	}
 
 	return workflowSteps
+}
+
+func mapSpec(jm map[string]serialize.JSONTree) relayv1beta1.UnstructuredObject {
+	uo := make(relayv1beta1.UnstructuredObject, len(jm))
+	for k, v := range jm {
+		// The inner data type has to be compatible with transfer.JSONInterface
+		// here, hence the explicit cast to interface{}.
+		uo[k] = relayv1beta1.AsUnstructured(interface{}(v.Tree))
+	}
+
+	return uo
 }

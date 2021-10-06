@@ -5,7 +5,6 @@ import (
 
 	nebulav1 "github.com/puppetlabs/relay-core/pkg/apis/nebula.puppet.com/v1"
 	"github.com/puppetlabs/relay-core/pkg/apis/relay.sh/v1beta1"
-	"github.com/puppetlabs/relay-core/pkg/expr/serialize"
 	"github.com/puppetlabs/relay-core/pkg/model"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -58,6 +57,12 @@ func WithTenantRunOption(tenant *v1beta1.Tenant) DefaultRunEngineMapperOption {
 	}
 }
 
+func WithWorkflowRunOption(workflow *v1beta1.Workflow) DefaultRunEngineMapperOption {
+	return func(m *DefaultRunEngineMapper) {
+		m.workflow = workflow
+	}
+}
+
 // DefaultRunEngineMapper maps a WorkflowRun to Kubernetes runtime objects. It
 // is the default for relay-operator.
 type DefaultRunEngineMapper struct {
@@ -68,23 +73,17 @@ type DefaultRunEngineMapper struct {
 	domainID         string
 	vaultEngineMount string
 	tenant           *v1beta1.Tenant
+	workflow         *v1beta1.Workflow
 }
 
 // ToRuntimeObjectsManifest returns a RunKubernetesObjectMapping that contains
 // uncreated objects that map to relay-core CRDs and other kubernetes resources
 // required to support a run.
-func (m *DefaultRunEngineMapper) ToRuntimeObjectsManifest(wd *WorkflowData) (*RunKubernetesObjectMapping, error) {
+func (m *DefaultRunEngineMapper) ToRuntimeObjectsManifest() (*RunKubernetesObjectMapping, error) {
 	manifest := RunKubernetesObjectMapping{}
 
 	if m.namespace != defaultNamespace {
 		manifest.Namespace = mapNamespace(m.namespace)
-	}
-
-	wp := map[string]interface{}{}
-	for k, v := range wd.Parameters {
-		if def, ok := v.Default(); ok {
-			wp[k] = def
-		}
 	}
 
 	wrp := map[string]interface{}{}
@@ -113,17 +112,18 @@ func (m *DefaultRunEngineMapper) ToRuntimeObjectsManifest(wd *WorkflowData) (*Ru
 		Spec: nebulav1.WorkflowRunSpec{
 			Name:       m.runName,
 			Parameters: v1beta1.NewUnstructuredObject(wrp),
-			Workflow: nebulav1.Workflow{
-				Name:       m.name,
-				Parameters: v1beta1.NewUnstructuredObject(wp),
-				Steps:      mapSteps(wd),
-			},
 		},
 	}
 
 	if m.tenant != nil {
 		manifest.WorkflowRun.Spec.TenantRef = &corev1.LocalObjectReference{
 			Name: m.tenant.GetName(),
+		}
+	}
+
+	if m.workflow != nil {
+		manifest.WorkflowRun.Spec.WorkflowRef = corev1.LocalObjectReference{
+			Name: m.workflow.GetName(),
 		}
 	}
 
@@ -161,41 +161,4 @@ func mapNamespace(ns string) *corev1.Namespace {
 			},
 		},
 	}
-}
-
-func mapSteps(wd *WorkflowData) []*nebulav1.WorkflowStep {
-	var workflowSteps []*nebulav1.WorkflowStep
-
-	for _, value := range wd.Steps {
-		workflowStep := nebulav1.WorkflowStep{
-			Name:      value.Name,
-			DependsOn: value.DependsOn,
-			When:      v1beta1.AsUnstructured(value.When.Tree),
-		}
-
-		switch variant := value.Variant.(type) {
-		case *ContainerWorkflowStep:
-			workflowStep.Image = variant.Image
-			workflowStep.Spec = mapSpec(variant.Spec)
-			workflowStep.Env = mapSpec(variant.Env)
-			workflowStep.Input = variant.Input
-			workflowStep.Command = variant.Command
-			workflowStep.Args = variant.Args
-		}
-
-		workflowSteps = append(workflowSteps, &workflowStep)
-	}
-
-	return workflowSteps
-}
-
-func mapSpec(jm map[string]serialize.JSONTree) v1beta1.UnstructuredObject {
-	uo := make(v1beta1.UnstructuredObject, len(jm))
-	for k, v := range jm {
-		// The inner data type has to be compatible with transfer.JSONInterface
-		// here, hence the explicit cast to interface{}.
-		uo[k] = v1beta1.AsUnstructured(interface{}(v.Tree))
-	}
-
-	return uo
 }
