@@ -1,7 +1,6 @@
 package v1
 
 import (
-	nebulav1 "github.com/puppetlabs/relay-core/pkg/apis/nebula.puppet.com/v1"
 	"github.com/puppetlabs/relay-core/pkg/apis/relay.sh/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 )
@@ -20,7 +19,7 @@ const (
 
 type RunKubernetesObjectMapping struct {
 	Namespace   *corev1.Namespace
-	WorkflowRun *nebulav1.WorkflowRun
+	WorkflowRun *v1beta1.Run
 }
 
 type TenantKubernetesObjectMapping struct {
