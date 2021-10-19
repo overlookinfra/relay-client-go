@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.6] - 2021-10-19
+
 ### Changed
 
 * Update to use new Workflow Run type.
@@ -48,7 +50,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * Initial migration from [puppetlabs/relay-core](https://github.com/puppetlabs/relay-core).
 
-[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.5...HEAD
+[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.6...HEAD
+[1.0.6]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.5...models/v1.0.6
 [1.0.5]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.4...models/v1.0.5
 [1.0.4]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.3...models/v1.0.4
 [1.0.3]: https://github.com/puppetlabs/relay-client-go/compare/models/v1.0.2...models/v1.0.3
