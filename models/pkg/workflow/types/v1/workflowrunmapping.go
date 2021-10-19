@@ -3,7 +3,6 @@ package v1
 import (
 	"path"
 
-	nebulav1 "github.com/puppetlabs/relay-core/pkg/apis/nebula.puppet.com/v1"
 	"github.com/puppetlabs/relay-core/pkg/apis/relay.sh/v1beta1"
 	"github.com/puppetlabs/relay-core/pkg/model"
 	corev1 "k8s.io/api/core/v1"
@@ -51,12 +50,6 @@ func WithVaultEngineMountRunOption(mount string) DefaultRunEngineMapperOption {
 	}
 }
 
-func WithTenantRunOption(tenant *v1beta1.Tenant) DefaultRunEngineMapperOption {
-	return func(m *DefaultRunEngineMapper) {
-		m.tenant = tenant
-	}
-}
-
 func WithWorkflowRunOption(workflow *v1beta1.Workflow) DefaultRunEngineMapperOption {
 	return func(m *DefaultRunEngineMapper) {
 		m.workflow = workflow
@@ -72,7 +65,6 @@ type DefaultRunEngineMapper struct {
 	runParameters    WorkflowRunParameters
 	domainID         string
 	vaultEngineMount string
-	tenant           *v1beta1.Tenant
 	workflow         *v1beta1.Workflow
 }
 
@@ -102,23 +94,16 @@ func (m *DefaultRunEngineMapper) ToRuntimeObjectsManifest() (*RunKubernetesObjec
 		annotations[model.RelayVaultConnectionPathAnnotation] = path.Join("connections", m.domainID)
 	}
 
-	manifest.WorkflowRun = &nebulav1.WorkflowRun{
+	manifest.WorkflowRun = &v1beta1.Run{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      m.runName,
 			Namespace: m.namespace,
 			// TODO
 			Annotations: annotations,
 		},
-		Spec: nebulav1.WorkflowRunSpec{
-			Name:       m.runName,
+		Spec: v1beta1.RunSpec{
 			Parameters: v1beta1.NewUnstructuredObject(wrp),
 		},
-	}
-
-	if m.tenant != nil {
-		manifest.WorkflowRun.Spec.TenantRef = &corev1.LocalObjectReference{
-			Name: m.tenant.GetName(),
-		}
 	}
 
 	if m.workflow != nil {
