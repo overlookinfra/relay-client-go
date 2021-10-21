@@ -17,6 +17,8 @@ import (
 
 // WorkflowRunStepState struct for WorkflowRunStepState
 type WorkflowRunStepState struct {
+	// The set of decorators for a workflow step
+	Decorators *[]WorkflowRunStepDecorator `json:"decorators,omitempty"`
 	// Time at which the step execution ended
 	EndedAt NullableTime `json:"ended_at,omitempty"`
 	// Time at which step execution started
@@ -55,6 +57,38 @@ func NewWorkflowRunStepStateWithDefaults() *WorkflowRunStepState {
 	var approval string = "waiting"
 	this.Approval = &approval
 	return &this
+}
+
+// GetDecorators returns the Decorators field value if set, zero value otherwise.
+func (o *WorkflowRunStepState) GetDecorators() []WorkflowRunStepDecorator {
+	if o == nil || o.Decorators == nil {
+		var ret []WorkflowRunStepDecorator
+		return ret
+	}
+	return *o.Decorators
+}
+
+// GetDecoratorsOk returns a tuple with the Decorators field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkflowRunStepState) GetDecoratorsOk() (*[]WorkflowRunStepDecorator, bool) {
+	if o == nil || o.Decorators == nil {
+		return nil, false
+	}
+	return o.Decorators, true
+}
+
+// HasDecorators returns a boolean if a field has been set.
+func (o *WorkflowRunStepState) HasDecorators() bool {
+	if o != nil && o.Decorators != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDecorators gets a reference to the given []WorkflowRunStepDecorator and assigns it to the Decorators field.
+func (o *WorkflowRunStepState) SetDecorators(v []WorkflowRunStepDecorator) {
+	o.Decorators = &v
 }
 
 // GetEndedAt returns the EndedAt field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -329,6 +363,9 @@ func (o *WorkflowRunStepState) SetType(v string) {
 
 func (o WorkflowRunStepState) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Decorators != nil {
+		toSerialize["decorators"] = o.Decorators
+	}
 	if o.EndedAt.IsSet() {
 		toSerialize["ended_at"] = o.EndedAt.Get()
 	}

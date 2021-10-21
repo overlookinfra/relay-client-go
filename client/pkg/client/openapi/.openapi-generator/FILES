@@ -161,6 +161,10 @@ model_workflow_run_state.go
 model_workflow_run_state_all_of.go
 model_workflow_run_state_summary.go
 model_workflow_run_step.go
+model_workflow_run_step_decorator.go
+model_workflow_run_step_decorator_all_of.go
+model_workflow_run_step_decorator_link.go
+model_workflow_run_step_decorator_link_link.go
 model_workflow_run_step_output.go
 model_workflow_run_step_output_state.go
 model_workflow_run_step_state.go
