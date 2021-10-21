@@ -17,6 +17,7 @@ import (
 // Error An error
 type Error struct {
 	Arguments *map[string]map[string]interface{} `json:"arguments,omitempty"`
+	Causes *[]Error `json:"causes,omitempty"`
 	Code *string `json:"code,omitempty"`
 	Description *ErrorDescription `json:"description,omitempty"`
 	Domain *string `json:"domain,omitempty"`
@@ -73,6 +74,38 @@ func (o *Error) HasArguments() bool {
 // SetArguments gets a reference to the given map[string]map[string]interface{} and assigns it to the Arguments field.
 func (o *Error) SetArguments(v map[string]map[string]interface{}) {
 	o.Arguments = &v
+}
+
+// GetCauses returns the Causes field value if set, zero value otherwise.
+func (o *Error) GetCauses() []Error {
+	if o == nil || o.Causes == nil {
+		var ret []Error
+		return ret
+	}
+	return *o.Causes
+}
+
+// GetCausesOk returns a tuple with the Causes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Error) GetCausesOk() (*[]Error, bool) {
+	if o == nil || o.Causes == nil {
+		return nil, false
+	}
+	return o.Causes, true
+}
+
+// HasCauses returns a boolean if a field has been set.
+func (o *Error) HasCauses() bool {
+	if o != nil && o.Causes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCauses gets a reference to the given []Error and assigns it to the Causes field.
+func (o *Error) SetCauses(v []Error) {
+	o.Causes = &v
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
@@ -303,6 +336,9 @@ func (o Error) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Arguments != nil {
 		toSerialize["arguments"] = o.Arguments
+	}
+	if o.Causes != nil {
+		toSerialize["causes"] = o.Causes
 	}
 	if o.Code != nil {
 		toSerialize["code"] = o.Code
