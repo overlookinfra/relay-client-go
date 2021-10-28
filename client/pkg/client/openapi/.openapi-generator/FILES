@@ -90,6 +90,7 @@ model_permission_summary_all_of.go
 model_profile_entity.go
 model_push_workflow_trigger_source.go
 model_push_workflow_trigger_source_state.go
+model_reference_urls.go
 model_revision_relay_source.go
 model_revision_repository_source.go
 model_revision_repository_source_source_data.go

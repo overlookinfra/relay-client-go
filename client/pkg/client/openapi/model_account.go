@@ -21,6 +21,8 @@ type Account struct {
 	AcceptedTermsAt NullableTime `json:"accepted_terms_at,omitempty"`
 	// The latest version of the terms and conditions accepted by an owner of this account
 	AcceptedTermsVersion NullableString `json:"accepted_terms_version,omitempty"`
+	// The flags on the account
+	Flags *[]string `json:"flags,omitempty"`
 	// The unique identifier for the account
 	Id string `json:"id"`
 	// The name of the account
@@ -132,6 +134,38 @@ func (o *Account) SetAcceptedTermsVersionNil() {
 // UnsetAcceptedTermsVersion ensures that no value is present for AcceptedTermsVersion, not even an explicit nil
 func (o *Account) UnsetAcceptedTermsVersion() {
 	o.AcceptedTermsVersion.Unset()
+}
+
+// GetFlags returns the Flags field value if set, zero value otherwise.
+func (o *Account) GetFlags() []string {
+	if o == nil || o.Flags == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Flags
+}
+
+// GetFlagsOk returns a tuple with the Flags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Account) GetFlagsOk() (*[]string, bool) {
+	if o == nil || o.Flags == nil {
+		return nil, false
+	}
+	return o.Flags, true
+}
+
+// HasFlags returns a boolean if a field has been set.
+func (o *Account) HasFlags() bool {
+	if o != nil && o.Flags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFlags gets a reference to the given []string and assigns it to the Flags field.
+func (o *Account) SetFlags(v []string) {
+	o.Flags = &v
 }
 
 // GetId returns the Id field value
@@ -263,6 +297,9 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	}
 	if o.AcceptedTermsVersion.IsSet() {
 		toSerialize["accepted_terms_version"] = o.AcceptedTermsVersion.Get()
+	}
+	if o.Flags != nil {
+		toSerialize["flags"] = o.Flags
 	}
 	if true {
 		toSerialize["id"] = o.Id
