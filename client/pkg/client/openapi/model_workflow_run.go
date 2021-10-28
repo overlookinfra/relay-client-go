@@ -20,6 +20,10 @@ type WorkflowRun struct {
 	// The sequential identifier for a single workflow run
 	RunNumber int32 `json:"run_number"`
 	Workflow WorkflowIdentifier `json:"workflow"`
+	// The API URL to this object
+	ApiUrl *string `json:"api_url,omitempty"`
+	// The web/HTML URL to this object
+	AppUrl *string `json:"app_url,omitempty"`
 	CreatedBy *WorkflowRunCreator `json:"created_by,omitempty"`
 	Revision WorkflowRevisionSummary `json:"revision"`
 	State WorkflowRunState `json:"state"`
@@ -104,6 +108,70 @@ func (o *WorkflowRun) GetWorkflowOk() (*WorkflowIdentifier, bool) {
 // SetWorkflow sets field value
 func (o *WorkflowRun) SetWorkflow(v WorkflowIdentifier) {
 	o.Workflow = v
+}
+
+// GetApiUrl returns the ApiUrl field value if set, zero value otherwise.
+func (o *WorkflowRun) GetApiUrl() string {
+	if o == nil || o.ApiUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.ApiUrl
+}
+
+// GetApiUrlOk returns a tuple with the ApiUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkflowRun) GetApiUrlOk() (*string, bool) {
+	if o == nil || o.ApiUrl == nil {
+		return nil, false
+	}
+	return o.ApiUrl, true
+}
+
+// HasApiUrl returns a boolean if a field has been set.
+func (o *WorkflowRun) HasApiUrl() bool {
+	if o != nil && o.ApiUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetApiUrl gets a reference to the given string and assigns it to the ApiUrl field.
+func (o *WorkflowRun) SetApiUrl(v string) {
+	o.ApiUrl = &v
+}
+
+// GetAppUrl returns the AppUrl field value if set, zero value otherwise.
+func (o *WorkflowRun) GetAppUrl() string {
+	if o == nil || o.AppUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.AppUrl
+}
+
+// GetAppUrlOk returns a tuple with the AppUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkflowRun) GetAppUrlOk() (*string, bool) {
+	if o == nil || o.AppUrl == nil {
+		return nil, false
+	}
+	return o.AppUrl, true
+}
+
+// HasAppUrl returns a boolean if a field has been set.
+func (o *WorkflowRun) HasAppUrl() bool {
+	if o != nil && o.AppUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAppUrl gets a reference to the given string and assigns it to the AppUrl field.
+func (o *WorkflowRun) SetAppUrl(v string) {
+	o.AppUrl = &v
 }
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
@@ -369,6 +437,12 @@ func (o WorkflowRun) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["workflow"] = o.Workflow
+	}
+	if o.ApiUrl != nil {
+		toSerialize["api_url"] = o.ApiUrl
+	}
+	if o.AppUrl != nil {
+		toSerialize["app_url"] = o.AppUrl
 	}
 	if o.CreatedBy != nil {
 		toSerialize["created_by"] = o.CreatedBy
