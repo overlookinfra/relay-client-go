@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.4.4] - 2021-10-28
+
+### Added
+* Added reference URLs to workflow run POST endpoint response
+
 ## [0.4.3] - 2021-10-21
 
 ### Added
@@ -58,7 +63,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Client generation for workflow view specification changes.
 * Initial migration from [puppetlabs/relay](https://github.com/puppetlabs/relay).
 
-[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.3...HEAD
+[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.4...HEAD
+[0.4.4]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.3...client/v0.4.4
 [0.4.3]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.2...client/v0.4.3
 [0.4.2]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.1...client/v0.4.2
 [0.4.1]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.0...client/v0.4.1
