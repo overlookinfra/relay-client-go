@@ -72,7 +72,7 @@ type YAMLContainerMixin struct {
 
 type YAMLWorkflowStep struct {
 	Name               string `yaml:"name" json:"name"`
-	Type               string `yaml:"-" json:"type,omitempty"`
+	Type               string `yaml:"type,omitempty" json:"type,omitempty"`
 	YAMLContainerMixin `yaml:",inline"`
 	DependsOn          stringutil.StringArray `yaml:"dependsOn,omitempty" json:"depends_on,omitempty"`
 	When               serialize.YAMLTree     `yaml:"when,omitempty" json:"when,omitempty"`
