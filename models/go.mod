@@ -13,7 +13,7 @@ require (
 	github.com/prometheus/client_golang v1.11.0 // indirect
 	github.com/puppetlabs/leg/httputil v0.1.4
 	github.com/puppetlabs/leg/stringutil v0.1.0
-	github.com/puppetlabs/relay-core v0.0.0-20211019182941-e1deb885f736
+	github.com/puppetlabs/relay-core v0.0.0-20211101184602-cf3519db2e61
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/shurcooL/vfsgen v0.0.0-20200824052919-0d455de96546
 	github.com/stretchr/testify v1.7.0

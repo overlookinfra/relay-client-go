@@ -45,12 +45,12 @@ const (
 )
 
 type YAMLWorkflowData struct {
-	APIVersion  string                `yaml:"apiVersion" json:"apiVersion"`
-	Description string                `yaml:"description" json:"description"`
-	Name        string                `yaml:"name" json:"name,omitempty"`
-	Parameters  WorkflowParameters    `yaml:"parameters" json:"parameters,omitempty"`
+	APIVersion  string                `yaml:"apiVersion,omitempty" json:"apiVersion"`
+	Description string                `yaml:"description,omitempty" json:"description"`
+	Name        string                `yaml:"name,omitempty" json:"name,omitempty"`
+	Parameters  WorkflowParameters    `yaml:"parameters,omitempty" json:"parameters,omitempty"`
 	Steps       []YAMLWorkflowStep    `yaml:"steps" json:"steps"`
-	Triggers    []YAMLWorkflowTrigger `yaml:"triggers" json:"triggers"`
+	Triggers    []YAMLWorkflowTrigger `yaml:"triggers,omitempty" json:"triggers"`
 }
 
 type YAMLWorkflowTrigger struct {
@@ -63,19 +63,19 @@ type YAMLWorkflowTrigger struct {
 type YAMLContainerMixin struct {
 	Image     string                        `yaml:"image" json:"image,omitempty"`
 	Spec      map[string]serialize.YAMLTree `yaml:"spec" json:"spec,omitempty"`
-	Env       map[string]serialize.YAMLTree `yaml:"env" json:"env,omitempty"`
-	Input     []string                      `yaml:"input" json:"input,omitempty"`
-	InputFile string                        `yaml:"inputFile" json:"inputFile,omitempty"`
-	Command   string                        `yaml:"command" json:"command,omitempty"`
-	Args      []string                      `yaml:"args" json:"args,omitempty"`
+	Env       map[string]serialize.YAMLTree `yaml:"env,omitempty" json:"env,omitempty"`
+	Input     []string                      `yaml:"input,omitempty" json:"input,omitempty"`
+	InputFile string                        `yaml:"inputFile,omitempty" json:"inputFile,omitempty"`
+	Command   string                        `yaml:"command,omitempty" json:"command,omitempty"`
+	Args      []string                      `yaml:"args,omitempty" json:"args,omitempty"`
 }
 
 type YAMLWorkflowStep struct {
-	Name               string `json:"name"`
-	Type               string `json:"type,omitempty"`
+	Name               string `yaml:"name" json:"name"`
+	Type               string `yaml:"type,omitempty" json:"type,omitempty"`
 	YAMLContainerMixin `yaml:",inline"`
-	DependsOn          stringutil.StringArray `yaml:"dependsOn" json:"depends_on,omitempty"`
-	When               serialize.YAMLTree     `yaml:"when" json:"when,omitempty"`
+	DependsOn          stringutil.StringArray `yaml:"dependsOn,omitempty" json:"depends_on,omitempty"`
+	When               serialize.YAMLTree     `yaml:"when,omitempty" json:"when,omitempty"`
 }
 
 type YAMLWorkflowTriggerBinding struct {
