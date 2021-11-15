@@ -18,6 +18,8 @@ import (
 type WorkflowRunStepOutput struct {
 	// Step output name
 	Name string `json:"name"`
+	// Whether the output is sensitive
+	Sensitive *bool `json:"sensitive,omitempty"`
 	// Step output value
 	Value interface{} `json:"value"`
 }
@@ -65,6 +67,38 @@ func (o *WorkflowRunStepOutput) SetName(v string) {
 	o.Name = v
 }
 
+// GetSensitive returns the Sensitive field value if set, zero value otherwise.
+func (o *WorkflowRunStepOutput) GetSensitive() bool {
+	if o == nil || o.Sensitive == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Sensitive
+}
+
+// GetSensitiveOk returns a tuple with the Sensitive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkflowRunStepOutput) GetSensitiveOk() (*bool, bool) {
+	if o == nil || o.Sensitive == nil {
+		return nil, false
+	}
+	return o.Sensitive, true
+}
+
+// HasSensitive returns a boolean if a field has been set.
+func (o *WorkflowRunStepOutput) HasSensitive() bool {
+	if o != nil && o.Sensitive != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSensitive gets a reference to the given bool and assigns it to the Sensitive field.
+func (o *WorkflowRunStepOutput) SetSensitive(v bool) {
+	o.Sensitive = &v
+}
+
 // GetValue returns the Value field value
 // If the value is explicit nil, the zero value for interface{} will be returned
 func (o *WorkflowRunStepOutput) GetValue() interface{} {
@@ -95,6 +129,9 @@ func (o WorkflowRunStepOutput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["name"] = o.Name
+	}
+	if o.Sensitive != nil {
+		toSerialize["sensitive"] = o.Sensitive
 	}
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
