@@ -28,8 +28,8 @@ type Connection struct {
 	// Time of creation
 	CreatedAt time.Time `json:"created_at"`
 	// Time of last update
-	UpdatedAt time.Time `json:"updated_at"`
-	Auth ConnectionAuthStatus `json:"auth"`
+	UpdatedAt    time.Time              `json:"updated_at"`
+	Auth         ConnectionAuthStatus   `json:"auth"`
 	Availability ConnectionAvailability `json:"availability"`
 	// The workflows being used by this connection
 	Workflows *[]ConnectionWorkflowSummary `json:"workflows,omitempty"`
@@ -73,7 +73,7 @@ func (o *Connection) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Connection) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -97,7 +97,7 @@ func (o *Connection) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Connection) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -121,7 +121,7 @@ func (o *Connection) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *Connection) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -145,7 +145,7 @@ func (o *Connection) GetCapabilities() []ConnectionProviderCapability {
 // GetCapabilitiesOk returns a tuple with the Capabilities field value
 // and a boolean to check if the value has been set.
 func (o *Connection) GetCapabilitiesOk() (*[]ConnectionProviderCapability, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Capabilities, true
@@ -169,7 +169,7 @@ func (o *Connection) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *Connection) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CreatedAt, true
@@ -193,7 +193,7 @@ func (o *Connection) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *Connection) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UpdatedAt, true
@@ -217,7 +217,7 @@ func (o *Connection) GetAuth() ConnectionAuthStatus {
 // GetAuthOk returns a tuple with the Auth field value
 // and a boolean to check if the value has been set.
 func (o *Connection) GetAuthOk() (*ConnectionAuthStatus, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Auth, true
@@ -241,7 +241,7 @@ func (o *Connection) GetAvailability() ConnectionAvailability {
 // GetAvailabilityOk returns a tuple with the Availability field value
 // and a boolean to check if the value has been set.
 func (o *Connection) GetAvailabilityOk() (*ConnectionAvailability, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Availability, true
@@ -351,5 +351,3 @@ func (v *NullableConnection) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

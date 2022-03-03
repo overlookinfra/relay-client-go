@@ -28,11 +28,10 @@ var (
 type SubscriptionsApiService service
 
 type ApiGetWorkflowSubscriptionsRequest struct {
-	ctx _context.Context
-	ApiService *SubscriptionsApiService
+	ctx          _context.Context
+	ApiService   *SubscriptionsApiService
 	workflowName string
 }
-
 
 func (r ApiGetWorkflowSubscriptionsRequest) Execute() (UserWorkflowSubscriptions, *_nethttp.Response, error) {
 	return r.ApiService.GetWorkflowSubscriptionsExecute(r)
@@ -47,8 +46,8 @@ GetWorkflowSubscriptions Retrieve the current user's workflow subscriptions
 */
 func (a *SubscriptionsApiService) GetWorkflowSubscriptions(ctx _context.Context, workflowName string) ApiGetWorkflowSubscriptionsRequest {
 	return ApiGetWorkflowSubscriptionsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		workflowName: workflowName,
 	}
 }
@@ -116,13 +115,13 @@ func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r ApiGetWorkfl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -139,10 +138,9 @@ func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r ApiGetWorkfl
 }
 
 type ApiGetWorkflowsSubscriptionsRequest struct {
-	ctx _context.Context
+	ctx        _context.Context
 	ApiService *SubscriptionsApiService
 }
-
 
 func (r ApiGetWorkflowsSubscriptionsRequest) Execute() (UserWorkflowsSubscriptions, *_nethttp.Response, error) {
 	return r.ApiService.GetWorkflowsSubscriptionsExecute(r)
@@ -157,7 +155,7 @@ GetWorkflowsSubscriptions List subscriptions for all workflows for the current u
 func (a *SubscriptionsApiService) GetWorkflowsSubscriptions(ctx _context.Context) ApiGetWorkflowsSubscriptionsRequest {
 	return ApiGetWorkflowsSubscriptionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -223,13 +221,13 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r ApiGetWorkf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -246,9 +244,9 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r ApiGetWorkf
 }
 
 type ApiPutWorkflowSubscriptionsRequest struct {
-	ctx _context.Context
-	ApiService *SubscriptionsApiService
-	workflowName string
+	ctx                       _context.Context
+	ApiService                *SubscriptionsApiService
+	workflowName              string
 	userWorkflowSubscriptions *UserWorkflowSubscriptions
 }
 
@@ -271,8 +269,8 @@ PutWorkflowSubscriptions Update the current user's workflow subscriptions
 */
 func (a *SubscriptionsApiService) PutWorkflowSubscriptions(ctx _context.Context, workflowName string) ApiPutWorkflowSubscriptionsRequest {
 	return ApiPutWorkflowSubscriptionsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		workflowName: workflowName,
 	}
 }
@@ -345,13 +343,13 @@ func (a *SubscriptionsApiService) PutWorkflowSubscriptionsExecute(r ApiPutWorkfl
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

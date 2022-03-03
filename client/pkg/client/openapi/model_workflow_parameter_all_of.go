@@ -41,7 +41,7 @@ func NewWorkflowParameterAllOfWithDefaults() *WorkflowParameterAllOf {
 
 // GetDefault returns the Default field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WorkflowParameterAllOf) GetDefault() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -150,5 +150,3 @@ func (v *NullableWorkflowParameterAllOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

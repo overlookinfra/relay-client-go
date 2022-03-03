@@ -50,7 +50,7 @@ func (o *RolePermission) GetPermission() PermissionSummary {
 // GetPermissionOk returns a tuple with the Permission field value
 // and a boolean to check if the value has been set.
 func (o *RolePermission) GetPermissionOk() (*PermissionSummary, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Permission, true
@@ -104,5 +104,3 @@ func (v *NullableRolePermission) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

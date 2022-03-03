@@ -22,9 +22,8 @@ type ConnectionAuthInput struct {
 
 // SecretConnectionAuthInputAsConnectionAuthInput is a convenience function that returns SecretConnectionAuthInput wrapped in ConnectionAuthInput
 func SecretConnectionAuthInputAsConnectionAuthInput(v *SecretConnectionAuthInput) ConnectionAuthInput {
-	return ConnectionAuthInput{ SecretConnectionAuthInput: v}
+	return ConnectionAuthInput{SecretConnectionAuthInput: v}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ConnectionAuthInput) UnmarshalJSON(data []byte) error {
@@ -60,7 +59,34 @@ func (dst *ConnectionAuthInput) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	return nil
+	match := 0
+	// try to unmarshal data into SecretConnectionAuthInput
+	err = json.Unmarshal(data, &dst.SecretConnectionAuthInput)
+	if err == nil {
+		jsonSecretConnectionAuthInput, err := json.Marshal(dst.SecretConnectionAuthInput)
+		if err == nil {
+			if string(jsonSecretConnectionAuthInput) == "" || string(jsonSecretConnectionAuthInput) == "{}" { // empty struct
+				dst.SecretConnectionAuthInput = nil
+			} else {
+				match++
+			}
+		} else {
+			dst.SecretConnectionAuthInput = nil
+		}
+	} else {
+		dst.SecretConnectionAuthInput = nil
+	}
+
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.SecretConnectionAuthInput = nil
+
+		return fmt.Errorf("Data matches more than one schema in oneOf(ConnectionAuthInput)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(ConnectionAuthInput)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -73,7 +99,7 @@ func (src ConnectionAuthInput) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ConnectionAuthInput) GetActualInstance() (interface{}) {
+func (obj *ConnectionAuthInput) GetActualInstance() interface{} {
 	if obj.SecretConnectionAuthInput != nil {
 		return obj.SecretConnectionAuthInput
 	}
@@ -117,5 +143,3 @@ func (v *NullableConnectionAuthInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

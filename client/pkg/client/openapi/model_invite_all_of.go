@@ -19,8 +19,8 @@ import (
 type InviteAllOf struct {
 	// The time that the invite was accepted
 	AcceptedAt NullableTime `json:"accepted_at,omitempty"`
-	Acceptor *UserSummary `json:"acceptor,omitempty"`
-	Inviter *UserSummary `json:"inviter,omitempty"`
+	Acceptor   *UserSummary `json:"acceptor,omitempty"`
+	Inviter    *UserSummary `json:"inviter,omitempty"`
 	// The initial roles to grant to the user
 	Roles *[]RoleSummary `json:"roles,omitempty"`
 	// The time that the invite was last sent
@@ -57,7 +57,7 @@ func (o *InviteAllOf) GetAcceptedAt() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InviteAllOf) GetAcceptedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.AcceptedAt.Get(), o.AcceptedAt.IsSet()
@@ -76,6 +76,7 @@ func (o *InviteAllOf) HasAcceptedAt() bool {
 func (o *InviteAllOf) SetAcceptedAt(v time.Time) {
 	o.AcceptedAt.Set(&v)
 }
+
 // SetAcceptedAtNil sets the value for AcceptedAt to be an explicit nil
 func (o *InviteAllOf) SetAcceptedAtNil() {
 	o.AcceptedAt.Set(nil)
@@ -195,7 +196,7 @@ func (o *InviteAllOf) GetSentAt() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *InviteAllOf) GetSentAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.SentAt.Get(), o.SentAt.IsSet()
@@ -214,6 +215,7 @@ func (o *InviteAllOf) HasSentAt() bool {
 func (o *InviteAllOf) SetSentAt(v time.Time) {
 	o.SentAt.Set(&v)
 }
+
 // SetSentAtNil sets the value for SentAt to be an explicit nil
 func (o *InviteAllOf) SetSentAtNil() {
 	o.SentAt.Set(nil)
@@ -279,5 +281,3 @@ func (v *NullableInviteAllOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

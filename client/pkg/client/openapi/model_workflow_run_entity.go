@@ -17,7 +17,7 @@ import (
 // WorkflowRunEntity struct for WorkflowRunEntity
 type WorkflowRunEntity struct {
 	Access *EntityAccess `json:"access,omitempty"`
-	Run *WorkflowRun `json:"run,omitempty"`
+	Run    *WorkflowRun  `json:"run,omitempty"`
 }
 
 // NewWorkflowRunEntity instantiates a new WorkflowRunEntity object
@@ -147,5 +147,3 @@ func (v *NullableWorkflowRunEntity) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

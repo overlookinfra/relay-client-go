@@ -19,6 +19,8 @@ type ConnectionWorkflowSummary struct {
 	Name string `json:"name"`
 	// User provided friendly workflow description
 	Description *string `json:"description,omitempty"`
+	// If true, this workflow cannot be edited or run directly by the user.
+	Immutable *bool `json:"immutable,omitempty"`
 	// The set of capabilities to enable for a connection
 	Capabilities []ConnectionProviderCapability `json:"capabilities"`
 }
@@ -55,7 +57,7 @@ func (o *ConnectionWorkflowSummary) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWorkflowSummary) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -98,6 +100,38 @@ func (o *ConnectionWorkflowSummary) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetImmutable returns the Immutable field value if set, zero value otherwise.
+func (o *ConnectionWorkflowSummary) GetImmutable() bool {
+	if o == nil || o.Immutable == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Immutable
+}
+
+// GetImmutableOk returns a tuple with the Immutable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConnectionWorkflowSummary) GetImmutableOk() (*bool, bool) {
+	if o == nil || o.Immutable == nil {
+		return nil, false
+	}
+	return o.Immutable, true
+}
+
+// HasImmutable returns a boolean if a field has been set.
+func (o *ConnectionWorkflowSummary) HasImmutable() bool {
+	if o != nil && o.Immutable != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetImmutable gets a reference to the given bool and assigns it to the Immutable field.
+func (o *ConnectionWorkflowSummary) SetImmutable(v bool) {
+	o.Immutable = &v
+}
+
 // GetCapabilities returns the Capabilities field value
 func (o *ConnectionWorkflowSummary) GetCapabilities() []ConnectionProviderCapability {
 	if o == nil {
@@ -111,7 +145,7 @@ func (o *ConnectionWorkflowSummary) GetCapabilities() []ConnectionProviderCapabi
 // GetCapabilitiesOk returns a tuple with the Capabilities field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWorkflowSummary) GetCapabilitiesOk() (*[]ConnectionProviderCapability, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Capabilities, true
@@ -129,6 +163,9 @@ func (o ConnectionWorkflowSummary) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.Immutable != nil {
+		toSerialize["immutable"] = o.Immutable
 	}
 	if true {
 		toSerialize["capabilities"] = o.Capabilities
@@ -171,5 +208,3 @@ func (v *NullableConnectionWorkflowSummary) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

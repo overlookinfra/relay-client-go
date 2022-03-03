@@ -54,7 +54,7 @@ func (o *ScheduleWorkflowTriggerSource) GetSchedule() string {
 // GetScheduleOk returns a tuple with the Schedule field value
 // and a boolean to check if the value has been set.
 func (o *ScheduleWorkflowTriggerSource) GetScheduleOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Schedule, true
@@ -78,7 +78,7 @@ func (o *ScheduleWorkflowTriggerSource) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ScheduleWorkflowTriggerSource) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -135,5 +135,3 @@ func (v *NullableScheduleWorkflowTriggerSource) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

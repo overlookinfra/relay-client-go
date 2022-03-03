@@ -17,7 +17,7 @@ import (
 // UserWorkflowRunCreator A summary of the user that created a workflow run
 type UserWorkflowRunCreator struct {
 	// The type of creator
-	Type string `json:"type"`
+	Type string      `json:"type"`
 	User UserSummary `json:"user"`
 }
 
@@ -53,7 +53,7 @@ func (o *UserWorkflowRunCreator) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *UserWorkflowRunCreator) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -77,7 +77,7 @@ func (o *UserWorkflowRunCreator) GetUser() UserSummary {
 // GetUserOk returns a tuple with the User field value
 // and a boolean to check if the value has been set.
 func (o *UserWorkflowRunCreator) GetUserOk() (*UserSummary, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.User, true
@@ -134,5 +134,3 @@ func (v *NullableUserWorkflowRunCreator) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

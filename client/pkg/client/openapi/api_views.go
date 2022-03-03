@@ -27,10 +27,9 @@ var (
 type ViewsApiService service
 
 type ApiGetWorkflowsViewRequest struct {
-	ctx _context.Context
+	ctx        _context.Context
 	ApiService *ViewsApiService
 }
-
 
 func (r ApiGetWorkflowsViewRequest) Execute() (WorkflowsView, *_nethttp.Response, error) {
 	return r.ApiService.GetWorkflowsViewExecute(r)
@@ -45,7 +44,7 @@ GetWorkflowsView Customized view of all workflows
 func (a *ViewsApiService) GetWorkflowsView(ctx _context.Context) ApiGetWorkflowsViewRequest {
 	return ApiGetWorkflowsViewRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -111,13 +110,13 @@ func (a *ViewsApiService) GetWorkflowsViewExecute(r ApiGetWorkflowsViewRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

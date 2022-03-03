@@ -54,7 +54,7 @@ func (o *Auth0Auth) GetCode() string {
 // GetCodeOk returns a tuple with the Code field value
 // and a boolean to check if the value has been set.
 func (o *Auth0Auth) GetCodeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Code, true
@@ -78,7 +78,7 @@ func (o *Auth0Auth) GetRedirectUri() string {
 // GetRedirectUriOk returns a tuple with the RedirectUri field value
 // and a boolean to check if the value has been set.
 func (o *Auth0Auth) GetRedirectUriOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RedirectUri, true
@@ -135,5 +135,3 @@ func (v *NullableAuth0Auth) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

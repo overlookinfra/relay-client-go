@@ -16,7 +16,7 @@ import (
 
 // ErrorDescription struct for ErrorDescription
 type ErrorDescription struct {
-	Friendly *string `json:"friendly,omitempty"`
+	Friendly  *string `json:"friendly,omitempty"`
 	Technical *string `json:"technical,omitempty"`
 }
 
@@ -147,5 +147,3 @@ func (v *NullableErrorDescription) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

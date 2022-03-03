@@ -60,7 +60,7 @@ func (o *ConnectionSummary) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionSummary) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -84,7 +84,7 @@ func (o *ConnectionSummary) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionSummary) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -108,7 +108,7 @@ func (o *ConnectionSummary) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionSummary) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -132,7 +132,7 @@ func (o *ConnectionSummary) GetCapabilities() []ConnectionProviderCapability {
 // GetCapabilitiesOk returns a tuple with the Capabilities field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionSummary) GetCapabilitiesOk() (*[]ConnectionProviderCapability, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Capabilities, true
@@ -195,5 +195,3 @@ func (v *NullableConnectionSummary) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

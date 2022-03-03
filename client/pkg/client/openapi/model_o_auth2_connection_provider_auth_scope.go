@@ -121,7 +121,7 @@ func (o *OAuth2ConnectionProviderAuthScope) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *OAuth2ConnectionProviderAuthScope) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -216,5 +216,3 @@ func (v *NullableOAuth2ConnectionProviderAuthScope) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -60,7 +60,7 @@ func (o *RevisionRepositorySourceSourceData) GetCommit() string {
 // GetCommitOk returns a tuple with the Commit field value
 // and a boolean to check if the value has been set.
 func (o *RevisionRepositorySourceSourceData) GetCommitOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Commit, true
@@ -84,7 +84,7 @@ func (o *RevisionRepositorySourceSourceData) GetPath() string {
 // GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
 func (o *RevisionRepositorySourceSourceData) GetPathOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Path, true
@@ -108,7 +108,7 @@ func (o *RevisionRepositorySourceSourceData) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value
 // and a boolean to check if the value has been set.
 func (o *RevisionRepositorySourceSourceData) GetRepositoryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Repository, true
@@ -132,7 +132,7 @@ func (o *RevisionRepositorySourceSourceData) GetTrackedRef() string {
 // GetTrackedRefOk returns a tuple with the TrackedRef field value
 // and a boolean to check if the value has been set.
 func (o *RevisionRepositorySourceSourceData) GetTrackedRefOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.TrackedRef, true
@@ -195,5 +195,3 @@ func (v *NullableRevisionRepositorySourceSourceData) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

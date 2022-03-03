@@ -28,8 +28,8 @@ type ConnectionWithDisplayOnceFields struct {
 	// Time of creation
 	CreatedAt time.Time `json:"created_at"`
 	// Time of last update
-	UpdatedAt time.Time `json:"updated_at"`
-	Auth ConnectionAuthStatus `json:"auth"`
+	UpdatedAt    time.Time              `json:"updated_at"`
+	Auth         ConnectionAuthStatus   `json:"auth"`
 	Availability ConnectionAvailability `json:"availability"`
 	// The workflows being used by this connection
 	Workflows *[]ConnectionWorkflowSummary `json:"workflows,omitempty"`
@@ -75,7 +75,7 @@ func (o *ConnectionWithDisplayOnceFields) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWithDisplayOnceFields) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -99,7 +99,7 @@ func (o *ConnectionWithDisplayOnceFields) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWithDisplayOnceFields) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -123,7 +123,7 @@ func (o *ConnectionWithDisplayOnceFields) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWithDisplayOnceFields) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -147,7 +147,7 @@ func (o *ConnectionWithDisplayOnceFields) GetCapabilities() []ConnectionProvider
 // GetCapabilitiesOk returns a tuple with the Capabilities field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWithDisplayOnceFields) GetCapabilitiesOk() (*[]ConnectionProviderCapability, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Capabilities, true
@@ -171,7 +171,7 @@ func (o *ConnectionWithDisplayOnceFields) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWithDisplayOnceFields) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CreatedAt, true
@@ -195,7 +195,7 @@ func (o *ConnectionWithDisplayOnceFields) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWithDisplayOnceFields) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UpdatedAt, true
@@ -219,7 +219,7 @@ func (o *ConnectionWithDisplayOnceFields) GetAuth() ConnectionAuthStatus {
 // GetAuthOk returns a tuple with the Auth field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWithDisplayOnceFields) GetAuthOk() (*ConnectionAuthStatus, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Auth, true
@@ -243,7 +243,7 @@ func (o *ConnectionWithDisplayOnceFields) GetAvailability() ConnectionAvailabili
 // GetAvailabilityOk returns a tuple with the Availability field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWithDisplayOnceFields) GetAvailabilityOk() (*ConnectionAvailability, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Availability, true
@@ -388,5 +388,3 @@ func (v *NullableConnectionWithDisplayOnceFields) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

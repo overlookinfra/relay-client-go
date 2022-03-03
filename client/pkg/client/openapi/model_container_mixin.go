@@ -14,7 +14,7 @@ import (
 	"encoding/json"
 )
 
-// ContainerMixin Common attributes associated with our containerization framework 
+// ContainerMixin Common attributes associated with our containerization framework
 type ContainerMixin struct {
 	// Command arguments
 	Args *[]string `json:"args,omitempty"`
@@ -334,5 +334,3 @@ func (v *NullableContainerMixin) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

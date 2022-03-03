@@ -54,7 +54,7 @@ func (o *DeletedResource) GetResourceId() string {
 // GetResourceIdOk returns a tuple with the ResourceId field value
 // and a boolean to check if the value has been set.
 func (o *DeletedResource) GetResourceIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ResourceId, true
@@ -78,7 +78,7 @@ func (o *DeletedResource) GetSuccess() bool {
 // GetSuccessOk returns a tuple with the Success field value
 // and a boolean to check if the value has been set.
 func (o *DeletedResource) GetSuccessOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Success, true
@@ -135,5 +135,3 @@ func (v *NullableDeletedResource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

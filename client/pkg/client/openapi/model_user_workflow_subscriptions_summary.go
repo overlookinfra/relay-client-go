@@ -16,7 +16,7 @@ import (
 
 // UserWorkflowSubscriptionsSummary struct for UserWorkflowSubscriptionsSummary
 type UserWorkflowSubscriptionsSummary struct {
-	Name string `json:"name"`
+	Name          string                     `json:"name"`
 	Subscriptions *UserWorkflowSubscriptions `json:"subscriptions,omitempty"`
 }
 
@@ -51,7 +51,7 @@ func (o *UserWorkflowSubscriptionsSummary) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *UserWorkflowSubscriptionsSummary) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -140,5 +140,3 @@ func (v *NullableUserWorkflowSubscriptionsSummary) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

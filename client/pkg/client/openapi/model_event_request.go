@@ -19,7 +19,7 @@ type EventRequest struct {
 	// The attribute data for this event
 	Data *map[string]interface{} `json:"data,omitempty"`
 	// An optional key for this event
-	Key *string `json:"key,omitempty"`
+	Key    *string      `json:"key,omitempty"`
 	Source *EventSource `json:"source,omitempty"`
 }
 
@@ -185,5 +185,3 @@ func (v *NullableEventRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

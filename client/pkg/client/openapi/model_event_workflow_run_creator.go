@@ -55,7 +55,7 @@ func (o *EventWorkflowRunCreator) GetEvent() Event {
 // GetEventOk returns a tuple with the Event field value
 // and a boolean to check if the value has been set.
 func (o *EventWorkflowRunCreator) GetEventOk() (*Event, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Event, true
@@ -68,7 +68,7 @@ func (o *EventWorkflowRunCreator) SetEvent(v Event) {
 
 // GetKey returns the Key field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EventWorkflowRunCreator) GetKey() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -112,7 +112,7 @@ func (o *EventWorkflowRunCreator) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *EventWorkflowRunCreator) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -172,5 +172,3 @@ func (v *NullableEventWorkflowRunCreator) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -21,7 +21,7 @@ type UserToken struct {
 	// Name of the user token
 	Name string `json:"name"`
 	// Type of token
-	Type *string `json:"type,omitempty"`
+	Type *string     `json:"type,omitempty"`
 	User UserSummary `json:"user"`
 }
 
@@ -89,7 +89,7 @@ func (o *UserToken) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *UserToken) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -145,7 +145,7 @@ func (o *UserToken) GetUser() UserSummary {
 // GetUserOk returns a tuple with the User field value
 // and a boolean to check if the value has been set.
 func (o *UserToken) GetUserOk() (*UserSummary, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.User, true
@@ -208,5 +208,3 @@ func (v *NullableUserToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

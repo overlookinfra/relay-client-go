@@ -17,8 +17,8 @@ import (
 // UserWorkflowSubscriptionSettings User workflow subscription settings
 type UserWorkflowSubscriptionSettings struct {
 	Approval *UserSubscriptionChannels `json:"approval,omitempty"`
-	Failure *UserSubscriptionChannels `json:"failure,omitempty"`
-	Success *UserSubscriptionChannels `json:"success,omitempty"`
+	Failure  *UserSubscriptionChannels `json:"failure,omitempty"`
+	Success  *UserSubscriptionChannels `json:"success,omitempty"`
 }
 
 // NewUserWorkflowSubscriptionSettings instantiates a new UserWorkflowSubscriptionSettings object
@@ -183,5 +183,3 @@ func (v *NullableUserWorkflowSubscriptionSettings) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

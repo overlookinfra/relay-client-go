@@ -16,8 +16,8 @@ import (
 
 // TokenResponse struct for TokenResponse
 type TokenResponse struct {
-	Access *EntityAccess `json:"access,omitempty"`
-	Token *TokenWithSecret `json:"token,omitempty"`
+	Access *EntityAccess    `json:"access,omitempty"`
+	Token  *TokenWithSecret `json:"token,omitempty"`
 }
 
 // NewTokenResponse instantiates a new TokenResponse object
@@ -147,5 +147,3 @@ func (v *NullableTokenResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

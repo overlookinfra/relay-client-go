@@ -29,8 +29,8 @@ type Invite struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	// The time that the invite was accepted
 	AcceptedAt NullableTime `json:"accepted_at,omitempty"`
-	Acceptor *UserSummary `json:"acceptor,omitempty"`
-	Inviter *UserSummary `json:"inviter,omitempty"`
+	Acceptor   *UserSummary `json:"acceptor,omitempty"`
+	Inviter    *UserSummary `json:"inviter,omitempty"`
 	// The initial roles to grant to the user
 	Roles *[]RoleSummary `json:"roles,omitempty"`
 	// The time that the invite was last sent
@@ -72,7 +72,7 @@ func (o *Invite) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Invite) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -96,7 +96,7 @@ func (o *Invite) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
 func (o *Invite) GetEmailOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Email, true
@@ -120,7 +120,7 @@ func (o *Invite) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Invite) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -144,7 +144,7 @@ func (o *Invite) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *Invite) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CreatedAt, true
@@ -168,7 +168,7 @@ func (o *Invite) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *Invite) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UpdatedAt, true
@@ -192,7 +192,7 @@ func (o *Invite) GetAcceptedAt() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Invite) GetAcceptedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.AcceptedAt.Get(), o.AcceptedAt.IsSet()
@@ -211,6 +211,7 @@ func (o *Invite) HasAcceptedAt() bool {
 func (o *Invite) SetAcceptedAt(v time.Time) {
 	o.AcceptedAt.Set(&v)
 }
+
 // SetAcceptedAtNil sets the value for AcceptedAt to be an explicit nil
 func (o *Invite) SetAcceptedAtNil() {
 	o.AcceptedAt.Set(nil)
@@ -330,7 +331,7 @@ func (o *Invite) GetSentAt() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Invite) GetSentAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.SentAt.Get(), o.SentAt.IsSet()
@@ -349,6 +350,7 @@ func (o *Invite) HasSentAt() bool {
 func (o *Invite) SetSentAt(v time.Time) {
 	o.SentAt.Set(&v)
 }
+
 // SetSentAtNil sets the value for SentAt to be an explicit nil
 func (o *Invite) SetSentAtNil() {
 	o.SentAt.Set(nil)
@@ -429,5 +431,3 @@ func (v *NullableInvite) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

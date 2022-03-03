@@ -16,7 +16,7 @@ import (
 
 // ErrorFormatted struct for ErrorFormatted
 type ErrorFormatted struct {
-	Friendly *string `json:"friendly,omitempty"`
+	Friendly  *string `json:"friendly,omitempty"`
 	Technical *string `json:"technical,omitempty"`
 }
 
@@ -147,5 +147,3 @@ func (v *NullableErrorFormatted) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

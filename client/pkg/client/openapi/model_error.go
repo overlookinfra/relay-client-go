@@ -16,15 +16,15 @@ import (
 
 // Error An error
 type Error struct {
-	Arguments *map[string]map[string]interface{} `json:"arguments,omitempty"`
-	Causes *[]Error `json:"causes,omitempty"`
-	Code *string `json:"code,omitempty"`
-	Description *ErrorDescription `json:"description,omitempty"`
-	Domain *string `json:"domain,omitempty"`
-	Formatted *ErrorFormatted `json:"formatted,omitempty"`
-	Items *map[string]Error `json:"items,omitempty"`
-	Section *string `json:"section,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Arguments   *map[string]map[string]interface{} `json:"arguments,omitempty"`
+	Causes      *[]Error                           `json:"causes,omitempty"`
+	Code        *string                            `json:"code,omitempty"`
+	Description *ErrorDescription                  `json:"description,omitempty"`
+	Domain      *string                            `json:"domain,omitempty"`
+	Formatted   *ErrorFormatted                    `json:"formatted,omitempty"`
+	Items       *map[string]Error                  `json:"items,omitempty"`
+	Section     *string                            `json:"section,omitempty"`
+	Title       *string                            `json:"title,omitempty"`
 }
 
 // NewError instantiates a new Error object
@@ -399,5 +399,3 @@ func (v *NullableError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

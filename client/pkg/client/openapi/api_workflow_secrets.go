@@ -28,9 +28,9 @@ var (
 type WorkflowSecretsApiService service
 
 type ApiCreateWorkflowSecretRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowSecretsApiService
-	workflowName string
+	ctx            _context.Context
+	ApiService     *WorkflowSecretsApiService
+	workflowName   string
 	workflowSecret *WorkflowSecret
 }
 
@@ -53,8 +53,8 @@ CreateWorkflowSecret Add a new secret to the given workflow
 */
 func (a *WorkflowSecretsApiService) CreateWorkflowSecret(ctx _context.Context, workflowName string) ApiCreateWorkflowSecretRequest {
 	return ApiCreateWorkflowSecretRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		workflowName: workflowName,
 	}
 }
@@ -127,13 +127,13 @@ func (a *WorkflowSecretsApiService) CreateWorkflowSecretExecute(r ApiCreateWorkf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -150,12 +150,11 @@ func (a *WorkflowSecretsApiService) CreateWorkflowSecretExecute(r ApiCreateWorkf
 }
 
 type ApiDeleteWorkflowSecretRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowSecretsApiService
-	workflowName string
+	ctx                _context.Context
+	ApiService         *WorkflowSecretsApiService
+	workflowName       string
 	workflowSecretName string
 }
-
 
 func (r ApiDeleteWorkflowSecretRequest) Execute() (DeletedResource, *_nethttp.Response, error) {
 	return r.ApiService.DeleteWorkflowSecretExecute(r)
@@ -171,9 +170,9 @@ DeleteWorkflowSecret Delete the secret associated with the given workflow and se
 */
 func (a *WorkflowSecretsApiService) DeleteWorkflowSecret(ctx _context.Context, workflowName string, workflowSecretName string) ApiDeleteWorkflowSecretRequest {
 	return ApiDeleteWorkflowSecretRequest{
-		ApiService: a,
-		ctx: ctx,
-		workflowName: workflowName,
+		ApiService:         a,
+		ctx:                ctx,
+		workflowName:       workflowName,
 		workflowSecretName: workflowSecretName,
 	}
 }
@@ -242,13 +241,13 @@ func (a *WorkflowSecretsApiService) DeleteWorkflowSecretExecute(r ApiDeleteWorkf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -265,11 +264,10 @@ func (a *WorkflowSecretsApiService) DeleteWorkflowSecretExecute(r ApiDeleteWorkf
 }
 
 type ApiListWorkflowSecretsRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowSecretsApiService
+	ctx          _context.Context
+	ApiService   *WorkflowSecretsApiService
 	workflowName string
 }
-
 
 func (r ApiListWorkflowSecretsRequest) Execute() (WorkflowSecretsSummary, *_nethttp.Response, error) {
 	return r.ApiService.ListWorkflowSecretsExecute(r)
@@ -284,8 +282,8 @@ ListWorkflowSecrets Get all secrets associated with the given workflow
 */
 func (a *WorkflowSecretsApiService) ListWorkflowSecrets(ctx _context.Context, workflowName string) ApiListWorkflowSecretsRequest {
 	return ApiListWorkflowSecretsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		workflowName: workflowName,
 	}
 }
@@ -353,13 +351,13 @@ func (a *WorkflowSecretsApiService) ListWorkflowSecretsExecute(r ApiListWorkflow
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -376,10 +374,10 @@ func (a *WorkflowSecretsApiService) ListWorkflowSecretsExecute(r ApiListWorkflow
 }
 
 type ApiUpdateWorkflowSecretRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowSecretsApiService
-	workflowName string
-	workflowSecretName string
+	ctx                 _context.Context
+	ApiService          *WorkflowSecretsApiService
+	workflowName        string
+	workflowSecretName  string
 	workflowSecretValue *WorkflowSecretValue
 }
 
@@ -403,9 +401,9 @@ UpdateWorkflowSecret Update the secret associated with the given workflow and se
 */
 func (a *WorkflowSecretsApiService) UpdateWorkflowSecret(ctx _context.Context, workflowName string, workflowSecretName string) ApiUpdateWorkflowSecretRequest {
 	return ApiUpdateWorkflowSecretRequest{
-		ApiService: a,
-		ctx: ctx,
-		workflowName: workflowName,
+		ApiService:         a,
+		ctx:                ctx,
+		workflowName:       workflowName,
 		workflowSecretName: workflowSecretName,
 	}
 }
@@ -479,13 +477,13 @@ func (a *WorkflowSecretsApiService) UpdateWorkflowSecretExecute(r ApiUpdateWorkf
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

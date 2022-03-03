@@ -14,7 +14,7 @@ import (
 	"encoding/json"
 )
 
-// ConnectionWorkflowSummaryAllOf A summary of a workflow with information about its use in a connection 
+// ConnectionWorkflowSummaryAllOf A summary of a workflow with information about its use in a connection
 type ConnectionWorkflowSummaryAllOf struct {
 	// The set of capabilities to enable for a connection
 	Capabilities []ConnectionProviderCapability `json:"capabilities"`
@@ -51,7 +51,7 @@ func (o *ConnectionWorkflowSummaryAllOf) GetCapabilities() []ConnectionProviderC
 // GetCapabilitiesOk returns a tuple with the Capabilities field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionWorkflowSummaryAllOf) GetCapabilitiesOk() (*[]ConnectionProviderCapability, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Capabilities, true
@@ -105,5 +105,3 @@ func (v *NullableConnectionWorkflowSummaryAllOf) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -17,8 +17,8 @@ import (
 // WorkflowRunIdentifier A unique identifier for a workflow run
 type WorkflowRunIdentifier struct {
 	// The sequential identifier for a single workflow run
-	RunNumber int32 `json:"run_number"`
-	Workflow WorkflowIdentifier `json:"workflow"`
+	RunNumber int32              `json:"run_number"`
+	Workflow  WorkflowIdentifier `json:"workflow"`
 }
 
 // NewWorkflowRunIdentifier instantiates a new WorkflowRunIdentifier object
@@ -53,7 +53,7 @@ func (o *WorkflowRunIdentifier) GetRunNumber() int32 {
 // GetRunNumberOk returns a tuple with the RunNumber field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunIdentifier) GetRunNumberOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RunNumber, true
@@ -77,7 +77,7 @@ func (o *WorkflowRunIdentifier) GetWorkflow() WorkflowIdentifier {
 // GetWorkflowOk returns a tuple with the Workflow field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunIdentifier) GetWorkflowOk() (*WorkflowIdentifier, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Workflow, true
@@ -134,5 +134,3 @@ func (v *NullableWorkflowRunIdentifier) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

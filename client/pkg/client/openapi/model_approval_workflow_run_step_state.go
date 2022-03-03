@@ -21,7 +21,7 @@ type ApprovalWorkflowRunStepState struct {
 	Approval *string `json:"approval,omitempty"`
 	// Time at which the step was approved or rejected
 	ApprovalSubmittedAt NullableTime `json:"approval_submitted_at,omitempty"`
-	Approver *UserSummary `json:"approver,omitempty"`
+	Approver            *UserSummary `json:"approver,omitempty"`
 	// Type of step
 	Type string `json:"type"`
 }
@@ -93,7 +93,7 @@ func (o *ApprovalWorkflowRunStepState) GetApprovalSubmittedAt() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ApprovalWorkflowRunStepState) GetApprovalSubmittedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.ApprovalSubmittedAt.Get(), o.ApprovalSubmittedAt.IsSet()
@@ -112,6 +112,7 @@ func (o *ApprovalWorkflowRunStepState) HasApprovalSubmittedAt() bool {
 func (o *ApprovalWorkflowRunStepState) SetApprovalSubmittedAt(v time.Time) {
 	o.ApprovalSubmittedAt.Set(&v)
 }
+
 // SetApprovalSubmittedAtNil sets the value for ApprovalSubmittedAt to be an explicit nil
 func (o *ApprovalWorkflowRunStepState) SetApprovalSubmittedAtNil() {
 	o.ApprovalSubmittedAt.Set(nil)
@@ -167,7 +168,7 @@ func (o *ApprovalWorkflowRunStepState) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ApprovalWorkflowRunStepState) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -230,5 +231,3 @@ func (v *NullableApprovalWorkflowRunStepState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

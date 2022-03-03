@@ -7,51 +7,21 @@ go.*
 api/
 docs/
 
+# These models can only be generated when useOneOfDiscriminatorLookup=false, but
+# don't behave correctly in practice because they use particular values of an
+# object key to distinguish from one another, but that check isn't included in
+# UnmarshalJSON() of the generated types.
+model_revision_source.go
+
+# These models are dependent upon types defined in the models above.
+model_workflow_revision.go
+
+# These APIs have conflicts across tags or dreaded "UNKNOWN_BASE_TYPE" structs
+# (https://github.com/OpenAPITools/openapi-generator/issues/1229).
 api_access_control.go
 api_auth.go
-api_billing.go
 api_connection_providers.go
 api_connections.go
-api_revisions.go
-api_terms.go
-api_workflow_revisions.go
-api_workflow_triggers.go
 api_workflows.go
-
-model_binary_string.go
-model_binary_string_one_of.go
-model_inline_response_200_1.go
-model_inline_response_200_3.go
-model_inline_response_200_4.go
-model_inline_response_200_5.go
-model_inline_response_200_6.go
-model_inline_response_200_7.go
-model_inline_response_200_8.go
-model_inline_response_200_9.go
-model_inline_response_200_10.go
-model_inline_response_200_11.go
-model_inline_response_200_12.go
-model_inline_response_200_13.go
-model_inline_response_200_14.go
-model_inline_response_200_15.go
-model_inline_response_200_16.go
-model_revision_source.go
-model_workflow.go
-model_workflow_all_of.go
-model_workflow_error.go
-model_workflow_repository_source.go
-model_workflow_revision_all_of.go
-model_workflow_revision.go
-model_workflow_source.go
-model_workflow_summary_all_of.go
-model_workflow_summary.go
-model_workflow_state.go
-model_workflow_trigger_all_of.go
-model_workflow_trigger_composite_all_of.go
-model_workflow_trigger_composite.go
-model_workflow_trigger_source_state.go
-model_workflow_trigger_source.go
-model_workflow_trigger_state.go
-model_workflow_trigger.go
 
 README.md

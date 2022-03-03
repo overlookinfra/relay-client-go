@@ -18,10 +18,10 @@ import (
 type AccountContact struct {
 	Email string `json:"email"`
 	// The unique identifier for the account contact
-	Id string `json:"id"`
-	Name string `json:"name"`
+	Id    string `json:"id"`
+	Name  string `json:"name"`
 	Phone string `json:"phone"`
-	Type string `json:"type"`
+	Type  string `json:"type"`
 }
 
 // NewAccountContact instantiates a new AccountContact object
@@ -59,7 +59,7 @@ func (o *AccountContact) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
 func (o *AccountContact) GetEmailOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Email, true
@@ -83,7 +83,7 @@ func (o *AccountContact) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *AccountContact) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -107,7 +107,7 @@ func (o *AccountContact) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *AccountContact) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -131,7 +131,7 @@ func (o *AccountContact) GetPhone() string {
 // GetPhoneOk returns a tuple with the Phone field value
 // and a boolean to check if the value has been set.
 func (o *AccountContact) GetPhoneOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Phone, true
@@ -155,7 +155,7 @@ func (o *AccountContact) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *AccountContact) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -221,5 +221,3 @@ func (v *NullableAccountContact) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

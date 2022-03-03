@@ -17,13 +17,13 @@ import (
 // WorkflowRunAllOf Metadata about a workflow run
 type WorkflowRunAllOf struct {
 	// Connection type and names used by the run
-	Connections *[]ConnectionReference `json:"connections,omitempty"`
-	Error *Error `json:"error,omitempty"`
-	Parameters *map[string]WorkflowRunParameter `json:"parameters,omitempty"`
-	Revision WorkflowRevisionSummary `json:"revision"`
+	Connections *[]ConnectionReference           `json:"connections,omitempty"`
+	Error       *Error                           `json:"error,omitempty"`
+	Parameters  *map[string]WorkflowRunParameter `json:"parameters,omitempty"`
+	Revision    WorkflowRevisionSummary          `json:"revision"`
 	// Secret names provided to the run, both used and unused
 	Secrets *[]WorkflowSecretSummary `json:"secrets,omitempty"`
-	State WorkflowRunState `json:"state"`
+	State   WorkflowRunState         `json:"state"`
 }
 
 // NewWorkflowRunAllOf instantiates a new WorkflowRunAllOf object
@@ -154,7 +154,7 @@ func (o *WorkflowRunAllOf) GetRevision() WorkflowRevisionSummary {
 // GetRevisionOk returns a tuple with the Revision field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunAllOf) GetRevisionOk() (*WorkflowRevisionSummary, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Revision, true
@@ -210,7 +210,7 @@ func (o *WorkflowRunAllOf) GetState() WorkflowRunState {
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunAllOf) GetStateOk() (*WorkflowRunState, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.State, true
@@ -279,5 +279,3 @@ func (v *NullableWorkflowRunAllOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -78,7 +78,7 @@ func (o *WorkflowParameter) SetType(v SchemaType) {
 
 // GetDefault returns the Default field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WorkflowParameter) GetDefault() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -190,5 +190,3 @@ func (v *NullableWorkflowParameter) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
