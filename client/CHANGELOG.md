@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.4.6] - 2022-03-03
+
+### Added
+* Added step messages.
+* Added billing plans and prices.
+
+### Build
+* Fixed build under Go 1.17.
+* Automatically formatted code and slightly improved the `oneOf` template to support a few more models and APIs.
+
 ## [0.4.5] - 2021-11-15
 
 ### Added
@@ -68,7 +78,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Client generation for workflow view specification changes.
 * Initial migration from [puppetlabs/relay](https://github.com/puppetlabs/relay).
 
-[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.5...HEAD
+[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.6...HEAD
+[0.4.6]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.6...client/v0.4.6
 [0.4.5]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.4...client/v0.4.5
 [0.4.4]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.3...client/v0.4.4
 [0.4.3]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.2...client/v0.4.3
