@@ -17,9 +17,9 @@ import (
 // WorkflowRunStepDecorator struct for WorkflowRunStepDecorator
 type WorkflowRunStepDecorator struct {
 	// Name of the decorator
-	Name string `json:"name"`
+	Name string                           `json:"name"`
 	Link WorkflowRunStepDecoratorLinkLink `json:"link"`
-	Type string `json:"type"`
+	Type string                           `json:"type"`
 }
 
 // NewWorkflowRunStepDecorator instantiates a new WorkflowRunStepDecorator object
@@ -55,7 +55,7 @@ func (o *WorkflowRunStepDecorator) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunStepDecorator) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -79,7 +79,7 @@ func (o *WorkflowRunStepDecorator) GetLink() WorkflowRunStepDecoratorLinkLink {
 // GetLinkOk returns a tuple with the Link field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunStepDecorator) GetLinkOk() (*WorkflowRunStepDecoratorLinkLink, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Link, true
@@ -103,7 +103,7 @@ func (o *WorkflowRunStepDecorator) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunStepDecorator) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -163,5 +163,3 @@ func (v *NullableWorkflowRunStepDecorator) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+
+RELAY_API_OPENAPI_URL="${RELAY_API_OPENAPI_URL:-"https://api.relay.sh/openapi/latest"}"
+
+exec docker run \
+  --rm \
+  -v "$(dirname "$(go env GOMOD)"):/local" \
+  -w /local \
+  -v "$(go env GOROOT):/go" \
+  -e GO_POST_PROCESS_FILE="/go/bin/go run golang.org/x/tools/cmd/goimports -w" \
+  gcr.io/nebula-contrib/openapi-generator-cli:latest \
+  generate \
+  -i "${RELAY_API_OPENAPI_URL}" \
+  -g go \
+  -t /local/hack/templates \
+  --enable-post-process-file \
+  --global-property apis,models,supportingFiles,apiDocs=false,modelDocs=false \
+  --additional-properties useOneOfDiscriminatorLookup=true \
+  "$@" \
+  -o /local/pkg/client/openapi

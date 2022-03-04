@@ -26,11 +26,8 @@ type Account struct {
 	// The unique identifier for the account
 	Id string `json:"id"`
 	// The name of the account
-	Name string `json:"name"`
-	// When the account plan is set to renew or expire
-	PlanEnd NullableTime `json:"plan_end,omitempty"`
-	// The account plan
-	PlanType *string `json:"plan_type,omitempty"`
+	Name             string                   `json:"name"`
+	PlanSubscription NullablePlanSubscription `json:"plan_subscription,omitempty"`
 }
 
 // NewAccount instantiates a new Account object
@@ -65,7 +62,7 @@ func (o *Account) GetAcceptedTermsAt() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Account) GetAcceptedTermsAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.AcceptedTermsAt.Get(), o.AcceptedTermsAt.IsSet()
@@ -84,6 +81,7 @@ func (o *Account) HasAcceptedTermsAt() bool {
 func (o *Account) SetAcceptedTermsAt(v time.Time) {
 	o.AcceptedTermsAt.Set(&v)
 }
+
 // SetAcceptedTermsAtNil sets the value for AcceptedTermsAt to be an explicit nil
 func (o *Account) SetAcceptedTermsAtNil() {
 	o.AcceptedTermsAt.Set(nil)
@@ -107,7 +105,7 @@ func (o *Account) GetAcceptedTermsVersion() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Account) GetAcceptedTermsVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.AcceptedTermsVersion.Get(), o.AcceptedTermsVersion.IsSet()
@@ -126,6 +124,7 @@ func (o *Account) HasAcceptedTermsVersion() bool {
 func (o *Account) SetAcceptedTermsVersion(v string) {
 	o.AcceptedTermsVersion.Set(&v)
 }
+
 // SetAcceptedTermsVersionNil sets the value for AcceptedTermsVersion to be an explicit nil
 func (o *Account) SetAcceptedTermsVersionNil() {
 	o.AcceptedTermsVersion.Set(nil)
@@ -181,7 +180,7 @@ func (o *Account) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Account) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -205,7 +204,7 @@ func (o *Account) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Account) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -216,78 +215,47 @@ func (o *Account) SetName(v string) {
 	o.Name = v
 }
 
-// GetPlanEnd returns the PlanEnd field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Account) GetPlanEnd() time.Time {
-	if o == nil || o.PlanEnd.Get() == nil {
-		var ret time.Time
+// GetPlanSubscription returns the PlanSubscription field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Account) GetPlanSubscription() PlanSubscription {
+	if o == nil || o.PlanSubscription.Get() == nil {
+		var ret PlanSubscription
 		return ret
 	}
-	return *o.PlanEnd.Get()
+	return *o.PlanSubscription.Get()
 }
 
-// GetPlanEndOk returns a tuple with the PlanEnd field value if set, nil otherwise
+// GetPlanSubscriptionOk returns a tuple with the PlanSubscription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Account) GetPlanEndOk() (*time.Time, bool) {
-	if o == nil  {
+func (o *Account) GetPlanSubscriptionOk() (*PlanSubscription, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PlanEnd.Get(), o.PlanEnd.IsSet()
+	return o.PlanSubscription.Get(), o.PlanSubscription.IsSet()
 }
 
-// HasPlanEnd returns a boolean if a field has been set.
-func (o *Account) HasPlanEnd() bool {
-	if o != nil && o.PlanEnd.IsSet() {
+// HasPlanSubscription returns a boolean if a field has been set.
+func (o *Account) HasPlanSubscription() bool {
+	if o != nil && o.PlanSubscription.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPlanEnd gets a reference to the given NullableTime and assigns it to the PlanEnd field.
-func (o *Account) SetPlanEnd(v time.Time) {
-	o.PlanEnd.Set(&v)
-}
-// SetPlanEndNil sets the value for PlanEnd to be an explicit nil
-func (o *Account) SetPlanEndNil() {
-	o.PlanEnd.Set(nil)
+// SetPlanSubscription gets a reference to the given NullablePlanSubscription and assigns it to the PlanSubscription field.
+func (o *Account) SetPlanSubscription(v PlanSubscription) {
+	o.PlanSubscription.Set(&v)
 }
 
-// UnsetPlanEnd ensures that no value is present for PlanEnd, not even an explicit nil
-func (o *Account) UnsetPlanEnd() {
-	o.PlanEnd.Unset()
+// SetPlanSubscriptionNil sets the value for PlanSubscription to be an explicit nil
+func (o *Account) SetPlanSubscriptionNil() {
+	o.PlanSubscription.Set(nil)
 }
 
-// GetPlanType returns the PlanType field value if set, zero value otherwise.
-func (o *Account) GetPlanType() string {
-	if o == nil || o.PlanType == nil {
-		var ret string
-		return ret
-	}
-	return *o.PlanType
-}
-
-// GetPlanTypeOk returns a tuple with the PlanType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Account) GetPlanTypeOk() (*string, bool) {
-	if o == nil || o.PlanType == nil {
-		return nil, false
-	}
-	return o.PlanType, true
-}
-
-// HasPlanType returns a boolean if a field has been set.
-func (o *Account) HasPlanType() bool {
-	if o != nil && o.PlanType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPlanType gets a reference to the given string and assigns it to the PlanType field.
-func (o *Account) SetPlanType(v string) {
-	o.PlanType = &v
+// UnsetPlanSubscription ensures that no value is present for PlanSubscription, not even an explicit nil
+func (o *Account) UnsetPlanSubscription() {
+	o.PlanSubscription.Unset()
 }
 
 func (o Account) MarshalJSON() ([]byte, error) {
@@ -307,11 +275,8 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.PlanEnd.IsSet() {
-		toSerialize["plan_end"] = o.PlanEnd.Get()
-	}
-	if o.PlanType != nil {
-		toSerialize["plan_type"] = o.PlanType
+	if o.PlanSubscription.IsSet() {
+		toSerialize["plan_subscription"] = o.PlanSubscription.Get()
 	}
 	return json.Marshal(toSerialize)
 }
@@ -351,5 +316,3 @@ func (v *NullableAccount) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

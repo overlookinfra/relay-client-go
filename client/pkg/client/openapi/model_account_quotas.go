@@ -60,7 +60,7 @@ func (o *AccountQuotas) GetUserCount() int32 {
 // GetUserCountOk returns a tuple with the UserCount field value
 // and a boolean to check if the value has been set.
 func (o *AccountQuotas) GetUserCountOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UserCount, true
@@ -84,7 +84,7 @@ func (o *AccountQuotas) GetUserQuota() int32 {
 // GetUserQuotaOk returns a tuple with the UserQuota field value
 // and a boolean to check if the value has been set.
 func (o *AccountQuotas) GetUserQuotaOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UserQuota, true
@@ -108,7 +108,7 @@ func (o *AccountQuotas) GetWorkflowCount() int32 {
 // GetWorkflowCountOk returns a tuple with the WorkflowCount field value
 // and a boolean to check if the value has been set.
 func (o *AccountQuotas) GetWorkflowCountOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.WorkflowCount, true
@@ -132,7 +132,7 @@ func (o *AccountQuotas) GetWorkflowQuota() int32 {
 // GetWorkflowQuotaOk returns a tuple with the WorkflowQuota field value
 // and a boolean to check if the value has been set.
 func (o *AccountQuotas) GetWorkflowQuotaOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.WorkflowQuota, true
@@ -195,5 +195,3 @@ func (v *NullableAccountQuotas) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

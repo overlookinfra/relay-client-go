@@ -54,7 +54,7 @@ func (o *WorkflowRunStepDecoratorLinkLink) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunStepDecoratorLinkLink) GetDescriptionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Description, true
@@ -78,7 +78,7 @@ func (o *WorkflowRunStepDecoratorLinkLink) GetUri() string {
 // GetUriOk returns a tuple with the Uri field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunStepDecoratorLinkLink) GetUriOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Uri, true
@@ -135,5 +135,3 @@ func (v *NullableWorkflowRunStepDecoratorLinkLink) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

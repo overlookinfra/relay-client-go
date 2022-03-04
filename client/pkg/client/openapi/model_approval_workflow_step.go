@@ -19,7 +19,7 @@ type ApprovalWorkflowStep struct {
 	// Step names that must complete before this one starts
 	DependsOn *[]string `json:"depends_on,omitempty"`
 	// A user provided step name. Must be unique within the workflow definition
-	Name string `json:"name"`
+	Name       string                  `json:"name"`
 	References *WorkflowDataReferences `json:"references,omitempty"`
 	// An expression evaluated by the backend
 	When interface{} `json:"when,omitempty"`
@@ -91,7 +91,7 @@ func (o *ApprovalWorkflowStep) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ApprovalWorkflowStep) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -136,7 +136,7 @@ func (o *ApprovalWorkflowStep) SetReferences(v WorkflowDataReferences) {
 
 // GetWhen returns the When field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ApprovalWorkflowStep) GetWhen() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -180,7 +180,7 @@ func (o *ApprovalWorkflowStep) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ApprovalWorkflowStep) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -246,5 +246,3 @@ func (v *NullableApprovalWorkflowStep) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -16,10 +16,10 @@ import (
 
 // WorkflowDataReferences An index of data references in a section of yaml
 type WorkflowDataReferences struct {
-	Connections *[]ConnectionReference `json:"connections,omitempty"`
-	Outputs *[]WorkflowOutputReference `json:"outputs,omitempty"`
-	Parameters *[]WorkflowParameterReference `json:"parameters,omitempty"`
-	Secrets *[]WorkflowSecretSummary `json:"secrets,omitempty"`
+	Connections *[]ConnectionReference        `json:"connections,omitempty"`
+	Outputs     *[]WorkflowOutputReference    `json:"outputs,omitempty"`
+	Parameters  *[]WorkflowParameterReference `json:"parameters,omitempty"`
+	Secrets     *[]WorkflowSecretSummary      `json:"secrets,omitempty"`
 }
 
 // NewWorkflowDataReferences instantiates a new WorkflowDataReferences object
@@ -219,5 +219,3 @@ func (v *NullableWorkflowDataReferences) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

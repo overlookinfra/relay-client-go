@@ -122,7 +122,7 @@ func (o *NotificationAllOf) GetRead() bool {
 // GetReadOk returns a tuple with the Read field value
 // and a boolean to check if the value has been set.
 func (o *NotificationAllOf) GetReadOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Read, true
@@ -146,7 +146,7 @@ func (o *NotificationAllOf) GetState() string {
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *NotificationAllOf) GetStateOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.State, true
@@ -209,5 +209,3 @@ func (v *NullableNotificationAllOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

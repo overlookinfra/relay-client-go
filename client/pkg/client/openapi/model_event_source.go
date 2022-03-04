@@ -22,9 +22,8 @@ type EventSource struct {
 
 // EventSourceTriggerAsEventSource is a convenience function that returns EventSourceTrigger wrapped in EventSource
 func EventSourceTriggerAsEventSource(v *EventSourceTrigger) EventSource {
-	return EventSource{ EventSourceTrigger: v}
+	return EventSource{EventSourceTrigger: v}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *EventSource) UnmarshalJSON(data []byte) error {
@@ -60,7 +59,34 @@ func (dst *EventSource) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	return nil
+	match := 0
+	// try to unmarshal data into EventSourceTrigger
+	err = json.Unmarshal(data, &dst.EventSourceTrigger)
+	if err == nil {
+		jsonEventSourceTrigger, err := json.Marshal(dst.EventSourceTrigger)
+		if err == nil {
+			if string(jsonEventSourceTrigger) == "" || string(jsonEventSourceTrigger) == "{}" { // empty struct
+				dst.EventSourceTrigger = nil
+			} else {
+				match++
+			}
+		} else {
+			dst.EventSourceTrigger = nil
+		}
+	} else {
+		dst.EventSourceTrigger = nil
+	}
+
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.EventSourceTrigger = nil
+
+		return fmt.Errorf("Data matches more than one schema in oneOf(EventSource)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(EventSource)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -73,7 +99,7 @@ func (src EventSource) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *EventSource) GetActualInstance() (interface{}) {
+func (obj *EventSource) GetActualInstance() interface{} {
 	if obj.EventSourceTrigger != nil {
 		return obj.EventSourceTrigger
 	}
@@ -117,5 +143,3 @@ func (v *NullableEventSource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

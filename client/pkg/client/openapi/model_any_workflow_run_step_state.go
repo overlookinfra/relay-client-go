@@ -21,6 +21,8 @@ type AnyWorkflowRunStepState struct {
 	Decorators *[]WorkflowRunStepDecorator `json:"decorators,omitempty"`
 	// Time at which the step execution ended
 	EndedAt NullableTime `json:"ended_at,omitempty"`
+	// All messages associated with this step
+	Messages *[]WorkflowRunStepMessage `json:"messages,omitempty"`
 	// Time at which step execution started
 	StartedAt NullableTime `json:"started_at,omitempty"`
 	// Workflow run step status
@@ -90,7 +92,7 @@ func (o *AnyWorkflowRunStepState) GetEndedAt() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AnyWorkflowRunStepState) GetEndedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.EndedAt.Get(), o.EndedAt.IsSet()
@@ -109,6 +111,7 @@ func (o *AnyWorkflowRunStepState) HasEndedAt() bool {
 func (o *AnyWorkflowRunStepState) SetEndedAt(v time.Time) {
 	o.EndedAt.Set(&v)
 }
+
 // SetEndedAtNil sets the value for EndedAt to be an explicit nil
 func (o *AnyWorkflowRunStepState) SetEndedAtNil() {
 	o.EndedAt.Set(nil)
@@ -117,6 +120,38 @@ func (o *AnyWorkflowRunStepState) SetEndedAtNil() {
 // UnsetEndedAt ensures that no value is present for EndedAt, not even an explicit nil
 func (o *AnyWorkflowRunStepState) UnsetEndedAt() {
 	o.EndedAt.Unset()
+}
+
+// GetMessages returns the Messages field value if set, zero value otherwise.
+func (o *AnyWorkflowRunStepState) GetMessages() []WorkflowRunStepMessage {
+	if o == nil || o.Messages == nil {
+		var ret []WorkflowRunStepMessage
+		return ret
+	}
+	return *o.Messages
+}
+
+// GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AnyWorkflowRunStepState) GetMessagesOk() (*[]WorkflowRunStepMessage, bool) {
+	if o == nil || o.Messages == nil {
+		return nil, false
+	}
+	return o.Messages, true
+}
+
+// HasMessages returns a boolean if a field has been set.
+func (o *AnyWorkflowRunStepState) HasMessages() bool {
+	if o != nil && o.Messages != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMessages gets a reference to the given []WorkflowRunStepMessage and assigns it to the Messages field.
+func (o *AnyWorkflowRunStepState) SetMessages(v []WorkflowRunStepMessage) {
+	o.Messages = &v
 }
 
 // GetStartedAt returns the StartedAt field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -132,7 +167,7 @@ func (o *AnyWorkflowRunStepState) GetStartedAt() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AnyWorkflowRunStepState) GetStartedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.StartedAt.Get(), o.StartedAt.IsSet()
@@ -151,6 +186,7 @@ func (o *AnyWorkflowRunStepState) HasStartedAt() bool {
 func (o *AnyWorkflowRunStepState) SetStartedAt(v time.Time) {
 	o.StartedAt.Set(&v)
 }
+
 // SetStartedAtNil sets the value for StartedAt to be an explicit nil
 func (o *AnyWorkflowRunStepState) SetStartedAtNil() {
 	o.StartedAt.Set(nil)
@@ -174,7 +210,7 @@ func (o *AnyWorkflowRunStepState) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *AnyWorkflowRunStepState) GetStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Status, true
@@ -192,6 +228,9 @@ func (o AnyWorkflowRunStepState) MarshalJSON() ([]byte, error) {
 	}
 	if o.EndedAt.IsSet() {
 		toSerialize["ended_at"] = o.EndedAt.Get()
+	}
+	if o.Messages != nil {
+		toSerialize["messages"] = o.Messages
 	}
 	if o.StartedAt.IsSet() {
 		toSerialize["started_at"] = o.StartedAt.Get()
@@ -237,5 +276,3 @@ func (v *NullableAnyWorkflowRunStepState) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

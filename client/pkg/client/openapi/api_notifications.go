@@ -28,10 +28,10 @@ var (
 type NotificationsApiService service
 
 type ApiGetNotificationsRequest struct {
-	ctx _context.Context
+	ctx        _context.Context
 	ApiService *NotificationsApiService
 	attributes *string
-	state *string
+	state      *string
 }
 
 // The notification attribute to filter results on
@@ -39,6 +39,7 @@ func (r ApiGetNotificationsRequest) Attributes(attributes string) ApiGetNotifica
 	r.attributes = &attributes
 	return r
 }
+
 // The notification state to filter results on
 func (r ApiGetNotificationsRequest) State(state string) ApiGetNotificationsRequest {
 	r.state = &state
@@ -58,7 +59,7 @@ GetNotifications Get a list of notifications
 func (a *NotificationsApiService) GetNotifications(ctx _context.Context) ApiGetNotificationsRequest {
 	return ApiGetNotificationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -130,13 +131,13 @@ func (a *NotificationsApiService) GetNotificationsExecute(r ApiGetNotificationsR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -153,8 +154,8 @@ func (a *NotificationsApiService) GetNotificationsExecute(r ApiGetNotificationsR
 }
 
 type ApiPostAllNotificationDoneRequest struct {
-	ctx _context.Context
-	ApiService *NotificationsApiService
+	ctx                     _context.Context
+	ApiService              *NotificationsApiService
 	notificationIdentifiers *NotificationIdentifiers
 }
 
@@ -177,7 +178,7 @@ PostAllNotificationDone Mark multiple notifications as done
 func (a *NotificationsApiService) PostAllNotificationDone(ctx _context.Context) ApiPostAllNotificationDoneRequest {
 	return ApiPostAllNotificationDoneRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -245,13 +246,13 @@ func (a *NotificationsApiService) PostAllNotificationDoneExecute(r ApiPostAllNot
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -268,8 +269,8 @@ func (a *NotificationsApiService) PostAllNotificationDoneExecute(r ApiPostAllNot
 }
 
 type ApiPostAllNotificationReadRequest struct {
-	ctx _context.Context
-	ApiService *NotificationsApiService
+	ctx                     _context.Context
+	ApiService              *NotificationsApiService
 	notificationIdentifiers *NotificationIdentifiers
 }
 
@@ -292,7 +293,7 @@ PostAllNotificationRead Mark multiple notifications as read
 func (a *NotificationsApiService) PostAllNotificationRead(ctx _context.Context) ApiPostAllNotificationReadRequest {
 	return ApiPostAllNotificationReadRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -360,13 +361,13 @@ func (a *NotificationsApiService) PostAllNotificationReadExecute(r ApiPostAllNot
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -383,11 +384,10 @@ func (a *NotificationsApiService) PostAllNotificationReadExecute(r ApiPostAllNot
 }
 
 type ApiPostNotificationDoneRequest struct {
-	ctx _context.Context
-	ApiService *NotificationsApiService
+	ctx            _context.Context
+	ApiService     *NotificationsApiService
 	notificationId string
 }
-
 
 func (r ApiPostNotificationDoneRequest) Execute() (InlineResponse2002, *_nethttp.Response, error) {
 	return r.ApiService.PostNotificationDoneExecute(r)
@@ -402,8 +402,8 @@ PostNotificationDone Mark notification as done
 */
 func (a *NotificationsApiService) PostNotificationDone(ctx _context.Context, notificationId string) ApiPostNotificationDoneRequest {
 	return ApiPostNotificationDoneRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		notificationId: notificationId,
 	}
 }
@@ -471,13 +471,13 @@ func (a *NotificationsApiService) PostNotificationDoneExecute(r ApiPostNotificat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -494,11 +494,10 @@ func (a *NotificationsApiService) PostNotificationDoneExecute(r ApiPostNotificat
 }
 
 type ApiPostNotificationReadRequest struct {
-	ctx _context.Context
-	ApiService *NotificationsApiService
+	ctx            _context.Context
+	ApiService     *NotificationsApiService
 	notificationId string
 }
-
 
 func (r ApiPostNotificationReadRequest) Execute() (InlineResponse2002, *_nethttp.Response, error) {
 	return r.ApiService.PostNotificationReadExecute(r)
@@ -513,8 +512,8 @@ PostNotificationRead Mark notification as read
 */
 func (a *NotificationsApiService) PostNotificationRead(ctx _context.Context, notificationId string) ApiPostNotificationReadRequest {
 	return ApiPostNotificationReadRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		notificationId: notificationId,
 	}
 }
@@ -582,13 +581,13 @@ func (a *NotificationsApiService) PostNotificationReadExecute(r ApiPostNotificat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

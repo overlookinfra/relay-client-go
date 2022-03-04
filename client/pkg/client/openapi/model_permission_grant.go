@@ -17,7 +17,7 @@ import (
 // PermissionGrant A permission resolved in a given context, such as a user in an entity
 type PermissionGrant struct {
 	// Whether this permission has been granted in the context or a sub-context
-	Granted *string `json:"granted,omitempty"`
+	Granted    *string            `json:"granted,omitempty"`
 	Permission *PermissionSummary `json:"permission,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullablePermissionGrant) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

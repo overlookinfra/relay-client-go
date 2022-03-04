@@ -22,9 +22,8 @@ type TokenWithSecret struct {
 
 // UserTokenWithSecretAsTokenWithSecret is a convenience function that returns UserTokenWithSecret wrapped in TokenWithSecret
 func UserTokenWithSecretAsTokenWithSecret(v *UserTokenWithSecret) TokenWithSecret {
-	return TokenWithSecret{ UserTokenWithSecret: v}
+	return TokenWithSecret{UserTokenWithSecret: v}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *TokenWithSecret) UnmarshalJSON(data []byte) error {
@@ -60,7 +59,34 @@ func (dst *TokenWithSecret) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	return nil
+	match := 0
+	// try to unmarshal data into UserTokenWithSecret
+	err = json.Unmarshal(data, &dst.UserTokenWithSecret)
+	if err == nil {
+		jsonUserTokenWithSecret, err := json.Marshal(dst.UserTokenWithSecret)
+		if err == nil {
+			if string(jsonUserTokenWithSecret) == "" || string(jsonUserTokenWithSecret) == "{}" { // empty struct
+				dst.UserTokenWithSecret = nil
+			} else {
+				match++
+			}
+		} else {
+			dst.UserTokenWithSecret = nil
+		}
+	} else {
+		dst.UserTokenWithSecret = nil
+	}
+
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.UserTokenWithSecret = nil
+
+		return fmt.Errorf("Data matches more than one schema in oneOf(TokenWithSecret)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(TokenWithSecret)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -73,7 +99,7 @@ func (src TokenWithSecret) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *TokenWithSecret) GetActualInstance() (interface{}) {
+func (obj *TokenWithSecret) GetActualInstance() interface{} {
 	if obj.UserTokenWithSecret != nil {
 		return obj.UserTokenWithSecret
 	}
@@ -117,5 +143,3 @@ func (v *NullableTokenWithSecret) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

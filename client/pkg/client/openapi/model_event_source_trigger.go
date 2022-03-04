@@ -16,9 +16,9 @@ import (
 
 // EventSourceTrigger A trigger event source
 type EventSourceTrigger struct {
-	Trigger WorkflowTriggerIdentifier `json:"trigger"`
-	Type string `json:"type"`
-	Workflow WorkflowIdentifier `json:"workflow"`
+	Trigger  WorkflowTriggerIdentifier `json:"trigger"`
+	Type     string                    `json:"type"`
+	Workflow WorkflowIdentifier        `json:"workflow"`
 }
 
 // NewEventSourceTrigger instantiates a new EventSourceTrigger object
@@ -54,7 +54,7 @@ func (o *EventSourceTrigger) GetTrigger() WorkflowTriggerIdentifier {
 // GetTriggerOk returns a tuple with the Trigger field value
 // and a boolean to check if the value has been set.
 func (o *EventSourceTrigger) GetTriggerOk() (*WorkflowTriggerIdentifier, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Trigger, true
@@ -78,7 +78,7 @@ func (o *EventSourceTrigger) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *EventSourceTrigger) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -102,7 +102,7 @@ func (o *EventSourceTrigger) GetWorkflow() WorkflowIdentifier {
 // GetWorkflowOk returns a tuple with the Workflow field value
 // and a boolean to check if the value has been set.
 func (o *EventSourceTrigger) GetWorkflowOk() (*WorkflowIdentifier, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Workflow, true
@@ -162,5 +162,3 @@ func (v *NullableEventSourceTrigger) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

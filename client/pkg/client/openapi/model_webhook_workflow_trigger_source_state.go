@@ -88,7 +88,7 @@ func (o *WebhookWorkflowTriggerSourceState) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *WebhookWorkflowTriggerSourceState) GetStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Status, true
@@ -112,7 +112,7 @@ func (o *WebhookWorkflowTriggerSourceState) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *WebhookWorkflowTriggerSourceState) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -172,5 +172,3 @@ func (v *NullableWebhookWorkflowTriggerSourceState) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

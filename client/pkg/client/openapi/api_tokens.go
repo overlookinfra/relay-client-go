@@ -28,8 +28,8 @@ var (
 type TokensApiService service
 
 type ApiCreateTokenRequest struct {
-	ctx _context.Context
-	ApiService *TokensApiService
+	ctx          _context.Context
+	ApiService   *TokensApiService
 	tokenRequest *TokenRequest
 }
 
@@ -52,7 +52,7 @@ CreateToken Create a new token
 func (a *TokensApiService) CreateToken(ctx _context.Context) ApiCreateTokenRequest {
 	return ApiCreateTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -123,13 +123,13 @@ func (a *TokensApiService) CreateTokenExecute(r ApiCreateTokenRequest) (TokenRes
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -146,11 +146,10 @@ func (a *TokensApiService) CreateTokenExecute(r ApiCreateTokenRequest) (TokenRes
 }
 
 type ApiDeleteTokenRequest struct {
-	ctx _context.Context
+	ctx        _context.Context
 	ApiService *TokensApiService
-	tokenId string
+	tokenId    string
 }
-
 
 func (r ApiDeleteTokenRequest) Execute() (DeletedResource, *_nethttp.Response, error) {
 	return r.ApiService.DeleteTokenExecute(r)
@@ -166,8 +165,8 @@ DeleteToken Revoke a token
 func (a *TokensApiService) DeleteToken(ctx _context.Context, tokenId string) ApiDeleteTokenRequest {
 	return ApiDeleteTokenRequest{
 		ApiService: a,
-		ctx: ctx,
-		tokenId: tokenId,
+		ctx:        ctx,
+		tokenId:    tokenId,
 	}
 }
 
@@ -234,13 +233,13 @@ func (a *TokensApiService) DeleteTokenExecute(r ApiDeleteTokenRequest) (DeletedR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -257,10 +256,10 @@ func (a *TokensApiService) DeleteTokenExecute(r ApiDeleteTokenRequest) (DeletedR
 }
 
 type ApiGetTokensRequest struct {
-	ctx _context.Context
+	ctx        _context.Context
 	ApiService *TokensApiService
-	owned *bool
-	valid *bool
+	owned      *bool
+	valid      *bool
 }
 
 // Filter by owned (user) tokens
@@ -268,6 +267,7 @@ func (r ApiGetTokensRequest) Owned(owned bool) ApiGetTokensRequest {
 	r.owned = &owned
 	return r
 }
+
 // Filter by valid tokens
 func (r ApiGetTokensRequest) Valid(valid bool) ApiGetTokensRequest {
 	r.valid = &valid
@@ -287,7 +287,7 @@ GetTokens List tokens
 func (a *TokensApiService) GetTokens(ctx _context.Context) ApiGetTokensRequest {
 	return ApiGetTokensRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -359,13 +359,13 @@ func (a *TokensApiService) GetTokensExecute(r ApiGetTokensRequest) (Tokens, *_ne
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

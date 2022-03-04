@@ -20,7 +20,7 @@ type ConnectionProviderCapability string
 
 // List of ConnectionProviderCapability
 const (
-	SOURCE_CONTROL ConnectionProviderCapability = "source-control"
+	SOURCE_CONTROL  ConnectionProviderCapability = "source-control"
 	WORKFLOW_ENGINE ConnectionProviderCapability = "workflow-engine"
 )
 
@@ -107,4 +107,3 @@ func (v *NullableConnectionProviderCapability) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

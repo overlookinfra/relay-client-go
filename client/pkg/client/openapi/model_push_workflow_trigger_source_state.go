@@ -57,7 +57,7 @@ func (o *PushWorkflowTriggerSourceState) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *PushWorkflowTriggerSourceState) GetStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Status, true
@@ -81,7 +81,7 @@ func (o *PushWorkflowTriggerSourceState) GetToken() string {
 // GetTokenOk returns a tuple with the Token field value
 // and a boolean to check if the value has been set.
 func (o *PushWorkflowTriggerSourceState) GetTokenOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Token, true
@@ -105,7 +105,7 @@ func (o *PushWorkflowTriggerSourceState) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *PushWorkflowTriggerSourceState) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -165,5 +165,3 @@ func (v *NullablePushWorkflowTriggerSourceState) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

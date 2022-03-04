@@ -20,10 +20,12 @@ type WorkflowView struct {
 	Name string `json:"name"`
 	// User provided friendly workflow description
 	Description *string `json:"description,omitempty"`
+	// If true, this workflow cannot be edited or run directly by the user.
+	Immutable *bool `json:"immutable,omitempty"`
 	// Time of creation
 	CreatedAt time.Time `json:"created_at"`
 	// Time of last update
-	UpdatedAt time.Time `json:"updated_at"`
+	UpdatedAt     time.Time        `json:"updated_at"`
 	MostRecentRun *WorkflowRunView `json:"most_recent_run,omitempty"`
 }
 
@@ -60,7 +62,7 @@ func (o *WorkflowView) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowView) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -103,6 +105,38 @@ func (o *WorkflowView) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetImmutable returns the Immutable field value if set, zero value otherwise.
+func (o *WorkflowView) GetImmutable() bool {
+	if o == nil || o.Immutable == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Immutable
+}
+
+// GetImmutableOk returns a tuple with the Immutable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WorkflowView) GetImmutableOk() (*bool, bool) {
+	if o == nil || o.Immutable == nil {
+		return nil, false
+	}
+	return o.Immutable, true
+}
+
+// HasImmutable returns a boolean if a field has been set.
+func (o *WorkflowView) HasImmutable() bool {
+	if o != nil && o.Immutable != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetImmutable gets a reference to the given bool and assigns it to the Immutable field.
+func (o *WorkflowView) SetImmutable(v bool) {
+	o.Immutable = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *WorkflowView) GetCreatedAt() time.Time {
 	if o == nil {
@@ -116,7 +150,7 @@ func (o *WorkflowView) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowView) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CreatedAt, true
@@ -140,7 +174,7 @@ func (o *WorkflowView) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowView) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UpdatedAt, true
@@ -191,6 +225,9 @@ func (o WorkflowView) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+	if o.Immutable != nil {
+		toSerialize["immutable"] = o.Immutable
+	}
 	if true {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -238,5 +275,3 @@ func (v *NullableWorkflowView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

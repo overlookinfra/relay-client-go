@@ -51,7 +51,7 @@ func (o *UserProfileAllOf) GetPreferences() map[string]interface{} {
 // GetPreferencesOk returns a tuple with the Preferences field value
 // and a boolean to check if the value has been set.
 func (o *UserProfileAllOf) GetPreferencesOk() (*map[string]interface{}, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Preferences, true
@@ -105,5 +105,3 @@ func (v *NullableUserProfileAllOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

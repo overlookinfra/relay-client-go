@@ -17,15 +17,15 @@ import (
 // WorkflowRunSummary struct for WorkflowRunSummary
 type WorkflowRunSummary struct {
 	// The sequential identifier for a single workflow run
-	RunNumber int32 `json:"run_number"`
-	Workflow WorkflowIdentifier `json:"workflow"`
+	RunNumber int32              `json:"run_number"`
+	Workflow  WorkflowIdentifier `json:"workflow"`
 	// The API URL to this object
 	ApiUrl *string `json:"api_url,omitempty"`
 	// The web/HTML URL to this object
-	AppUrl *string `json:"app_url,omitempty"`
-	CreatedBy *WorkflowRunCreator `json:"created_by,omitempty"`
-	Revision WorkflowRevisionIdentifier `json:"revision"`
-	State WorkflowRunStateSummary `json:"state"`
+	AppUrl    *string                    `json:"app_url,omitempty"`
+	CreatedBy *WorkflowRunCreator        `json:"created_by,omitempty"`
+	Revision  WorkflowRevisionIdentifier `json:"revision"`
+	State     WorkflowRunStateSummary    `json:"state"`
 }
 
 // NewWorkflowRunSummary instantiates a new WorkflowRunSummary object
@@ -62,7 +62,7 @@ func (o *WorkflowRunSummary) GetRunNumber() int32 {
 // GetRunNumberOk returns a tuple with the RunNumber field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunSummary) GetRunNumberOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RunNumber, true
@@ -86,7 +86,7 @@ func (o *WorkflowRunSummary) GetWorkflow() WorkflowIdentifier {
 // GetWorkflowOk returns a tuple with the Workflow field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunSummary) GetWorkflowOk() (*WorkflowIdentifier, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Workflow, true
@@ -206,7 +206,7 @@ func (o *WorkflowRunSummary) GetRevision() WorkflowRevisionIdentifier {
 // GetRevisionOk returns a tuple with the Revision field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunSummary) GetRevisionOk() (*WorkflowRevisionIdentifier, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Revision, true
@@ -230,7 +230,7 @@ func (o *WorkflowRunSummary) GetState() WorkflowRunStateSummary {
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunSummary) GetStateOk() (*WorkflowRunStateSummary, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.State, true
@@ -302,5 +302,3 @@ func (v *NullableWorkflowRunSummary) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

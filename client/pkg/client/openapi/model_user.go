@@ -27,6 +27,8 @@ type User struct {
 	CreatedAt time.Time `json:"created_at"`
 	// Time of last update
 	UpdatedAt time.Time `json:"updated_at"`
+	// Timestamp of the last activity of this user
+	LastActivityAt *time.Time `json:"last_activity_at,omitempty"`
 	// The roles that this user has been assigned
 	Roles []RoleSummary `json:"roles"`
 }
@@ -66,7 +68,7 @@ func (o *User) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *User) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -122,7 +124,7 @@ func (o *User) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *User) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -146,7 +148,7 @@ func (o *User) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *User) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CreatedAt, true
@@ -170,7 +172,7 @@ func (o *User) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *User) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UpdatedAt, true
@@ -179,6 +181,38 @@ func (o *User) GetUpdatedAtOk() (*time.Time, bool) {
 // SetUpdatedAt sets field value
 func (o *User) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = v
+}
+
+// GetLastActivityAt returns the LastActivityAt field value if set, zero value otherwise.
+func (o *User) GetLastActivityAt() time.Time {
+	if o == nil || o.LastActivityAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastActivityAt
+}
+
+// GetLastActivityAtOk returns a tuple with the LastActivityAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *User) GetLastActivityAtOk() (*time.Time, bool) {
+	if o == nil || o.LastActivityAt == nil {
+		return nil, false
+	}
+	return o.LastActivityAt, true
+}
+
+// HasLastActivityAt returns a boolean if a field has been set.
+func (o *User) HasLastActivityAt() bool {
+	if o != nil && o.LastActivityAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastActivityAt gets a reference to the given time.Time and assigns it to the LastActivityAt field.
+func (o *User) SetLastActivityAt(v time.Time) {
+	o.LastActivityAt = &v
 }
 
 // GetRoles returns the Roles field value
@@ -194,7 +228,7 @@ func (o *User) GetRoles() []RoleSummary {
 // GetRolesOk returns a tuple with the Roles field value
 // and a boolean to check if the value has been set.
 func (o *User) GetRolesOk() (*[]RoleSummary, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Roles, true
@@ -221,6 +255,9 @@ func (o User) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if o.LastActivityAt != nil {
+		toSerialize["last_activity_at"] = o.LastActivityAt
 	}
 	if true {
 		toSerialize["roles"] = o.Roles
@@ -263,5 +300,3 @@ func (v *NullableUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

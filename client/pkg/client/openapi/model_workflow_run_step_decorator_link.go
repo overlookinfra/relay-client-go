@@ -17,7 +17,7 @@ import (
 // WorkflowRunStepDecoratorLink A link-type decorator
 type WorkflowRunStepDecoratorLink struct {
 	Link WorkflowRunStepDecoratorLinkLink `json:"link"`
-	Type string `json:"type"`
+	Type string                           `json:"type"`
 }
 
 // NewWorkflowRunStepDecoratorLink instantiates a new WorkflowRunStepDecoratorLink object
@@ -52,7 +52,7 @@ func (o *WorkflowRunStepDecoratorLink) GetLink() WorkflowRunStepDecoratorLinkLin
 // GetLinkOk returns a tuple with the Link field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunStepDecoratorLink) GetLinkOk() (*WorkflowRunStepDecoratorLinkLink, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Link, true
@@ -76,7 +76,7 @@ func (o *WorkflowRunStepDecoratorLink) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunStepDecoratorLink) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -133,5 +133,3 @@ func (v *NullableWorkflowRunStepDecoratorLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

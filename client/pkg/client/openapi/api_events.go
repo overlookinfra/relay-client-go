@@ -27,8 +27,8 @@ var (
 type EventsApiService service
 
 type ApiCreateEventRequest struct {
-	ctx _context.Context
-	ApiService *EventsApiService
+	ctx          _context.Context
+	ApiService   *EventsApiService
 	eventRequest *EventRequest
 }
 
@@ -51,7 +51,7 @@ CreateEvent Submit an event to be processed
 func (a *EventsApiService) CreateEvent(ctx _context.Context) ApiCreateEventRequest {
 	return ApiCreateEventRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -122,13 +122,13 @@ func (a *EventsApiService) CreateEventExecute(r ApiCreateEventRequest) (EventRes
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

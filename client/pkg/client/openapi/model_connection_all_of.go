@@ -16,7 +16,7 @@ import (
 
 // ConnectionAllOf An external connection
 type ConnectionAllOf struct {
-	Auth ConnectionAuthStatus `json:"auth"`
+	Auth         ConnectionAuthStatus   `json:"auth"`
 	Availability ConnectionAvailability `json:"availability"`
 	// The workflows being used by this connection
 	Workflows *[]ConnectionWorkflowSummary `json:"workflows,omitempty"`
@@ -54,7 +54,7 @@ func (o *ConnectionAllOf) GetAuth() ConnectionAuthStatus {
 // GetAuthOk returns a tuple with the Auth field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionAllOf) GetAuthOk() (*ConnectionAuthStatus, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Auth, true
@@ -78,7 +78,7 @@ func (o *ConnectionAllOf) GetAvailability() ConnectionAvailability {
 // GetAvailabilityOk returns a tuple with the Availability field value
 // and a boolean to check if the value has been set.
 func (o *ConnectionAllOf) GetAvailabilityOk() (*ConnectionAvailability, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Availability, true
@@ -170,5 +170,3 @@ func (v *NullableConnectionAllOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

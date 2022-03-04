@@ -57,7 +57,7 @@ func (o *OAuth2ConnectionAuthInput) GetCode() string {
 // GetCodeOk returns a tuple with the Code field value
 // and a boolean to check if the value has been set.
 func (o *OAuth2ConnectionAuthInput) GetCodeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Code, true
@@ -81,7 +81,7 @@ func (o *OAuth2ConnectionAuthInput) GetState() string {
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *OAuth2ConnectionAuthInput) GetStateOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.State, true
@@ -105,7 +105,7 @@ func (o *OAuth2ConnectionAuthInput) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *OAuth2ConnectionAuthInput) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -165,5 +165,3 @@ func (v *NullableOAuth2ConnectionAuthInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

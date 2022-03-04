@@ -19,7 +19,7 @@ type ContainerWorkflowStep struct {
 	// Step names that must complete before this one starts
 	DependsOn *[]string `json:"depends_on,omitempty"`
 	// A user provided step name. Must be unique within the workflow definition
-	Name string `json:"name"`
+	Name       string                  `json:"name"`
 	References *WorkflowDataReferences `json:"references,omitempty"`
 	// An expression evaluated by the backend
 	When interface{} `json:"when,omitempty"`
@@ -106,7 +106,7 @@ func (o *ContainerWorkflowStep) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ContainerWorkflowStep) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -151,7 +151,7 @@ func (o *ContainerWorkflowStep) SetReferences(v WorkflowDataReferences) {
 
 // GetWhen returns the When field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ContainerWorkflowStep) GetWhen() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -291,7 +291,7 @@ func (o *ContainerWorkflowStep) GetImage() string {
 // GetImageOk returns a tuple with the Image field value
 // and a boolean to check if the value has been set.
 func (o *ContainerWorkflowStep) GetImageOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Image, true
@@ -411,7 +411,7 @@ func (o *ContainerWorkflowStep) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ContainerWorkflowStep) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -498,5 +498,3 @@ func (v *NullableContainerWorkflowStep) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -54,7 +54,7 @@ func (o *BinaryStringOneOf) GetEncoding() string {
 // GetEncodingOk returns a tuple with the Encoding field value
 // and a boolean to check if the value has been set.
 func (o *BinaryStringOneOf) GetEncodingOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Encoding, true
@@ -78,7 +78,7 @@ func (o *BinaryStringOneOf) GetData() string {
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
 func (o *BinaryStringOneOf) GetDataOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Data, true
@@ -135,5 +135,3 @@ func (v *NullableBinaryStringOneOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -16,8 +16,8 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
-	"strings"
 	"os"
+	"strings"
 )
 
 // Linger please
@@ -29,12 +29,11 @@ var (
 type WorkflowRunsApiService service
 
 type ApiGetWorkflowRunRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowRunsApiService
-	workflowName string
+	ctx               _context.Context
+	ApiService        *WorkflowRunsApiService
+	workflowName      string
 	workflowRunNumber int32
 }
-
 
 func (r ApiGetWorkflowRunRequest) Execute() (WorkflowRunEntity, *_nethttp.Response, error) {
 	return r.ApiService.GetWorkflowRunExecute(r)
@@ -50,9 +49,9 @@ GetWorkflowRun Gets a workflow run accessed with a workflow name and run number
 */
 func (a *WorkflowRunsApiService) GetWorkflowRun(ctx _context.Context, workflowName string, workflowRunNumber int32) ApiGetWorkflowRunRequest {
 	return ApiGetWorkflowRunRequest{
-		ApiService: a,
-		ctx: ctx,
-		workflowName: workflowName,
+		ApiService:        a,
+		ctx:               ctx,
+		workflowName:      workflowName,
 		workflowRunNumber: workflowRunNumber,
 	}
 }
@@ -124,13 +123,13 @@ func (a *WorkflowRunsApiService) GetWorkflowRunExecute(r ApiGetWorkflowRunReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -147,15 +146,15 @@ func (a *WorkflowRunsApiService) GetWorkflowRunExecute(r ApiGetWorkflowRunReques
 }
 
 type ApiGetWorkflowRunStepLogRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowRunsApiService
-	workflowName string
+	ctx               _context.Context
+	ApiService        *WorkflowRunsApiService
+	workflowName      string
 	workflowRunNumber int32
-	workflowStepName string
-	follow *bool
+	workflowStepName  string
+	follow            *bool
 }
 
-// If true and the step is in progress, print known logs so far, then wait to send the next log chunk. Only use in conjunction with Accept: application/octet-stream. 
+// If true and the step is in progress, print known logs so far, then wait to send the next log chunk. Only use in conjunction with Accept: application/octet-stream.
 func (r ApiGetWorkflowRunStepLogRequest) Follow(follow bool) ApiGetWorkflowRunStepLogRequest {
 	r.follow = &follow
 	return r
@@ -176,11 +175,11 @@ GetWorkflowRunStepLog Returns the log for a workflow step, accessed by workflow 
 */
 func (a *WorkflowRunsApiService) GetWorkflowRunStepLog(ctx _context.Context, workflowName string, workflowRunNumber int32, workflowStepName string) ApiGetWorkflowRunStepLogRequest {
 	return ApiGetWorkflowRunStepLogRequest{
-		ApiService: a,
-		ctx: ctx,
-		workflowName: workflowName,
+		ApiService:        a,
+		ctx:               ctx,
+		workflowName:      workflowName,
 		workflowRunNumber: workflowRunNumber,
-		workflowStepName: workflowStepName,
+		workflowStepName:  workflowStepName,
 	}
 }
 
@@ -255,13 +254,13 @@ func (a *WorkflowRunsApiService) GetWorkflowRunStepLogExecute(r ApiGetWorkflowRu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -278,11 +277,10 @@ func (a *WorkflowRunsApiService) GetWorkflowRunStepLogExecute(r ApiGetWorkflowRu
 }
 
 type ApiGetWorkflowRunsRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowRunsApiService
+	ctx          _context.Context
+	ApiService   *WorkflowRunsApiService
 	workflowName string
 }
-
 
 func (r ApiGetWorkflowRunsRequest) Execute() (WorkflowRunsSummary, *_nethttp.Response, error) {
 	return r.ApiService.GetWorkflowRunsExecute(r)
@@ -297,8 +295,8 @@ GetWorkflowRuns Get all the runs of a workflow
 */
 func (a *WorkflowRunsApiService) GetWorkflowRuns(ctx _context.Context, workflowName string) ApiGetWorkflowRunsRequest {
 	return ApiGetWorkflowRunsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		workflowName: workflowName,
 	}
 }
@@ -366,13 +364,13 @@ func (a *WorkflowRunsApiService) GetWorkflowRunsExecute(r ApiGetWorkflowRunsRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -389,9 +387,9 @@ func (a *WorkflowRunsApiService) GetWorkflowRunsExecute(r ApiGetWorkflowRunsRequ
 }
 
 type ApiPatchWorkflowRunRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowRunsApiService
-	workflowName string
+	ctx               _context.Context
+	ApiService        *WorkflowRunsApiService
+	workflowName      string
 	workflowRunNumber int32
 	updateWorkflowRun *UpdateWorkflowRun
 }
@@ -416,9 +414,9 @@ PatchWorkflowRun Update properties of a workflow
 */
 func (a *WorkflowRunsApiService) PatchWorkflowRun(ctx _context.Context, workflowName string, workflowRunNumber int32) ApiPatchWorkflowRunRequest {
 	return ApiPatchWorkflowRunRequest{
-		ApiService: a,
-		ctx: ctx,
-		workflowName: workflowName,
+		ApiService:        a,
+		ctx:               ctx,
+		workflowName:      workflowName,
 		workflowRunNumber: workflowRunNumber,
 	}
 }
@@ -492,13 +490,13 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunExecute(r ApiPatchWorkflowRunRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -515,11 +513,11 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunExecute(r ApiPatchWorkflowRunRe
 }
 
 type ApiPatchWorkflowRunStepRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowRunsApiService
-	workflowName string
-	workflowRunNumber int32
-	workflowStepName string
+	ctx                   _context.Context
+	ApiService            *WorkflowRunsApiService
+	workflowName          string
+	workflowRunNumber     int32
+	workflowStepName      string
 	updateWorkflowRunStep *UpdateWorkflowRunStep
 }
 
@@ -544,11 +542,11 @@ PatchWorkflowRunStep Update properties of a workflow run step
 */
 func (a *WorkflowRunsApiService) PatchWorkflowRunStep(ctx _context.Context, workflowName string, workflowRunNumber int32, workflowStepName string) ApiPatchWorkflowRunStepRequest {
 	return ApiPatchWorkflowRunStepRequest{
-		ApiService: a,
-		ctx: ctx,
-		workflowName: workflowName,
+		ApiService:        a,
+		ctx:               ctx,
+		workflowName:      workflowName,
 		workflowRunNumber: workflowRunNumber,
-		workflowStepName: workflowStepName,
+		workflowStepName:  workflowStepName,
 	}
 }
 
@@ -622,13 +620,13 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunStepExecute(r ApiPatchWorkflowR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -645,9 +643,9 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunStepExecute(r ApiPatchWorkflowR
 }
 
 type ApiRunWorkflowRequest struct {
-	ctx _context.Context
-	ApiService *WorkflowRunsApiService
-	workflowName string
+	ctx               _context.Context
+	ApiService        *WorkflowRunsApiService
+	workflowName      string
 	createWorkflowRun *CreateWorkflowRun
 }
 
@@ -670,8 +668,8 @@ RunWorkflow Runs the given workflow
 */
 func (a *WorkflowRunsApiService) RunWorkflow(ctx _context.Context, workflowName string) ApiRunWorkflowRequest {
 	return ApiRunWorkflowRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		workflowName: workflowName,
 	}
 }
@@ -741,13 +739,13 @@ func (a *WorkflowRunsApiService) RunWorkflowExecute(r ApiRunWorkflowRequest) (Wo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v InlineResponseDefault
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

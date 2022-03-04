@@ -22,7 +22,7 @@ type EventAllOf struct {
 	// The attribute data for this event
 	Data *map[string]interface{} `json:"data,omitempty"`
 	// An optional key for this event
-	Key *string `json:"key,omitempty"`
+	Key    *string     `json:"key,omitempty"`
 	Source EventSource `json:"source"`
 }
 
@@ -153,7 +153,7 @@ func (o *EventAllOf) GetSource() EventSource {
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *EventAllOf) GetSourceOk() (*EventSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Source, true
@@ -216,5 +216,3 @@ func (v *NullableEventAllOf) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

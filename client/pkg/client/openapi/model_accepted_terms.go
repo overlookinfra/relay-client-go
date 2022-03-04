@@ -55,7 +55,7 @@ func (o *AcceptedTerms) GetAcceptedTermsAt() time.Time {
 // GetAcceptedTermsAtOk returns a tuple with the AcceptedTermsAt field value
 // and a boolean to check if the value has been set.
 func (o *AcceptedTerms) GetAcceptedTermsAtOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AcceptedTermsAt, true
@@ -79,7 +79,7 @@ func (o *AcceptedTerms) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *AcceptedTerms) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Version, true
@@ -136,5 +136,3 @@ func (v *NullableAcceptedTerms) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

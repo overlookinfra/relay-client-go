@@ -17,9 +17,9 @@ import (
 // WorkflowRunView struct for WorkflowRunView
 type WorkflowRunView struct {
 	// The sequential identifier for a single workflow run
-	RunNumber int32 `json:"run_number"`
-	Workflow WorkflowIdentifier `json:"workflow"`
-	State WorkflowRunStateSummary `json:"state"`
+	RunNumber int32                   `json:"run_number"`
+	Workflow  WorkflowIdentifier      `json:"workflow"`
+	State     WorkflowRunStateSummary `json:"state"`
 }
 
 // NewWorkflowRunView instantiates a new WorkflowRunView object
@@ -55,7 +55,7 @@ func (o *WorkflowRunView) GetRunNumber() int32 {
 // GetRunNumberOk returns a tuple with the RunNumber field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunView) GetRunNumberOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RunNumber, true
@@ -79,7 +79,7 @@ func (o *WorkflowRunView) GetWorkflow() WorkflowIdentifier {
 // GetWorkflowOk returns a tuple with the Workflow field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunView) GetWorkflowOk() (*WorkflowIdentifier, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Workflow, true
@@ -103,7 +103,7 @@ func (o *WorkflowRunView) GetState() WorkflowRunStateSummary {
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *WorkflowRunView) GetStateOk() (*WorkflowRunStateSummary, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.State, true
@@ -163,5 +163,3 @@ func (v *NullableWorkflowRunView) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

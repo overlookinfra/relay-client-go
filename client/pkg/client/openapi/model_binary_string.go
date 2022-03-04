@@ -18,30 +18,30 @@ import (
 // BinaryString - struct for BinaryString
 type BinaryString struct {
 	BinaryStringOneOf *BinaryStringOneOf
-	string *string
+	string            *string
 }
 
 // BinaryStringOneOfAsBinaryString is a convenience function that returns BinaryStringOneOf wrapped in BinaryString
 func BinaryStringOneOfAsBinaryString(v *BinaryStringOneOf) BinaryString {
-	return BinaryString{ BinaryStringOneOf: v}
+	return BinaryString{BinaryStringOneOf: v}
 }
 
 // stringAsBinaryString is a convenience function that returns string wrapped in BinaryString
 func stringAsBinaryString(v *string) BinaryString {
-	return BinaryString{ string: v}
+	return BinaryString{string: v}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *BinaryString) UnmarshalJSON(data []byte) error {
 	var err error
+
 	match := 0
 	// try to unmarshal data into BinaryStringOneOf
 	err = json.Unmarshal(data, &dst.BinaryStringOneOf)
 	if err == nil {
 		jsonBinaryStringOneOf, err := json.Marshal(dst.BinaryStringOneOf)
 		if err == nil {
-			if string(jsonBinaryStringOneOf) == "{}" { // empty struct
+			if string(jsonBinaryStringOneOf) == "" || string(jsonBinaryStringOneOf) == "{}" { // empty struct
 				dst.BinaryStringOneOf = nil
 			} else {
 				match++
@@ -58,7 +58,7 @@ func (dst *BinaryString) UnmarshalJSON(data []byte) error {
 	if err == nil {
 		jsonstring, err := json.Marshal(dst.string)
 		if err == nil {
-			if string(jsonstring) == "{}" { // empty struct
+			if string(jsonstring) == "" || string(jsonstring) == "{}" { // empty struct
 				dst.string = nil
 			} else {
 				match++
@@ -97,7 +97,7 @@ func (src BinaryString) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *BinaryString) GetActualInstance() (interface{}) {
+func (obj *BinaryString) GetActualInstance() interface{} {
 	if obj.BinaryStringOneOf != nil {
 		return obj.BinaryStringOneOf
 	}
@@ -145,5 +145,3 @@ func (v *NullableBinaryString) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

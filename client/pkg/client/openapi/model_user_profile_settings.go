@@ -16,7 +16,7 @@ import (
 
 // UserProfileSettings User profile settings
 type UserProfileSettings struct {
-	Digest *UserDigestSettings `json:"digest,omitempty"`
+	Digest        *UserDigestSettings       `json:"digest,omitempty"`
 	Subscriptions *UserSubscriptionSettings `json:"subscriptions,omitempty"`
 }
 
@@ -147,5 +147,3 @@ func (v *NullableUserProfileSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
