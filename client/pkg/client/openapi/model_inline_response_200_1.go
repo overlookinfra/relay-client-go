@@ -17,7 +17,7 @@ import (
 // InlineResponse2001 struct for InlineResponse2001
 type InlineResponse2001 struct {
 	// The list of contacts for this account
-	Contacts *[]AccountContact `json:"contacts,omitempty"`
+	Contacts []AccountContact `json:"contacts,omitempty"`
 }
 
 // NewInlineResponse2001 instantiates a new InlineResponse2001 object
@@ -43,12 +43,12 @@ func (o *InlineResponse2001) GetContacts() []AccountContact {
 		var ret []AccountContact
 		return ret
 	}
-	return *o.Contacts
+	return o.Contacts
 }
 
 // GetContactsOk returns a tuple with the Contacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse2001) GetContactsOk() (*[]AccountContact, bool) {
+func (o *InlineResponse2001) GetContactsOk() ([]AccountContact, bool) {
 	if o == nil || o.Contacts == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *InlineResponse2001) HasContacts() bool {
 
 // SetContacts gets a reference to the given []AccountContact and assigns it to the Contacts field.
 func (o *InlineResponse2001) SetContacts(v []AccountContact) {
-	o.Contacts = &v
+	o.Contacts = v
 }
 
 func (o InlineResponse2001) MarshalJSON() ([]byte, error) {

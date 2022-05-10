@@ -24,7 +24,7 @@ type NotificationSummary struct {
 	// Time of last update
 	UpdatedAt time.Time `json:"updated_at"`
 	// The attributes of this notification
-	Attributes *[]string `json:"attributes,omitempty"`
+	Attributes []string `json:"attributes,omitempty"`
 	// The type of event that created the event
 	Type string `json:"type"`
 }
@@ -128,12 +128,12 @@ func (o *NotificationSummary) GetAttributes() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Attributes
+	return o.Attributes
 }
 
 // GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationSummary) GetAttributesOk() (*[]string, bool) {
+func (o *NotificationSummary) GetAttributesOk() ([]string, bool) {
 	if o == nil || o.Attributes == nil {
 		return nil, false
 	}
@@ -151,7 +151,7 @@ func (o *NotificationSummary) HasAttributes() bool {
 
 // SetAttributes gets a reference to the given []string and assigns it to the Attributes field.
 func (o *NotificationSummary) SetAttributes(v []string) {
-	o.Attributes = &v
+	o.Attributes = v
 }
 
 // GetType returns the Type field value

@@ -18,6 +18,8 @@ import (
 type UserTokenWithSecret struct {
 	// ID of the user token
 	Id *string `json:"id,omitempty"`
+	// Whether the token is internal or not
+	Internal *bool `json:"internal,omitempty"`
 	// Name of the user token
 	Name string `json:"name"`
 	// Type of token
@@ -77,6 +79,38 @@ func (o *UserTokenWithSecret) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *UserTokenWithSecret) SetId(v string) {
 	o.Id = &v
+}
+
+// GetInternal returns the Internal field value if set, zero value otherwise.
+func (o *UserTokenWithSecret) GetInternal() bool {
+	if o == nil || o.Internal == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Internal
+}
+
+// GetInternalOk returns a tuple with the Internal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserTokenWithSecret) GetInternalOk() (*bool, bool) {
+	if o == nil || o.Internal == nil {
+		return nil, false
+	}
+	return o.Internal, true
+}
+
+// HasInternal returns a boolean if a field has been set.
+func (o *UserTokenWithSecret) HasInternal() bool {
+	if o != nil && o.Internal != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInternal gets a reference to the given bool and assigns it to the Internal field.
+func (o *UserTokenWithSecret) SetInternal(v bool) {
+	o.Internal = &v
 }
 
 // GetName returns the Name field value
@@ -187,6 +221,9 @@ func (o UserTokenWithSecret) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
+	}
+	if o.Internal != nil {
+		toSerialize["internal"] = o.Internal
 	}
 	if true {
 		toSerialize["name"] = o.Name

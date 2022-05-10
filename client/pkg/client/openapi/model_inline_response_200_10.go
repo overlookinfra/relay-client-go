@@ -17,7 +17,7 @@ import (
 // InlineResponse20010 The response type for the global permissions list
 type InlineResponse20010 struct {
 	// A list of permissions
-	Permissions *[]Permission `json:"permissions,omitempty"`
+	Permissions []Permission `json:"permissions,omitempty"`
 }
 
 // NewInlineResponse20010 instantiates a new InlineResponse20010 object
@@ -43,12 +43,12 @@ func (o *InlineResponse20010) GetPermissions() []Permission {
 		var ret []Permission
 		return ret
 	}
-	return *o.Permissions
+	return o.Permissions
 }
 
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse20010) GetPermissionsOk() (*[]Permission, bool) {
+func (o *InlineResponse20010) GetPermissionsOk() ([]Permission, bool) {
 	if o == nil || o.Permissions == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *InlineResponse20010) HasPermissions() bool {
 
 // SetPermissions gets a reference to the given []Permission and assigns it to the Permissions field.
 func (o *InlineResponse20010) SetPermissions(v []Permission) {
-	o.Permissions = &v
+	o.Permissions = v
 }
 
 func (o InlineResponse20010) MarshalJSON() ([]byte, error) {

@@ -24,7 +24,8 @@ const (
 	WORKFLOW_ENGINE ConnectionProviderCapability = "workflow-engine"
 )
 
-var allowedConnectionProviderCapabilityEnumValues = []ConnectionProviderCapability{
+// All allowed values of ConnectionProviderCapability enum
+var AllowedConnectionProviderCapabilityEnumValues = []ConnectionProviderCapability{
 	"source-control",
 	"workflow-engine",
 }
@@ -36,7 +37,7 @@ func (v *ConnectionProviderCapability) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := ConnectionProviderCapability(value)
-	for _, existing := range allowedConnectionProviderCapabilityEnumValues {
+	for _, existing := range AllowedConnectionProviderCapabilityEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -53,13 +54,13 @@ func NewConnectionProviderCapabilityFromValue(v string) (*ConnectionProviderCapa
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for ConnectionProviderCapability: valid values are %v", v, allowedConnectionProviderCapabilityEnumValues)
+		return nil, fmt.Errorf("invalid value '%v' for ConnectionProviderCapability: valid values are %v", v, AllowedConnectionProviderCapabilityEnumValues)
 	}
 }
 
 // IsValid return true if the value is valid for the enum, false otherwise
 func (v ConnectionProviderCapability) IsValid() bool {
-	for _, existing := range allowedConnectionProviderCapabilityEnumValues {
+	for _, existing := range AllowedConnectionProviderCapabilityEnumValues {
 		if existing == v {
 			return true
 		}

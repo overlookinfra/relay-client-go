@@ -16,10 +16,10 @@ import (
 
 // WorkflowDataReferences An index of data references in a section of yaml
 type WorkflowDataReferences struct {
-	Connections *[]ConnectionReference        `json:"connections,omitempty"`
-	Outputs     *[]WorkflowOutputReference    `json:"outputs,omitempty"`
-	Parameters  *[]WorkflowParameterReference `json:"parameters,omitempty"`
-	Secrets     *[]WorkflowSecretSummary      `json:"secrets,omitempty"`
+	Connections []ConnectionReference        `json:"connections,omitempty"`
+	Outputs     []WorkflowOutputReference    `json:"outputs,omitempty"`
+	Parameters  []WorkflowParameterReference `json:"parameters,omitempty"`
+	Secrets     []WorkflowSecretSummary      `json:"secrets,omitempty"`
 }
 
 // NewWorkflowDataReferences instantiates a new WorkflowDataReferences object
@@ -45,12 +45,12 @@ func (o *WorkflowDataReferences) GetConnections() []ConnectionReference {
 		var ret []ConnectionReference
 		return ret
 	}
-	return *o.Connections
+	return o.Connections
 }
 
 // GetConnectionsOk returns a tuple with the Connections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowDataReferences) GetConnectionsOk() (*[]ConnectionReference, bool) {
+func (o *WorkflowDataReferences) GetConnectionsOk() ([]ConnectionReference, bool) {
 	if o == nil || o.Connections == nil {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *WorkflowDataReferences) HasConnections() bool {
 
 // SetConnections gets a reference to the given []ConnectionReference and assigns it to the Connections field.
 func (o *WorkflowDataReferences) SetConnections(v []ConnectionReference) {
-	o.Connections = &v
+	o.Connections = v
 }
 
 // GetOutputs returns the Outputs field value if set, zero value otherwise.
@@ -77,12 +77,12 @@ func (o *WorkflowDataReferences) GetOutputs() []WorkflowOutputReference {
 		var ret []WorkflowOutputReference
 		return ret
 	}
-	return *o.Outputs
+	return o.Outputs
 }
 
 // GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowDataReferences) GetOutputsOk() (*[]WorkflowOutputReference, bool) {
+func (o *WorkflowDataReferences) GetOutputsOk() ([]WorkflowOutputReference, bool) {
 	if o == nil || o.Outputs == nil {
 		return nil, false
 	}
@@ -100,7 +100,7 @@ func (o *WorkflowDataReferences) HasOutputs() bool {
 
 // SetOutputs gets a reference to the given []WorkflowOutputReference and assigns it to the Outputs field.
 func (o *WorkflowDataReferences) SetOutputs(v []WorkflowOutputReference) {
-	o.Outputs = &v
+	o.Outputs = v
 }
 
 // GetParameters returns the Parameters field value if set, zero value otherwise.
@@ -109,12 +109,12 @@ func (o *WorkflowDataReferences) GetParameters() []WorkflowParameterReference {
 		var ret []WorkflowParameterReference
 		return ret
 	}
-	return *o.Parameters
+	return o.Parameters
 }
 
 // GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowDataReferences) GetParametersOk() (*[]WorkflowParameterReference, bool) {
+func (o *WorkflowDataReferences) GetParametersOk() ([]WorkflowParameterReference, bool) {
 	if o == nil || o.Parameters == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *WorkflowDataReferences) HasParameters() bool {
 
 // SetParameters gets a reference to the given []WorkflowParameterReference and assigns it to the Parameters field.
 func (o *WorkflowDataReferences) SetParameters(v []WorkflowParameterReference) {
-	o.Parameters = &v
+	o.Parameters = v
 }
 
 // GetSecrets returns the Secrets field value if set, zero value otherwise.
@@ -141,12 +141,12 @@ func (o *WorkflowDataReferences) GetSecrets() []WorkflowSecretSummary {
 		var ret []WorkflowSecretSummary
 		return ret
 	}
-	return *o.Secrets
+	return o.Secrets
 }
 
 // GetSecretsOk returns a tuple with the Secrets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowDataReferences) GetSecretsOk() (*[]WorkflowSecretSummary, bool) {
+func (o *WorkflowDataReferences) GetSecretsOk() ([]WorkflowSecretSummary, bool) {
 	if o == nil || o.Secrets == nil {
 		return nil, false
 	}
@@ -164,7 +164,7 @@ func (o *WorkflowDataReferences) HasSecrets() bool {
 
 // SetSecrets gets a reference to the given []WorkflowSecretSummary and assigns it to the Secrets field.
 func (o *WorkflowDataReferences) SetSecrets(v []WorkflowSecretSummary) {
-	o.Secrets = &v
+	o.Secrets = v
 }
 
 func (o WorkflowDataReferences) MarshalJSON() ([]byte, error) {

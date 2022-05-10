@@ -17,7 +17,7 @@ import (
 // EntityAccess Access control information for a given entity
 type EntityAccess struct {
 	// The grants available relative to this entity
-	PermissionGrants *[]PermissionGrant `json:"permission_grants,omitempty"`
+	PermissionGrants []PermissionGrant `json:"permission_grants,omitempty"`
 }
 
 // NewEntityAccess instantiates a new EntityAccess object
@@ -43,12 +43,12 @@ func (o *EntityAccess) GetPermissionGrants() []PermissionGrant {
 		var ret []PermissionGrant
 		return ret
 	}
-	return *o.PermissionGrants
+	return o.PermissionGrants
 }
 
 // GetPermissionGrantsOk returns a tuple with the PermissionGrants field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EntityAccess) GetPermissionGrantsOk() (*[]PermissionGrant, bool) {
+func (o *EntityAccess) GetPermissionGrantsOk() ([]PermissionGrant, bool) {
 	if o == nil || o.PermissionGrants == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *EntityAccess) HasPermissionGrants() bool {
 
 // SetPermissionGrants gets a reference to the given []PermissionGrant and assigns it to the PermissionGrants field.
 func (o *EntityAccess) SetPermissionGrants(v []PermissionGrant) {
-	o.PermissionGrants = &v
+	o.PermissionGrants = v
 }
 
 func (o EntityAccess) MarshalJSON() ([]byte, error) {

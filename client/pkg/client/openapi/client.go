@@ -59,6 +59,8 @@ type APIClient struct {
 
 	ConnectionsApi *ConnectionsApiService
 
+	ContentApi *ContentApiService
+
 	EventsApi *EventsApiService
 
 	NotificationsApi *NotificationsApiService
@@ -105,6 +107,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.BillingApi = (*BillingApiService)(&c.common)
 	c.ConnectionProvidersApi = (*ConnectionProvidersApiService)(&c.common)
 	c.ConnectionsApi = (*ConnectionsApiService)(&c.common)
+	c.ContentApi = (*ContentApiService)(&c.common)
 	c.EventsApi = (*EventsApiService)(&c.common)
 	c.NotificationsApi = (*NotificationsApiService)(&c.common)
 	c.RevisionsApi = (*RevisionsApiService)(&c.common)
@@ -237,6 +240,12 @@ func (c *APIClient) GetConfig() *Configuration {
 	return c.cfg
 }
 
+type formFile struct {
+		fileBytes []byte
+		fileName string
+		formFileName string
+}
+
 // prepareRequest build the request
 func (c *APIClient) prepareRequest(
 	ctx context.Context,
@@ -245,9 +254,7 @@ func (c *APIClient) prepareRequest(
 	headerParams map[string]string,
 	queryParams url.Values,
 	formParams url.Values,
-	formFileName string,
-	fileName string,
-	fileBytes []byte) (localVarRequest *http.Request, err error) {
+	formFiles []formFile) (localVarRequest *http.Request, err error) {
 
 	var body *bytes.Buffer
 
@@ -266,7 +273,7 @@ func (c *APIClient) prepareRequest(
 	}
 
 	// add form parameters and file if available.
-	if strings.HasPrefix(headerParams["Content-Type"], "multipart/form-data") && len(formParams) > 0 || (len(fileBytes) > 0 && fileName != "") {
+	if strings.HasPrefix(headerParams["Content-Type"], "multipart/form-data") && len(formParams) > 0 || (len(formFiles) > 0) {
 		if body != nil {
 			return nil, errors.New("Cannot specify postBody and multipart form at the same time.")
 		}
@@ -285,16 +292,17 @@ func (c *APIClient) prepareRequest(
 				}
 			}
 		}
-		if len(fileBytes) > 0 && fileName != "" {
-			w.Boundary()
-			//_, fileNm := filepath.Split(fileName)
-			part, err := w.CreateFormFile(formFileName, filepath.Base(fileName))
-			if err != nil {
-				return nil, err
-			}
-			_, err = part.Write(fileBytes)
-			if err != nil {
-				return nil, err
+		for _, formFile := range formFiles {
+			if len(formFile.fileBytes) > 0 && formFile.fileName != "" {
+				w.Boundary()
+				part, err := w.CreateFormFile(formFile.formFileName, filepath.Base(formFile.fileName))
+				if err != nil {
+						return nil, err
+				}
+				_, err = part.Write(formFile.fileBytes)
+				if err != nil {
+						return nil, err
+				}
 			}
 		}
 
@@ -357,7 +365,7 @@ func (c *APIClient) prepareRequest(
 	if len(headerParams) > 0 {
 		headers := http.Header{}
 		for h, v := range headerParams {
-			headers.Set(h, v)
+			headers[h] = []string{v}
 		}
 		localVarRequest.Header = headers
 	}
@@ -463,6 +471,13 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 // Prevent trying to import "fmt"
 func reportError(format string, a ...interface{}) error {
 	return fmt.Errorf(format, a...)
+}
+
+// A wrapper for strict JSON decoding
+func newStrictDecoder(data []byte) *json.Decoder {
+	dec := json.NewDecoder(bytes.NewBuffer(data))
+	dec.DisallowUnknownFields()
+	return dec
 }
 
 // Set request body from an interface{}

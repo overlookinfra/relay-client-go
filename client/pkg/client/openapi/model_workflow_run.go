@@ -32,11 +32,11 @@ type WorkflowRun struct {
 	// Time of last update
 	UpdatedAt time.Time `json:"updated_at"`
 	// Connection type and names used by the run
-	Connections *[]ConnectionReference           `json:"connections,omitempty"`
+	Connections []ConnectionReference            `json:"connections,omitempty"`
 	Error       *Error                           `json:"error,omitempty"`
 	Parameters  *map[string]WorkflowRunParameter `json:"parameters,omitempty"`
 	// Secret names provided to the run, both used and unused
-	Secrets *[]WorkflowSecretSummary `json:"secrets,omitempty"`
+	Secrets []WorkflowSecretSummary `json:"secrets,omitempty"`
 }
 
 // NewWorkflowRun instantiates a new WorkflowRun object
@@ -308,12 +308,12 @@ func (o *WorkflowRun) GetConnections() []ConnectionReference {
 		var ret []ConnectionReference
 		return ret
 	}
-	return *o.Connections
+	return o.Connections
 }
 
 // GetConnectionsOk returns a tuple with the Connections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowRun) GetConnectionsOk() (*[]ConnectionReference, bool) {
+func (o *WorkflowRun) GetConnectionsOk() ([]ConnectionReference, bool) {
 	if o == nil || o.Connections == nil {
 		return nil, false
 	}
@@ -331,7 +331,7 @@ func (o *WorkflowRun) HasConnections() bool {
 
 // SetConnections gets a reference to the given []ConnectionReference and assigns it to the Connections field.
 func (o *WorkflowRun) SetConnections(v []ConnectionReference) {
-	o.Connections = &v
+	o.Connections = v
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
@@ -404,12 +404,12 @@ func (o *WorkflowRun) GetSecrets() []WorkflowSecretSummary {
 		var ret []WorkflowSecretSummary
 		return ret
 	}
-	return *o.Secrets
+	return o.Secrets
 }
 
 // GetSecretsOk returns a tuple with the Secrets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowRun) GetSecretsOk() (*[]WorkflowSecretSummary, bool) {
+func (o *WorkflowRun) GetSecretsOk() ([]WorkflowSecretSummary, bool) {
 	if o == nil || o.Secrets == nil {
 		return nil, false
 	}
@@ -427,7 +427,7 @@ func (o *WorkflowRun) HasSecrets() bool {
 
 // SetSecrets gets a reference to the given []WorkflowSecretSummary and assigns it to the Secrets field.
 func (o *WorkflowRun) SetSecrets(v []WorkflowSecretSummary) {
-	o.Secrets = &v
+	o.Secrets = v
 }
 
 func (o WorkflowRun) MarshalJSON() ([]byte, error) {

@@ -18,62 +18,57 @@ import (
 // BinaryString - struct for BinaryString
 type BinaryString struct {
 	BinaryStringOneOf *BinaryStringOneOf
-	string            *string
+	String            *string
 }
 
 // BinaryStringOneOfAsBinaryString is a convenience function that returns BinaryStringOneOf wrapped in BinaryString
 func BinaryStringOneOfAsBinaryString(v *BinaryStringOneOf) BinaryString {
-	return BinaryString{BinaryStringOneOf: v}
+	return BinaryString{
+		BinaryStringOneOf: v,
+	}
 }
 
 // stringAsBinaryString is a convenience function that returns string wrapped in BinaryString
-func stringAsBinaryString(v *string) BinaryString {
-	return BinaryString{string: v}
+func StringAsBinaryString(v *string) BinaryString {
+	return BinaryString{
+		String: v,
+	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *BinaryString) UnmarshalJSON(data []byte) error {
 	var err error
-
 	match := 0
 	// try to unmarshal data into BinaryStringOneOf
 	err = json.Unmarshal(data, &dst.BinaryStringOneOf)
 	if err == nil {
-		jsonBinaryStringOneOf, err := json.Marshal(dst.BinaryStringOneOf)
-		if err == nil {
-			if string(jsonBinaryStringOneOf) == "" || string(jsonBinaryStringOneOf) == "{}" { // empty struct
-				dst.BinaryStringOneOf = nil
-			} else {
-				match++
-			}
-		} else {
+		jsonBinaryStringOneOf, _ := json.Marshal(dst.BinaryStringOneOf)
+		if string(jsonBinaryStringOneOf) == "{}" { // empty struct
 			dst.BinaryStringOneOf = nil
+		} else {
+			match++
 		}
 	} else {
 		dst.BinaryStringOneOf = nil
 	}
 
-	// try to unmarshal data into string
-	err = json.Unmarshal(data, &dst.string)
+	// try to unmarshal data into String
+	err = json.Unmarshal(data, &dst.String)
 	if err == nil {
-		jsonstring, err := json.Marshal(dst.string)
-		if err == nil {
-			if string(jsonstring) == "" || string(jsonstring) == "{}" { // empty struct
-				dst.string = nil
-			} else {
-				match++
-			}
+		jsonstring, _ := json.Marshal(dst.String)
+		if string(jsonstring) == "{}" { // empty struct
+			dst.String = nil
 		} else {
-			dst.string = nil
+			match++
 		}
 	} else {
-		dst.string = nil
+		dst.String = nil
 	}
 
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.BinaryStringOneOf = nil
-		dst.string = nil
+		dst.String = nil
 
 		return fmt.Errorf("Data matches more than one schema in oneOf(BinaryString)")
 	} else if match == 1 {
@@ -89,8 +84,8 @@ func (src BinaryString) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.BinaryStringOneOf)
 	}
 
-	if src.string != nil {
-		return json.Marshal(&src.string)
+	if src.String != nil {
+		return json.Marshal(&src.String)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -98,12 +93,15 @@ func (src BinaryString) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *BinaryString) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
 	if obj.BinaryStringOneOf != nil {
 		return obj.BinaryStringOneOf
 	}
 
-	if obj.string != nil {
-		return obj.string
+	if obj.String != nil {
+		return obj.String
 	}
 
 	// all schemas are nil

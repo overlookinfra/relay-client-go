@@ -17,7 +17,7 @@ import (
 // EventRequest Required fields to create an event
 type EventRequest struct {
 	// The attribute data for this event
-	Data *map[string]interface{} `json:"data,omitempty"`
+	Data map[string]interface{} `json:"data,omitempty"`
 	// An optional key for this event
 	Key    *string      `json:"key,omitempty"`
 	Source *EventSource `json:"source,omitempty"`
@@ -46,12 +46,12 @@ func (o *EventRequest) GetData() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventRequest) GetDataOk() (*map[string]interface{}, bool) {
+func (o *EventRequest) GetDataOk() (map[string]interface{}, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *EventRequest) HasData() bool {
 
 // SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
 func (o *EventRequest) SetData(v map[string]interface{}) {
-	o.Data = &v
+	o.Data = v
 }
 
 // GetKey returns the Key field value if set, zero value otherwise.

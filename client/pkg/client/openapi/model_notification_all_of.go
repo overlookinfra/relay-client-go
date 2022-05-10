@@ -19,7 +19,7 @@ type NotificationAllOf struct {
 	// The current user has marked this notification done
 	Done *bool `json:"done,omitempty"`
 	// The fields to use for linking out from the notification
-	Fields *map[string]interface{} `json:"fields,omitempty"`
+	Fields map[string]interface{} `json:"fields,omitempty"`
 	// Whether the current user has read this notification
 	Read bool `json:"read"`
 	// The state of this notification
@@ -83,12 +83,12 @@ func (o *NotificationAllOf) GetFields() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Fields
+	return o.Fields
 }
 
 // GetFieldsOk returns a tuple with the Fields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationAllOf) GetFieldsOk() (*map[string]interface{}, bool) {
+func (o *NotificationAllOf) GetFieldsOk() (map[string]interface{}, bool) {
 	if o == nil || o.Fields == nil {
 		return nil, false
 	}
@@ -106,7 +106,7 @@ func (o *NotificationAllOf) HasFields() bool {
 
 // SetFields gets a reference to the given map[string]interface{} and assigns it to the Fields field.
 func (o *NotificationAllOf) SetFields(v map[string]interface{}) {
-	o.Fields = &v
+	o.Fields = v
 }
 
 // GetRead returns the Read field value

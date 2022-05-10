@@ -17,7 +17,7 @@ import (
 // InlineResponse200 The response type for access to global entities
 type InlineResponse200 struct {
 	// The global grants associated with this user
-	PermissionGrants *[]PermissionGrant `json:"permission_grants,omitempty"`
+	PermissionGrants []PermissionGrant `json:"permission_grants,omitempty"`
 }
 
 // NewInlineResponse200 instantiates a new InlineResponse200 object
@@ -43,12 +43,12 @@ func (o *InlineResponse200) GetPermissionGrants() []PermissionGrant {
 		var ret []PermissionGrant
 		return ret
 	}
-	return *o.PermissionGrants
+	return o.PermissionGrants
 }
 
 // GetPermissionGrantsOk returns a tuple with the PermissionGrants field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse200) GetPermissionGrantsOk() (*[]PermissionGrant, bool) {
+func (o *InlineResponse200) GetPermissionGrantsOk() ([]PermissionGrant, bool) {
 	if o == nil || o.PermissionGrants == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *InlineResponse200) HasPermissionGrants() bool {
 
 // SetPermissionGrants gets a reference to the given []PermissionGrant and assigns it to the PermissionGrants field.
 func (o *InlineResponse200) SetPermissionGrants(v []PermissionGrant) {
-	o.PermissionGrants = &v
+	o.PermissionGrants = v
 }
 
 func (o InlineResponse200) MarshalJSON() ([]byte, error) {

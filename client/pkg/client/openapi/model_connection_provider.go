@@ -17,9 +17,9 @@ import (
 // ConnectionProvider A description of a connection provider
 type ConnectionProvider struct {
 	// The supported authentication mechanisms for this connection provider
-	Auth *[]ConnectionProviderAuth `json:"auth,omitempty"`
+	Auth []ConnectionProviderAuth `json:"auth,omitempty"`
 	// The set of capabilities to enable for a connection
-	Capabilities *[]ConnectionProviderCapability `json:"capabilities,omitempty"`
+	Capabilities []ConnectionProviderCapability `json:"capabilities,omitempty"`
 }
 
 // NewConnectionProvider instantiates a new ConnectionProvider object
@@ -45,12 +45,12 @@ func (o *ConnectionProvider) GetAuth() []ConnectionProviderAuth {
 		var ret []ConnectionProviderAuth
 		return ret
 	}
-	return *o.Auth
+	return o.Auth
 }
 
 // GetAuthOk returns a tuple with the Auth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectionProvider) GetAuthOk() (*[]ConnectionProviderAuth, bool) {
+func (o *ConnectionProvider) GetAuthOk() ([]ConnectionProviderAuth, bool) {
 	if o == nil || o.Auth == nil {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *ConnectionProvider) HasAuth() bool {
 
 // SetAuth gets a reference to the given []ConnectionProviderAuth and assigns it to the Auth field.
 func (o *ConnectionProvider) SetAuth(v []ConnectionProviderAuth) {
-	o.Auth = &v
+	o.Auth = v
 }
 
 // GetCapabilities returns the Capabilities field value if set, zero value otherwise.
@@ -77,12 +77,12 @@ func (o *ConnectionProvider) GetCapabilities() []ConnectionProviderCapability {
 		var ret []ConnectionProviderCapability
 		return ret
 	}
-	return *o.Capabilities
+	return o.Capabilities
 }
 
 // GetCapabilitiesOk returns a tuple with the Capabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectionProvider) GetCapabilitiesOk() (*[]ConnectionProviderCapability, bool) {
+func (o *ConnectionProvider) GetCapabilitiesOk() ([]ConnectionProviderCapability, bool) {
 	if o == nil || o.Capabilities == nil {
 		return nil, false
 	}
@@ -100,7 +100,7 @@ func (o *ConnectionProvider) HasCapabilities() bool {
 
 // SetCapabilities gets a reference to the given []ConnectionProviderCapability and assigns it to the Capabilities field.
 func (o *ConnectionProvider) SetCapabilities(v []ConnectionProviderCapability) {
-	o.Capabilities = &v
+	o.Capabilities = v
 }
 
 func (o ConnectionProvider) MarshalJSON() ([]byte, error) {

@@ -17,7 +17,7 @@ import (
 // AnyWorkflowStep struct for AnyWorkflowStep
 type AnyWorkflowStep struct {
 	// Step names that must complete before this one starts
-	DependsOn *[]string `json:"depends_on,omitempty"`
+	DependsOn []string `json:"depends_on,omitempty"`
 	// A user provided step name. Must be unique within the workflow definition
 	Name       string                  `json:"name"`
 	References *WorkflowDataReferences `json:"references,omitempty"`
@@ -49,12 +49,12 @@ func (o *AnyWorkflowStep) GetDependsOn() []string {
 		var ret []string
 		return ret
 	}
-	return *o.DependsOn
+	return o.DependsOn
 }
 
 // GetDependsOnOk returns a tuple with the DependsOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnyWorkflowStep) GetDependsOnOk() (*[]string, bool) {
+func (o *AnyWorkflowStep) GetDependsOnOk() ([]string, bool) {
 	if o == nil || o.DependsOn == nil {
 		return nil, false
 	}
@@ -72,7 +72,7 @@ func (o *AnyWorkflowStep) HasDependsOn() bool {
 
 // SetDependsOn gets a reference to the given []string and assigns it to the DependsOn field.
 func (o *AnyWorkflowStep) SetDependsOn(v []string) {
-	o.DependsOn = &v
+	o.DependsOn = v
 }
 
 // GetName returns the Name field value

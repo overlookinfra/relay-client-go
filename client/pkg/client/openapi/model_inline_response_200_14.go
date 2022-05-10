@@ -17,7 +17,7 @@ import (
 // InlineResponse20014 The response type for listing the permissions assigned to a role
 type InlineResponse20014 struct {
 	// The permissions assigned to this role
-	Permissions *[]RolePermission `json:"permissions,omitempty"`
+	Permissions []RolePermission `json:"permissions,omitempty"`
 }
 
 // NewInlineResponse20014 instantiates a new InlineResponse20014 object
@@ -43,12 +43,12 @@ func (o *InlineResponse20014) GetPermissions() []RolePermission {
 		var ret []RolePermission
 		return ret
 	}
-	return *o.Permissions
+	return o.Permissions
 }
 
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse20014) GetPermissionsOk() (*[]RolePermission, bool) {
+func (o *InlineResponse20014) GetPermissionsOk() ([]RolePermission, bool) {
 	if o == nil || o.Permissions == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *InlineResponse20014) HasPermissions() bool {
 
 // SetPermissions gets a reference to the given []RolePermission and assigns it to the Permissions field.
 func (o *InlineResponse20014) SetPermissions(v []RolePermission) {
-	o.Permissions = &v
+	o.Permissions = v
 }
 
 func (o InlineResponse20014) MarshalJSON() ([]byte, error) {

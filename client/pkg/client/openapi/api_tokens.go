@@ -12,45 +12,40 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // TokensApiService TokensApi service
 type TokensApiService service
 
-type ApiCreateTokenRequest struct {
-	ctx          _context.Context
+type TokensApiCreateTokenRequest struct {
+	ctx          context.Context
 	ApiService   *TokensApiService
 	tokenRequest *TokenRequest
 }
 
 // The token to create
-func (r ApiCreateTokenRequest) TokenRequest(tokenRequest TokenRequest) ApiCreateTokenRequest {
+func (r TokensApiCreateTokenRequest) TokenRequest(tokenRequest TokenRequest) TokensApiCreateTokenRequest {
 	r.tokenRequest = &tokenRequest
 	return r
 }
 
-func (r ApiCreateTokenRequest) Execute() (TokenResponse, *_nethttp.Response, error) {
+func (r TokensApiCreateTokenRequest) Execute() (*TokenResponse, *http.Response, error) {
 	return r.ApiService.CreateTokenExecute(r)
 }
 
 /*
 CreateToken Create a new token
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateTokenRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return TokensApiCreateTokenRequest
 */
-func (a *TokensApiService) CreateToken(ctx _context.Context) ApiCreateTokenRequest {
-	return ApiCreateTokenRequest{
+func (a *TokensApiService) CreateToken(ctx context.Context) TokensApiCreateTokenRequest {
+	return TokensApiCreateTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -58,26 +53,24 @@ func (a *TokensApiService) CreateToken(ctx _context.Context) ApiCreateTokenReque
 
 // Execute executes the request
 //  @return TokenResponse
-func (a *TokensApiService) CreateTokenExecute(r ApiCreateTokenRequest) (TokenResponse, *_nethttp.Response, error) {
+func (a *TokensApiService) CreateTokenExecute(r TokensApiCreateTokenRequest) (*TokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  TokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.CreateToken")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/tokens"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.tokenRequest == nil {
 		return localVarReturnValue, nil, reportError("tokenRequest is required and must be specified")
 	}
@@ -101,7 +94,7 @@ func (a *TokensApiService) CreateTokenExecute(r ApiCreateTokenRequest) (TokenRes
 	}
 	// body params
 	localVarPostBody = r.tokenRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -111,15 +104,15 @@ func (a *TokensApiService) CreateTokenExecute(r ApiCreateTokenRequest) (TokenRes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -135,7 +128,7 @@ func (a *TokensApiService) CreateTokenExecute(r ApiCreateTokenRequest) (TokenRes
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -145,25 +138,25 @@ func (a *TokensApiService) CreateTokenExecute(r ApiCreateTokenRequest) (TokenRes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteTokenRequest struct {
-	ctx        _context.Context
+type TokensApiDeleteTokenRequest struct {
+	ctx        context.Context
 	ApiService *TokensApiService
 	tokenId    string
 }
 
-func (r ApiDeleteTokenRequest) Execute() (DeletedResource, *_nethttp.Response, error) {
+func (r TokensApiDeleteTokenRequest) Execute() (*DeletedResource, *http.Response, error) {
 	return r.ApiService.DeleteTokenExecute(r)
 }
 
 /*
 DeleteToken Revoke a token
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param tokenId The ID of a token
- @return ApiDeleteTokenRequest
+ @return TokensApiDeleteTokenRequest
 */
-func (a *TokensApiService) DeleteToken(ctx _context.Context, tokenId string) ApiDeleteTokenRequest {
-	return ApiDeleteTokenRequest{
+func (a *TokensApiService) DeleteToken(ctx context.Context, tokenId string) TokensApiDeleteTokenRequest {
+	return TokensApiDeleteTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 		tokenId:    tokenId,
@@ -172,27 +165,25 @@ func (a *TokensApiService) DeleteToken(ctx _context.Context, tokenId string) Api
 
 // Execute executes the request
 //  @return DeletedResource
-func (a *TokensApiService) DeleteTokenExecute(r ApiDeleteTokenRequest) (DeletedResource, *_nethttp.Response, error) {
+func (a *TokensApiService) DeleteTokenExecute(r TokensApiDeleteTokenRequest) (*DeletedResource, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  DeletedResource
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeletedResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.DeleteToken")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/tokens/{tokenId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", _neturl.PathEscape(parameterToString(r.tokenId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tokenId"+"}", url.PathEscape(parameterToString(r.tokenId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -211,7 +202,7 @@ func (a *TokensApiService) DeleteTokenExecute(r ApiDeleteTokenRequest) (DeletedR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -221,15 +212,15 @@ func (a *TokensApiService) DeleteTokenExecute(r ApiDeleteTokenRequest) (DeletedR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -245,7 +236,7 @@ func (a *TokensApiService) DeleteTokenExecute(r ApiDeleteTokenRequest) (DeletedR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -255,37 +246,44 @@ func (a *TokensApiService) DeleteTokenExecute(r ApiDeleteTokenRequest) (DeletedR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetTokensRequest struct {
-	ctx        _context.Context
+type TokensApiGetTokensRequest struct {
+	ctx        context.Context
 	ApiService *TokensApiService
 	owned      *bool
 	valid      *bool
+	internal   *bool
 }
 
 // Filter by owned (user) tokens
-func (r ApiGetTokensRequest) Owned(owned bool) ApiGetTokensRequest {
+func (r TokensApiGetTokensRequest) Owned(owned bool) TokensApiGetTokensRequest {
 	r.owned = &owned
 	return r
 }
 
 // Filter by valid tokens
-func (r ApiGetTokensRequest) Valid(valid bool) ApiGetTokensRequest {
+func (r TokensApiGetTokensRequest) Valid(valid bool) TokensApiGetTokensRequest {
 	r.valid = &valid
 	return r
 }
 
-func (r ApiGetTokensRequest) Execute() (Tokens, *_nethttp.Response, error) {
+// Filter by including internal tokens
+func (r TokensApiGetTokensRequest) Internal(internal bool) TokensApiGetTokensRequest {
+	r.internal = &internal
+	return r
+}
+
+func (r TokensApiGetTokensRequest) Execute() (*Tokens, *http.Response, error) {
 	return r.ApiService.GetTokensExecute(r)
 }
 
 /*
 GetTokens List tokens
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTokensRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return TokensApiGetTokensRequest
 */
-func (a *TokensApiService) GetTokens(ctx _context.Context) ApiGetTokensRequest {
-	return ApiGetTokensRequest{
+func (a *TokensApiService) GetTokens(ctx context.Context) TokensApiGetTokensRequest {
+	return TokensApiGetTokensRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -293,32 +291,33 @@ func (a *TokensApiService) GetTokens(ctx _context.Context) ApiGetTokensRequest {
 
 // Execute executes the request
 //  @return Tokens
-func (a *TokensApiService) GetTokensExecute(r ApiGetTokensRequest) (Tokens, *_nethttp.Response, error) {
+func (a *TokensApiService) GetTokensExecute(r TokensApiGetTokensRequest) (*Tokens, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Tokens
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Tokens
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokensApiService.GetTokens")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/tokens"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.owned != nil {
 		localVarQueryParams.Add("owned", parameterToString(*r.owned, ""))
 	}
 	if r.valid != nil {
 		localVarQueryParams.Add("valid", parameterToString(*r.valid, ""))
+	}
+	if r.internal != nil {
+		localVarQueryParams.Add("internal", parameterToString(*r.internal, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -337,7 +336,7 @@ func (a *TokensApiService) GetTokensExecute(r ApiGetTokensRequest) (Tokens, *_ne
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -347,15 +346,15 @@ func (a *TokensApiService) GetTokensExecute(r ApiGetTokensRequest) (Tokens, *_ne
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -371,7 +370,7 @@ func (a *TokensApiService) GetTokensExecute(r ApiGetTokensRequest) (Tokens, *_ne
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

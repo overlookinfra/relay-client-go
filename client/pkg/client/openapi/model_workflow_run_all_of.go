@@ -17,13 +17,13 @@ import (
 // WorkflowRunAllOf Metadata about a workflow run
 type WorkflowRunAllOf struct {
 	// Connection type and names used by the run
-	Connections *[]ConnectionReference           `json:"connections,omitempty"`
+	Connections []ConnectionReference            `json:"connections,omitempty"`
 	Error       *Error                           `json:"error,omitempty"`
 	Parameters  *map[string]WorkflowRunParameter `json:"parameters,omitempty"`
 	Revision    WorkflowRevisionSummary          `json:"revision"`
 	// Secret names provided to the run, both used and unused
-	Secrets *[]WorkflowSecretSummary `json:"secrets,omitempty"`
-	State   WorkflowRunState         `json:"state"`
+	Secrets []WorkflowSecretSummary `json:"secrets,omitempty"`
+	State   WorkflowRunState        `json:"state"`
 }
 
 // NewWorkflowRunAllOf instantiates a new WorkflowRunAllOf object
@@ -51,12 +51,12 @@ func (o *WorkflowRunAllOf) GetConnections() []ConnectionReference {
 		var ret []ConnectionReference
 		return ret
 	}
-	return *o.Connections
+	return o.Connections
 }
 
 // GetConnectionsOk returns a tuple with the Connections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowRunAllOf) GetConnectionsOk() (*[]ConnectionReference, bool) {
+func (o *WorkflowRunAllOf) GetConnectionsOk() ([]ConnectionReference, bool) {
 	if o == nil || o.Connections == nil {
 		return nil, false
 	}
@@ -74,7 +74,7 @@ func (o *WorkflowRunAllOf) HasConnections() bool {
 
 // SetConnections gets a reference to the given []ConnectionReference and assigns it to the Connections field.
 func (o *WorkflowRunAllOf) SetConnections(v []ConnectionReference) {
-	o.Connections = &v
+	o.Connections = v
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
@@ -171,12 +171,12 @@ func (o *WorkflowRunAllOf) GetSecrets() []WorkflowSecretSummary {
 		var ret []WorkflowSecretSummary
 		return ret
 	}
-	return *o.Secrets
+	return o.Secrets
 }
 
 // GetSecretsOk returns a tuple with the Secrets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowRunAllOf) GetSecretsOk() (*[]WorkflowSecretSummary, bool) {
+func (o *WorkflowRunAllOf) GetSecretsOk() ([]WorkflowSecretSummary, bool) {
 	if o == nil || o.Secrets == nil {
 		return nil, false
 	}
@@ -194,7 +194,7 @@ func (o *WorkflowRunAllOf) HasSecrets() bool {
 
 // SetSecrets gets a reference to the given []WorkflowSecretSummary and assigns it to the Secrets field.
 func (o *WorkflowRunAllOf) SetSecrets(v []WorkflowSecretSummary) {
-	o.Secrets = &v
+	o.Secrets = v
 }
 
 // GetState returns the State field value

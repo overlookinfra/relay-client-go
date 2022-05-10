@@ -18,11 +18,11 @@ import (
 // AnyWorkflowRunStepState struct for AnyWorkflowRunStepState
 type AnyWorkflowRunStepState struct {
 	// The set of decorators for a workflow step
-	Decorators *[]WorkflowRunStepDecorator `json:"decorators,omitempty"`
+	Decorators []WorkflowRunStepDecorator `json:"decorators,omitempty"`
 	// Time at which the step execution ended
 	EndedAt NullableTime `json:"ended_at,omitempty"`
 	// All messages associated with this step
-	Messages *[]WorkflowRunStepMessage `json:"messages,omitempty"`
+	Messages []WorkflowRunStepMessage `json:"messages,omitempty"`
 	// Time at which step execution started
 	StartedAt NullableTime `json:"started_at,omitempty"`
 	// Workflow run step status
@@ -53,12 +53,12 @@ func (o *AnyWorkflowRunStepState) GetDecorators() []WorkflowRunStepDecorator {
 		var ret []WorkflowRunStepDecorator
 		return ret
 	}
-	return *o.Decorators
+	return o.Decorators
 }
 
 // GetDecoratorsOk returns a tuple with the Decorators field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnyWorkflowRunStepState) GetDecoratorsOk() (*[]WorkflowRunStepDecorator, bool) {
+func (o *AnyWorkflowRunStepState) GetDecoratorsOk() ([]WorkflowRunStepDecorator, bool) {
 	if o == nil || o.Decorators == nil {
 		return nil, false
 	}
@@ -76,7 +76,7 @@ func (o *AnyWorkflowRunStepState) HasDecorators() bool {
 
 // SetDecorators gets a reference to the given []WorkflowRunStepDecorator and assigns it to the Decorators field.
 func (o *AnyWorkflowRunStepState) SetDecorators(v []WorkflowRunStepDecorator) {
-	o.Decorators = &v
+	o.Decorators = v
 }
 
 // GetEndedAt returns the EndedAt field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -128,12 +128,12 @@ func (o *AnyWorkflowRunStepState) GetMessages() []WorkflowRunStepMessage {
 		var ret []WorkflowRunStepMessage
 		return ret
 	}
-	return *o.Messages
+	return o.Messages
 }
 
 // GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnyWorkflowRunStepState) GetMessagesOk() (*[]WorkflowRunStepMessage, bool) {
+func (o *AnyWorkflowRunStepState) GetMessagesOk() ([]WorkflowRunStepMessage, bool) {
 	if o == nil || o.Messages == nil {
 		return nil, false
 	}
@@ -151,7 +151,7 @@ func (o *AnyWorkflowRunStepState) HasMessages() bool {
 
 // SetMessages gets a reference to the given []WorkflowRunStepMessage and assigns it to the Messages field.
 func (o *AnyWorkflowRunStepState) SetMessages(v []WorkflowRunStepMessage) {
-	o.Messages = &v
+	o.Messages = v
 }
 
 // GetStartedAt returns the StartedAt field value if set, zero value otherwise (both if not set or set to explicit null).

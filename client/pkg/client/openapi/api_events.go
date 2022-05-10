@@ -12,44 +12,39 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // EventsApiService EventsApi service
 type EventsApiService service
 
-type ApiCreateEventRequest struct {
-	ctx          _context.Context
+type EventsApiCreateEventRequest struct {
+	ctx          context.Context
 	ApiService   *EventsApiService
 	eventRequest *EventRequest
 }
 
 // Event to create
-func (r ApiCreateEventRequest) EventRequest(eventRequest EventRequest) ApiCreateEventRequest {
+func (r EventsApiCreateEventRequest) EventRequest(eventRequest EventRequest) EventsApiCreateEventRequest {
 	r.eventRequest = &eventRequest
 	return r
 }
 
-func (r ApiCreateEventRequest) Execute() (EventResponse, *_nethttp.Response, error) {
+func (r EventsApiCreateEventRequest) Execute() (*EventResponse, *http.Response, error) {
 	return r.ApiService.CreateEventExecute(r)
 }
 
 /*
 CreateEvent Submit an event to be processed
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateEventRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return EventsApiCreateEventRequest
 */
-func (a *EventsApiService) CreateEvent(ctx _context.Context) ApiCreateEventRequest {
-	return ApiCreateEventRequest{
+func (a *EventsApiService) CreateEvent(ctx context.Context) EventsApiCreateEventRequest {
+	return EventsApiCreateEventRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -57,26 +52,24 @@ func (a *EventsApiService) CreateEvent(ctx _context.Context) ApiCreateEventReque
 
 // Execute executes the request
 //  @return EventResponse
-func (a *EventsApiService) CreateEventExecute(r ApiCreateEventRequest) (EventResponse, *_nethttp.Response, error) {
+func (a *EventsApiService) CreateEventExecute(r EventsApiCreateEventRequest) (*EventResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  EventResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *EventResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.CreateEvent")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/events"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.eventRequest == nil {
 		return localVarReturnValue, nil, reportError("eventRequest is required and must be specified")
 	}
@@ -100,7 +93,7 @@ func (a *EventsApiService) CreateEventExecute(r ApiCreateEventRequest) (EventRes
 	}
 	// body params
 	localVarPostBody = r.eventRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -110,15 +103,15 @@ func (a *EventsApiService) CreateEventExecute(r ApiCreateEventRequest) (EventRes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -134,7 +127,7 @@ func (a *EventsApiService) CreateEventExecute(r ApiCreateEventRequest) (EventRes
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

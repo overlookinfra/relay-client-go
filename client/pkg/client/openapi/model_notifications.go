@@ -17,7 +17,7 @@ import (
 // Notifications The response type for listing notifications
 type Notifications struct {
 	// A list of notifications
-	Notifications *[]Notification `json:"notifications,omitempty"`
+	Notifications []Notification `json:"notifications,omitempty"`
 }
 
 // NewNotifications instantiates a new Notifications object
@@ -43,12 +43,12 @@ func (o *Notifications) GetNotifications() []Notification {
 		var ret []Notification
 		return ret
 	}
-	return *o.Notifications
+	return o.Notifications
 }
 
 // GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Notifications) GetNotificationsOk() (*[]Notification, bool) {
+func (o *Notifications) GetNotificationsOk() ([]Notification, bool) {
 	if o == nil || o.Notifications == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *Notifications) HasNotifications() bool {
 
 // SetNotifications gets a reference to the given []Notification and assigns it to the Notifications field.
 func (o *Notifications) SetNotifications(v []Notification) {
-	o.Notifications = &v
+	o.Notifications = v
 }
 
 func (o Notifications) MarshalJSON() ([]byte, error) {

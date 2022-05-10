@@ -19,7 +19,7 @@ type ConnectionAllOf struct {
 	Auth         ConnectionAuthStatus   `json:"auth"`
 	Availability ConnectionAvailability `json:"availability"`
 	// The workflows being used by this connection
-	Workflows *[]ConnectionWorkflowSummary `json:"workflows,omitempty"`
+	Workflows []ConnectionWorkflowSummary `json:"workflows,omitempty"`
 }
 
 // NewConnectionAllOf instantiates a new ConnectionAllOf object
@@ -95,12 +95,12 @@ func (o *ConnectionAllOf) GetWorkflows() []ConnectionWorkflowSummary {
 		var ret []ConnectionWorkflowSummary
 		return ret
 	}
-	return *o.Workflows
+	return o.Workflows
 }
 
 // GetWorkflowsOk returns a tuple with the Workflows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectionAllOf) GetWorkflowsOk() (*[]ConnectionWorkflowSummary, bool) {
+func (o *ConnectionAllOf) GetWorkflowsOk() ([]ConnectionWorkflowSummary, bool) {
 	if o == nil || o.Workflows == nil {
 		return nil, false
 	}
@@ -118,7 +118,7 @@ func (o *ConnectionAllOf) HasWorkflows() bool {
 
 // SetWorkflows gets a reference to the given []ConnectionWorkflowSummary and assigns it to the Workflows field.
 func (o *ConnectionAllOf) SetWorkflows(v []ConnectionWorkflowSummary) {
-	o.Workflows = &v
+	o.Workflows = v
 }
 
 func (o ConnectionAllOf) MarshalJSON() ([]byte, error) {

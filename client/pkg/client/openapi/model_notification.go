@@ -24,13 +24,13 @@ type Notification struct {
 	// Time of last update
 	UpdatedAt time.Time `json:"updated_at"`
 	// The attributes of this notification
-	Attributes *[]string `json:"attributes,omitempty"`
+	Attributes []string `json:"attributes,omitempty"`
 	// The type of event that created the event
 	Type string `json:"type"`
 	// The current user has marked this notification done
 	Done *bool `json:"done,omitempty"`
 	// The fields to use for linking out from the notification
-	Fields *map[string]interface{} `json:"fields,omitempty"`
+	Fields map[string]interface{} `json:"fields,omitempty"`
 	// Whether the current user has read this notification
 	Read bool `json:"read"`
 	// The state of this notification
@@ -138,12 +138,12 @@ func (o *Notification) GetAttributes() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Attributes
+	return o.Attributes
 }
 
 // GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Notification) GetAttributesOk() (*[]string, bool) {
+func (o *Notification) GetAttributesOk() ([]string, bool) {
 	if o == nil || o.Attributes == nil {
 		return nil, false
 	}
@@ -161,7 +161,7 @@ func (o *Notification) HasAttributes() bool {
 
 // SetAttributes gets a reference to the given []string and assigns it to the Attributes field.
 func (o *Notification) SetAttributes(v []string) {
-	o.Attributes = &v
+	o.Attributes = v
 }
 
 // GetType returns the Type field value
@@ -226,12 +226,12 @@ func (o *Notification) GetFields() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Fields
+	return o.Fields
 }
 
 // GetFieldsOk returns a tuple with the Fields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Notification) GetFieldsOk() (*map[string]interface{}, bool) {
+func (o *Notification) GetFieldsOk() (map[string]interface{}, bool) {
 	if o == nil || o.Fields == nil {
 		return nil, false
 	}
@@ -249,7 +249,7 @@ func (o *Notification) HasFields() bool {
 
 // SetFields gets a reference to the given map[string]interface{} and assigns it to the Fields field.
 func (o *Notification) SetFields(v map[string]interface{}) {
-	o.Fields = &v
+	o.Fields = v
 }
 
 // GetRead returns the Read field value

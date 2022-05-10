@@ -17,7 +17,7 @@ import (
 // Tokens A list of tokens
 type Tokens struct {
 	// A list of tokens
-	Tokens *[]Token `json:"tokens,omitempty"`
+	Tokens []Token `json:"tokens,omitempty"`
 }
 
 // NewTokens instantiates a new Tokens object
@@ -43,12 +43,12 @@ func (o *Tokens) GetTokens() []Token {
 		var ret []Token
 		return ret
 	}
-	return *o.Tokens
+	return o.Tokens
 }
 
 // GetTokensOk returns a tuple with the Tokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tokens) GetTokensOk() (*[]Token, bool) {
+func (o *Tokens) GetTokensOk() ([]Token, bool) {
 	if o == nil || o.Tokens == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *Tokens) HasTokens() bool {
 
 // SetTokens gets a reference to the given []Token and assigns it to the Tokens field.
 func (o *Tokens) SetTokens(v []Token) {
-	o.Tokens = &v
+	o.Tokens = v
 }
 
 func (o Tokens) MarshalJSON() ([]byte, error) {

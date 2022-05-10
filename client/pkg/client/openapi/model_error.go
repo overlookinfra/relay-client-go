@@ -16,15 +16,15 @@ import (
 
 // Error An error
 type Error struct {
-	Arguments   *map[string]map[string]interface{} `json:"arguments,omitempty"`
-	Causes      *[]Error                           `json:"causes,omitempty"`
-	Code        *string                            `json:"code,omitempty"`
-	Description *ErrorDescription                  `json:"description,omitempty"`
-	Domain      *string                            `json:"domain,omitempty"`
-	Formatted   *ErrorFormatted                    `json:"formatted,omitempty"`
-	Items       *map[string]Error                  `json:"items,omitempty"`
-	Section     *string                            `json:"section,omitempty"`
-	Title       *string                            `json:"title,omitempty"`
+	Arguments   map[string]interface{} `json:"arguments,omitempty"`
+	Causes      []Error                `json:"causes,omitempty"`
+	Code        *string                `json:"code,omitempty"`
+	Description *ErrorDescription      `json:"description,omitempty"`
+	Domain      *string                `json:"domain,omitempty"`
+	Formatted   *ErrorFormatted        `json:"formatted,omitempty"`
+	Items       *map[string]Error      `json:"items,omitempty"`
+	Section     *string                `json:"section,omitempty"`
+	Title       *string                `json:"title,omitempty"`
 }
 
 // NewError instantiates a new Error object
@@ -45,17 +45,17 @@ func NewErrorWithDefaults() *Error {
 }
 
 // GetArguments returns the Arguments field value if set, zero value otherwise.
-func (o *Error) GetArguments() map[string]map[string]interface{} {
+func (o *Error) GetArguments() map[string]interface{} {
 	if o == nil || o.Arguments == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Arguments
+	return o.Arguments
 }
 
 // GetArgumentsOk returns a tuple with the Arguments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Error) GetArgumentsOk() (*map[string]map[string]interface{}, bool) {
+func (o *Error) GetArgumentsOk() (map[string]interface{}, bool) {
 	if o == nil || o.Arguments == nil {
 		return nil, false
 	}
@@ -71,9 +71,9 @@ func (o *Error) HasArguments() bool {
 	return false
 }
 
-// SetArguments gets a reference to the given map[string]map[string]interface{} and assigns it to the Arguments field.
-func (o *Error) SetArguments(v map[string]map[string]interface{}) {
-	o.Arguments = &v
+// SetArguments gets a reference to the given map[string]interface{} and assigns it to the Arguments field.
+func (o *Error) SetArguments(v map[string]interface{}) {
+	o.Arguments = v
 }
 
 // GetCauses returns the Causes field value if set, zero value otherwise.
@@ -82,12 +82,12 @@ func (o *Error) GetCauses() []Error {
 		var ret []Error
 		return ret
 	}
-	return *o.Causes
+	return o.Causes
 }
 
 // GetCausesOk returns a tuple with the Causes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Error) GetCausesOk() (*[]Error, bool) {
+func (o *Error) GetCausesOk() ([]Error, bool) {
 	if o == nil || o.Causes == nil {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *Error) HasCauses() bool {
 
 // SetCauses gets a reference to the given []Error and assigns it to the Causes field.
 func (o *Error) SetCauses(v []Error) {
-	o.Causes = &v
+	o.Causes = v
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.

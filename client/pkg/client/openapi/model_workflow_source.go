@@ -23,12 +23,16 @@ type WorkflowSource struct {
 
 // WorkflowRelaySourceAsWorkflowSource is a convenience function that returns WorkflowRelaySource wrapped in WorkflowSource
 func WorkflowRelaySourceAsWorkflowSource(v *WorkflowRelaySource) WorkflowSource {
-	return WorkflowSource{WorkflowRelaySource: v}
+	return WorkflowSource{
+		WorkflowRelaySource: v,
+	}
 }
 
 // WorkflowRepositorySourceAsWorkflowSource is a convenience function that returns WorkflowRepositorySource wrapped in WorkflowSource
 func WorkflowRepositorySourceAsWorkflowSource(v *WorkflowRepositorySource) WorkflowSource {
-	return WorkflowSource{WorkflowRepositorySource: v}
+	return WorkflowSource{
+		WorkflowRepositorySource: v,
+	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
@@ -36,7 +40,7 @@ func (dst *WorkflowSource) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
-	err = json.Unmarshal(data, &jsonDict)
+	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
 	}
@@ -89,52 +93,7 @@ func (dst *WorkflowSource) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	match := 0
-	// try to unmarshal data into WorkflowRelaySource
-	err = json.Unmarshal(data, &dst.WorkflowRelaySource)
-	if err == nil {
-		jsonWorkflowRelaySource, err := json.Marshal(dst.WorkflowRelaySource)
-		if err == nil {
-			if string(jsonWorkflowRelaySource) == "" || string(jsonWorkflowRelaySource) == "{}" { // empty struct
-				dst.WorkflowRelaySource = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.WorkflowRelaySource = nil
-		}
-	} else {
-		dst.WorkflowRelaySource = nil
-	}
-
-	// try to unmarshal data into WorkflowRepositorySource
-	err = json.Unmarshal(data, &dst.WorkflowRepositorySource)
-	if err == nil {
-		jsonWorkflowRepositorySource, err := json.Marshal(dst.WorkflowRepositorySource)
-		if err == nil {
-			if string(jsonWorkflowRepositorySource) == "" || string(jsonWorkflowRepositorySource) == "{}" { // empty struct
-				dst.WorkflowRepositorySource = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.WorkflowRepositorySource = nil
-		}
-	} else {
-		dst.WorkflowRepositorySource = nil
-	}
-
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.WorkflowRelaySource = nil
-		dst.WorkflowRepositorySource = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(WorkflowSource)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(WorkflowSource)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -152,6 +111,9 @@ func (src WorkflowSource) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *WorkflowSource) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
 	if obj.WorkflowRelaySource != nil {
 		return obj.WorkflowRelaySource
 	}

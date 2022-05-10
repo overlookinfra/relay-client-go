@@ -14,10 +14,10 @@ import (
 	"encoding/json"
 )
 
-// InlineResponse20017 The response type for retrieving the list of workflow triggers
+// InlineResponse20017 An object containing an array of workflows
 type InlineResponse20017 struct {
-	// A list of workflow triggers
-	Triggers *[]WorkflowTriggerComposite `json:"triggers,omitempty"`
+	// A list of workflows
+	Workflows []WorkflowView `json:"workflows,omitempty"`
 }
 
 // NewInlineResponse20017 instantiates a new InlineResponse20017 object
@@ -37,42 +37,42 @@ func NewInlineResponse20017WithDefaults() *InlineResponse20017 {
 	return &this
 }
 
-// GetTriggers returns the Triggers field value if set, zero value otherwise.
-func (o *InlineResponse20017) GetTriggers() []WorkflowTriggerComposite {
-	if o == nil || o.Triggers == nil {
-		var ret []WorkflowTriggerComposite
+// GetWorkflows returns the Workflows field value if set, zero value otherwise.
+func (o *InlineResponse20017) GetWorkflows() []WorkflowView {
+	if o == nil || o.Workflows == nil {
+		var ret []WorkflowView
 		return ret
 	}
-	return *o.Triggers
+	return o.Workflows
 }
 
-// GetTriggersOk returns a tuple with the Triggers field value if set, nil otherwise
+// GetWorkflowsOk returns a tuple with the Workflows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse20017) GetTriggersOk() (*[]WorkflowTriggerComposite, bool) {
-	if o == nil || o.Triggers == nil {
+func (o *InlineResponse20017) GetWorkflowsOk() ([]WorkflowView, bool) {
+	if o == nil || o.Workflows == nil {
 		return nil, false
 	}
-	return o.Triggers, true
+	return o.Workflows, true
 }
 
-// HasTriggers returns a boolean if a field has been set.
-func (o *InlineResponse20017) HasTriggers() bool {
-	if o != nil && o.Triggers != nil {
+// HasWorkflows returns a boolean if a field has been set.
+func (o *InlineResponse20017) HasWorkflows() bool {
+	if o != nil && o.Workflows != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTriggers gets a reference to the given []WorkflowTriggerComposite and assigns it to the Triggers field.
-func (o *InlineResponse20017) SetTriggers(v []WorkflowTriggerComposite) {
-	o.Triggers = &v
+// SetWorkflows gets a reference to the given []WorkflowView and assigns it to the Workflows field.
+func (o *InlineResponse20017) SetWorkflows(v []WorkflowView) {
+	o.Workflows = v
 }
 
 func (o InlineResponse20017) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Triggers != nil {
-		toSerialize["triggers"] = o.Triggers
+	if o.Workflows != nil {
+		toSerialize["workflows"] = o.Workflows
 	}
 	return json.Marshal(toSerialize)
 }

@@ -17,7 +17,7 @@ import (
 // InlineResponse2009 Response type for all pending and/or accepted invites for this account
 type InlineResponse2009 struct {
 	// A list of invites
-	Invites *[]Invite `json:"invites,omitempty"`
+	Invites []Invite `json:"invites,omitempty"`
 }
 
 // NewInlineResponse2009 instantiates a new InlineResponse2009 object
@@ -43,12 +43,12 @@ func (o *InlineResponse2009) GetInvites() []Invite {
 		var ret []Invite
 		return ret
 	}
-	return *o.Invites
+	return o.Invites
 }
 
 // GetInvitesOk returns a tuple with the Invites field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse2009) GetInvitesOk() (*[]Invite, bool) {
+func (o *InlineResponse2009) GetInvitesOk() ([]Invite, bool) {
 	if o == nil || o.Invites == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *InlineResponse2009) HasInvites() bool {
 
 // SetInvites gets a reference to the given []Invite and assigns it to the Invites field.
 func (o *InlineResponse2009) SetInvites(v []Invite) {
-	o.Invites = &v
+	o.Invites = v
 }
 
 func (o InlineResponse2009) MarshalJSON() ([]byte, error) {

@@ -17,7 +17,7 @@ import (
 // UserWorkflowSubscriptions User subscription options for a workflow
 type UserWorkflowSubscriptions struct {
 	// Custom workflow subscriptions
-	Custom *[]string `json:"custom,omitempty"`
+	Custom []string `json:"custom,omitempty"`
 	// Subscribe to workflow notifications
 	Subscribe *bool `json:"subscribe,omitempty"`
 }
@@ -45,12 +45,12 @@ func (o *UserWorkflowSubscriptions) GetCustom() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Custom
+	return o.Custom
 }
 
 // GetCustomOk returns a tuple with the Custom field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserWorkflowSubscriptions) GetCustomOk() (*[]string, bool) {
+func (o *UserWorkflowSubscriptions) GetCustomOk() ([]string, bool) {
 	if o == nil || o.Custom == nil {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *UserWorkflowSubscriptions) HasCustom() bool {
 
 // SetCustom gets a reference to the given []string and assigns it to the Custom field.
 func (o *UserWorkflowSubscriptions) SetCustom(v []string) {
-	o.Custom = &v
+	o.Custom = v
 }
 
 // GetSubscribe returns the Subscribe field value if set, zero value otherwise.

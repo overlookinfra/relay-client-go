@@ -12,37 +12,32 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // TermsApiService TermsApi service
 type TermsApiService service
 
-type ApiGetTermsRequest struct {
-	ctx        _context.Context
+type TermsApiGetTermsRequest struct {
+	ctx        context.Context
 	ApiService *TermsApiService
 }
 
-func (r ApiGetTermsRequest) Execute() (Entity, *_nethttp.Response, error) {
+func (r TermsApiGetTermsRequest) Execute() (*Entity, *http.Response, error) {
 	return r.ApiService.GetTermsExecute(r)
 }
 
 /*
 GetTerms Get the latest terms and conditions
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTermsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return TermsApiGetTermsRequest
 */
-func (a *TermsApiService) GetTerms(ctx _context.Context) ApiGetTermsRequest {
-	return ApiGetTermsRequest{
+func (a *TermsApiService) GetTerms(ctx context.Context) TermsApiGetTermsRequest {
+	return TermsApiGetTermsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -50,26 +45,24 @@ func (a *TermsApiService) GetTerms(ctx _context.Context) ApiGetTermsRequest {
 
 // Execute executes the request
 //  @return Entity
-func (a *TermsApiService) GetTermsExecute(r ApiGetTermsRequest) (Entity, *_nethttp.Response, error) {
+func (a *TermsApiService) GetTermsExecute(r TermsApiGetTermsRequest) (*Entity, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Entity
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Entity
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TermsApiService.GetTerms")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/terms/latest"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -88,7 +81,7 @@ func (a *TermsApiService) GetTermsExecute(r ApiGetTermsRequest) (Entity, *_netht
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -98,15 +91,15 @@ func (a *TermsApiService) GetTermsExecute(r ApiGetTermsRequest) (Entity, *_netht
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -122,7 +115,7 @@ func (a *TermsApiService) GetTermsExecute(r ApiGetTermsRequest) (Entity, *_netht
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

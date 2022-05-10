@@ -17,7 +17,7 @@ import (
 // InlineResponse20011 The response type for the billing plans list
 type InlineResponse20011 struct {
 	// A list of billing plans
-	Plans *[]Plan `json:"plans,omitempty"`
+	Plans []Plan `json:"plans,omitempty"`
 }
 
 // NewInlineResponse20011 instantiates a new InlineResponse20011 object
@@ -43,12 +43,12 @@ func (o *InlineResponse20011) GetPlans() []Plan {
 		var ret []Plan
 		return ret
 	}
-	return *o.Plans
+	return o.Plans
 }
 
 // GetPlansOk returns a tuple with the Plans field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse20011) GetPlansOk() (*[]Plan, bool) {
+func (o *InlineResponse20011) GetPlansOk() ([]Plan, bool) {
 	if o == nil || o.Plans == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *InlineResponse20011) HasPlans() bool {
 
 // SetPlans gets a reference to the given []Plan and assigns it to the Plans field.
 func (o *InlineResponse20011) SetPlans(v []Plan) {
-	o.Plans = &v
+	o.Plans = v
 }
 
 func (o InlineResponse20011) MarshalJSON() ([]byte, error) {

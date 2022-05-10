@@ -17,7 +17,7 @@ import (
 // WorkflowRunStepOutputState Output state for a workflow run step
 type WorkflowRunStepOutputState struct {
 	// A list of workflow run step outputs
-	Outputs *[]WorkflowRunStepOutput `json:"outputs,omitempty"`
+	Outputs []WorkflowRunStepOutput `json:"outputs,omitempty"`
 }
 
 // NewWorkflowRunStepOutputState instantiates a new WorkflowRunStepOutputState object
@@ -43,12 +43,12 @@ func (o *WorkflowRunStepOutputState) GetOutputs() []WorkflowRunStepOutput {
 		var ret []WorkflowRunStepOutput
 		return ret
 	}
-	return *o.Outputs
+	return o.Outputs
 }
 
 // GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowRunStepOutputState) GetOutputsOk() (*[]WorkflowRunStepOutput, bool) {
+func (o *WorkflowRunStepOutputState) GetOutputsOk() ([]WorkflowRunStepOutput, bool) {
 	if o == nil || o.Outputs == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *WorkflowRunStepOutputState) HasOutputs() bool {
 
 // SetOutputs gets a reference to the given []WorkflowRunStepOutput and assigns it to the Outputs field.
 func (o *WorkflowRunStepOutputState) SetOutputs(v []WorkflowRunStepOutput) {
-	o.Outputs = &v
+	o.Outputs = v
 }
 
 func (o WorkflowRunStepOutputState) MarshalJSON() ([]byte, error) {

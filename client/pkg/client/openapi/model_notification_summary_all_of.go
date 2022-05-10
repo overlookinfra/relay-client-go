@@ -17,7 +17,7 @@ import (
 // NotificationSummaryAllOf A summary of a notification
 type NotificationSummaryAllOf struct {
 	// The attributes of this notification
-	Attributes *[]string `json:"attributes,omitempty"`
+	Attributes []string `json:"attributes,omitempty"`
 	// The type of event that created the event
 	Type string `json:"type"`
 }
@@ -46,12 +46,12 @@ func (o *NotificationSummaryAllOf) GetAttributes() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Attributes
+	return o.Attributes
 }
 
 // GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationSummaryAllOf) GetAttributesOk() (*[]string, bool) {
+func (o *NotificationSummaryAllOf) GetAttributesOk() ([]string, bool) {
 	if o == nil || o.Attributes == nil {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *NotificationSummaryAllOf) HasAttributes() bool {
 
 // SetAttributes gets a reference to the given []string and assigns it to the Attributes field.
 func (o *NotificationSummaryAllOf) SetAttributes(v []string) {
-	o.Attributes = &v
+	o.Attributes = v
 }
 
 // GetType returns the Type field value

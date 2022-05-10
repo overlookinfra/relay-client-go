@@ -12,47 +12,42 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // WorkflowSecretsApiService WorkflowSecretsApi service
 type WorkflowSecretsApiService service
 
-type ApiCreateWorkflowSecretRequest struct {
-	ctx            _context.Context
+type WorkflowSecretsApiCreateWorkflowSecretRequest struct {
+	ctx            context.Context
 	ApiService     *WorkflowSecretsApiService
 	workflowName   string
 	workflowSecret *WorkflowSecret
 }
 
 // Secret to name value pair to create
-func (r ApiCreateWorkflowSecretRequest) WorkflowSecret(workflowSecret WorkflowSecret) ApiCreateWorkflowSecretRequest {
+func (r WorkflowSecretsApiCreateWorkflowSecretRequest) WorkflowSecret(workflowSecret WorkflowSecret) WorkflowSecretsApiCreateWorkflowSecretRequest {
 	r.workflowSecret = &workflowSecret
 	return r
 }
 
-func (r ApiCreateWorkflowSecretRequest) Execute() (Entity, *_nethttp.Response, error) {
+func (r WorkflowSecretsApiCreateWorkflowSecretRequest) Execute() (*Entity, *http.Response, error) {
 	return r.ApiService.CreateWorkflowSecretExecute(r)
 }
 
 /*
 CreateWorkflowSecret Add a new secret to the given workflow
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workflowName Workflow name
- @return ApiCreateWorkflowSecretRequest
+ @return WorkflowSecretsApiCreateWorkflowSecretRequest
 */
-func (a *WorkflowSecretsApiService) CreateWorkflowSecret(ctx _context.Context, workflowName string) ApiCreateWorkflowSecretRequest {
-	return ApiCreateWorkflowSecretRequest{
+func (a *WorkflowSecretsApiService) CreateWorkflowSecret(ctx context.Context, workflowName string) WorkflowSecretsApiCreateWorkflowSecretRequest {
+	return WorkflowSecretsApiCreateWorkflowSecretRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		workflowName: workflowName,
@@ -61,27 +56,25 @@ func (a *WorkflowSecretsApiService) CreateWorkflowSecret(ctx _context.Context, w
 
 // Execute executes the request
 //  @return Entity
-func (a *WorkflowSecretsApiService) CreateWorkflowSecretExecute(r ApiCreateWorkflowSecretRequest) (Entity, *_nethttp.Response, error) {
+func (a *WorkflowSecretsApiService) CreateWorkflowSecretExecute(r WorkflowSecretsApiCreateWorkflowSecretRequest) (*Entity, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Entity
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Entity
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowSecretsApiService.CreateWorkflowSecret")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/workflows/{workflowName}/secrets"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.workflowSecret == nil {
 		return localVarReturnValue, nil, reportError("workflowSecret is required and must be specified")
 	}
@@ -105,7 +98,7 @@ func (a *WorkflowSecretsApiService) CreateWorkflowSecretExecute(r ApiCreateWorkf
 	}
 	// body params
 	localVarPostBody = r.workflowSecret
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -115,15 +108,15 @@ func (a *WorkflowSecretsApiService) CreateWorkflowSecretExecute(r ApiCreateWorkf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -139,7 +132,7 @@ func (a *WorkflowSecretsApiService) CreateWorkflowSecretExecute(r ApiCreateWorkf
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -149,27 +142,27 @@ func (a *WorkflowSecretsApiService) CreateWorkflowSecretExecute(r ApiCreateWorkf
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteWorkflowSecretRequest struct {
-	ctx                _context.Context
+type WorkflowSecretsApiDeleteWorkflowSecretRequest struct {
+	ctx                context.Context
 	ApiService         *WorkflowSecretsApiService
 	workflowName       string
 	workflowSecretName string
 }
 
-func (r ApiDeleteWorkflowSecretRequest) Execute() (DeletedResource, *_nethttp.Response, error) {
+func (r WorkflowSecretsApiDeleteWorkflowSecretRequest) Execute() (*DeletedResource, *http.Response, error) {
 	return r.ApiService.DeleteWorkflowSecretExecute(r)
 }
 
 /*
 DeleteWorkflowSecret Delete the secret associated with the given workflow and secret name
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workflowName Workflow name
  @param workflowSecretName The name of a workflow secret
- @return ApiDeleteWorkflowSecretRequest
+ @return WorkflowSecretsApiDeleteWorkflowSecretRequest
 */
-func (a *WorkflowSecretsApiService) DeleteWorkflowSecret(ctx _context.Context, workflowName string, workflowSecretName string) ApiDeleteWorkflowSecretRequest {
-	return ApiDeleteWorkflowSecretRequest{
+func (a *WorkflowSecretsApiService) DeleteWorkflowSecret(ctx context.Context, workflowName string, workflowSecretName string) WorkflowSecretsApiDeleteWorkflowSecretRequest {
+	return WorkflowSecretsApiDeleteWorkflowSecretRequest{
 		ApiService:         a,
 		ctx:                ctx,
 		workflowName:       workflowName,
@@ -179,28 +172,26 @@ func (a *WorkflowSecretsApiService) DeleteWorkflowSecret(ctx _context.Context, w
 
 // Execute executes the request
 //  @return DeletedResource
-func (a *WorkflowSecretsApiService) DeleteWorkflowSecretExecute(r ApiDeleteWorkflowSecretRequest) (DeletedResource, *_nethttp.Response, error) {
+func (a *WorkflowSecretsApiService) DeleteWorkflowSecretExecute(r WorkflowSecretsApiDeleteWorkflowSecretRequest) (*DeletedResource, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  DeletedResource
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *DeletedResource
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowSecretsApiService.DeleteWorkflowSecret")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/workflows/{workflowName}/secrets/{workflowSecretName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowSecretName"+"}", _neturl.PathEscape(parameterToString(r.workflowSecretName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowSecretName"+"}", url.PathEscape(parameterToString(r.workflowSecretName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -219,7 +210,7 @@ func (a *WorkflowSecretsApiService) DeleteWorkflowSecretExecute(r ApiDeleteWorkf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -229,15 +220,15 @@ func (a *WorkflowSecretsApiService) DeleteWorkflowSecretExecute(r ApiDeleteWorkf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -253,7 +244,7 @@ func (a *WorkflowSecretsApiService) DeleteWorkflowSecretExecute(r ApiDeleteWorkf
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -263,25 +254,25 @@ func (a *WorkflowSecretsApiService) DeleteWorkflowSecretExecute(r ApiDeleteWorkf
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListWorkflowSecretsRequest struct {
-	ctx          _context.Context
+type WorkflowSecretsApiListWorkflowSecretsRequest struct {
+	ctx          context.Context
 	ApiService   *WorkflowSecretsApiService
 	workflowName string
 }
 
-func (r ApiListWorkflowSecretsRequest) Execute() (WorkflowSecretsSummary, *_nethttp.Response, error) {
+func (r WorkflowSecretsApiListWorkflowSecretsRequest) Execute() (*WorkflowSecretsSummary, *http.Response, error) {
 	return r.ApiService.ListWorkflowSecretsExecute(r)
 }
 
 /*
 ListWorkflowSecrets Get all secrets associated with the given workflow
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workflowName Workflow name
- @return ApiListWorkflowSecretsRequest
+ @return WorkflowSecretsApiListWorkflowSecretsRequest
 */
-func (a *WorkflowSecretsApiService) ListWorkflowSecrets(ctx _context.Context, workflowName string) ApiListWorkflowSecretsRequest {
-	return ApiListWorkflowSecretsRequest{
+func (a *WorkflowSecretsApiService) ListWorkflowSecrets(ctx context.Context, workflowName string) WorkflowSecretsApiListWorkflowSecretsRequest {
+	return WorkflowSecretsApiListWorkflowSecretsRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		workflowName: workflowName,
@@ -290,27 +281,25 @@ func (a *WorkflowSecretsApiService) ListWorkflowSecrets(ctx _context.Context, wo
 
 // Execute executes the request
 //  @return WorkflowSecretsSummary
-func (a *WorkflowSecretsApiService) ListWorkflowSecretsExecute(r ApiListWorkflowSecretsRequest) (WorkflowSecretsSummary, *_nethttp.Response, error) {
+func (a *WorkflowSecretsApiService) ListWorkflowSecretsExecute(r WorkflowSecretsApiListWorkflowSecretsRequest) (*WorkflowSecretsSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  WorkflowSecretsSummary
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WorkflowSecretsSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowSecretsApiService.ListWorkflowSecrets")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/workflows/{workflowName}/secrets"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -329,7 +318,7 @@ func (a *WorkflowSecretsApiService) ListWorkflowSecretsExecute(r ApiListWorkflow
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -339,15 +328,15 @@ func (a *WorkflowSecretsApiService) ListWorkflowSecretsExecute(r ApiListWorkflow
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -363,7 +352,7 @@ func (a *WorkflowSecretsApiService) ListWorkflowSecretsExecute(r ApiListWorkflow
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -373,8 +362,8 @@ func (a *WorkflowSecretsApiService) ListWorkflowSecretsExecute(r ApiListWorkflow
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateWorkflowSecretRequest struct {
-	ctx                 _context.Context
+type WorkflowSecretsApiUpdateWorkflowSecretRequest struct {
+	ctx                 context.Context
 	ApiService          *WorkflowSecretsApiService
 	workflowName        string
 	workflowSecretName  string
@@ -382,25 +371,25 @@ type ApiUpdateWorkflowSecretRequest struct {
 }
 
 // The new secret value
-func (r ApiUpdateWorkflowSecretRequest) WorkflowSecretValue(workflowSecretValue WorkflowSecretValue) ApiUpdateWorkflowSecretRequest {
+func (r WorkflowSecretsApiUpdateWorkflowSecretRequest) WorkflowSecretValue(workflowSecretValue WorkflowSecretValue) WorkflowSecretsApiUpdateWorkflowSecretRequest {
 	r.workflowSecretValue = &workflowSecretValue
 	return r
 }
 
-func (r ApiUpdateWorkflowSecretRequest) Execute() (Entity, *_nethttp.Response, error) {
+func (r WorkflowSecretsApiUpdateWorkflowSecretRequest) Execute() (*Entity, *http.Response, error) {
 	return r.ApiService.UpdateWorkflowSecretExecute(r)
 }
 
 /*
 UpdateWorkflowSecret Update the secret associated with the given workflow and secret name
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workflowName Workflow name
  @param workflowSecretName The name of a workflow secret
- @return ApiUpdateWorkflowSecretRequest
+ @return WorkflowSecretsApiUpdateWorkflowSecretRequest
 */
-func (a *WorkflowSecretsApiService) UpdateWorkflowSecret(ctx _context.Context, workflowName string, workflowSecretName string) ApiUpdateWorkflowSecretRequest {
-	return ApiUpdateWorkflowSecretRequest{
+func (a *WorkflowSecretsApiService) UpdateWorkflowSecret(ctx context.Context, workflowName string, workflowSecretName string) WorkflowSecretsApiUpdateWorkflowSecretRequest {
+	return WorkflowSecretsApiUpdateWorkflowSecretRequest{
 		ApiService:         a,
 		ctx:                ctx,
 		workflowName:       workflowName,
@@ -410,28 +399,26 @@ func (a *WorkflowSecretsApiService) UpdateWorkflowSecret(ctx _context.Context, w
 
 // Execute executes the request
 //  @return Entity
-func (a *WorkflowSecretsApiService) UpdateWorkflowSecretExecute(r ApiUpdateWorkflowSecretRequest) (Entity, *_nethttp.Response, error) {
+func (a *WorkflowSecretsApiService) UpdateWorkflowSecretExecute(r WorkflowSecretsApiUpdateWorkflowSecretRequest) (*Entity, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Entity
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Entity
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowSecretsApiService.UpdateWorkflowSecret")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/workflows/{workflowName}/secrets/{workflowSecretName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowSecretName"+"}", _neturl.PathEscape(parameterToString(r.workflowSecretName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowSecretName"+"}", url.PathEscape(parameterToString(r.workflowSecretName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.workflowSecretValue == nil {
 		return localVarReturnValue, nil, reportError("workflowSecretValue is required and must be specified")
 	}
@@ -455,7 +442,7 @@ func (a *WorkflowSecretsApiService) UpdateWorkflowSecretExecute(r ApiUpdateWorkf
 	}
 	// body params
 	localVarPostBody = r.workflowSecretValue
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -465,15 +452,15 @@ func (a *WorkflowSecretsApiService) UpdateWorkflowSecretExecute(r ApiUpdateWorkf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -489,7 +476,7 @@ func (a *WorkflowSecretsApiService) UpdateWorkflowSecretExecute(r ApiUpdateWorkf
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

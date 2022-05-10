@@ -17,7 +17,7 @@ import (
 // OAuth2ConnectionProviderAuthScope Information about an OAuth 2.0 scope for a connection
 type OAuth2ConnectionProviderAuthScope struct {
 	// The set of capabilities to enable for a connection
-	Capabilities *[]ConnectionProviderCapability `json:"capabilities,omitempty"`
+	Capabilities []ConnectionProviderCapability `json:"capabilities,omitempty"`
 	// If true, this scope will be automatically added to any authentication request
 	Implicit *bool `json:"implicit,omitempty"`
 	// The scope name
@@ -50,12 +50,12 @@ func (o *OAuth2ConnectionProviderAuthScope) GetCapabilities() []ConnectionProvid
 		var ret []ConnectionProviderCapability
 		return ret
 	}
-	return *o.Capabilities
+	return o.Capabilities
 }
 
 // GetCapabilitiesOk returns a tuple with the Capabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OAuth2ConnectionProviderAuthScope) GetCapabilitiesOk() (*[]ConnectionProviderCapability, bool) {
+func (o *OAuth2ConnectionProviderAuthScope) GetCapabilitiesOk() ([]ConnectionProviderCapability, bool) {
 	if o == nil || o.Capabilities == nil {
 		return nil, false
 	}
@@ -73,7 +73,7 @@ func (o *OAuth2ConnectionProviderAuthScope) HasCapabilities() bool {
 
 // SetCapabilities gets a reference to the given []ConnectionProviderCapability and assigns it to the Capabilities field.
 func (o *OAuth2ConnectionProviderAuthScope) SetCapabilities(v []ConnectionProviderCapability) {
-	o.Capabilities = &v
+	o.Capabilities = v
 }
 
 // GetImplicit returns the Implicit field value if set, zero value otherwise.

@@ -17,7 +17,7 @@ import (
 // InlineResponse20013 The response type for listing the roles in an account
 type InlineResponse20013 struct {
 	// The roles in this account
-	Roles *[]Role `json:"roles,omitempty"`
+	Roles []Role `json:"roles,omitempty"`
 }
 
 // NewInlineResponse20013 instantiates a new InlineResponse20013 object
@@ -43,12 +43,12 @@ func (o *InlineResponse20013) GetRoles() []Role {
 		var ret []Role
 		return ret
 	}
-	return *o.Roles
+	return o.Roles
 }
 
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse20013) GetRolesOk() (*[]Role, bool) {
+func (o *InlineResponse20013) GetRolesOk() ([]Role, bool) {
 	if o == nil || o.Roles == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *InlineResponse20013) HasRoles() bool {
 
 // SetRoles gets a reference to the given []Role and assigns it to the Roles field.
 func (o *InlineResponse20013) SetRoles(v []Role) {
-	o.Roles = &v
+	o.Roles = v
 }
 
 func (o InlineResponse20013) MarshalJSON() ([]byte, error) {

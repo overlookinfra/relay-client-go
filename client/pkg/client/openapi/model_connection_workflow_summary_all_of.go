@@ -50,11 +50,11 @@ func (o *ConnectionWorkflowSummaryAllOf) GetCapabilities() []ConnectionProviderC
 
 // GetCapabilitiesOk returns a tuple with the Capabilities field value
 // and a boolean to check if the value has been set.
-func (o *ConnectionWorkflowSummaryAllOf) GetCapabilitiesOk() (*[]ConnectionProviderCapability, bool) {
+func (o *ConnectionWorkflowSummaryAllOf) GetCapabilitiesOk() ([]ConnectionProviderCapability, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Capabilities, true
+	return o.Capabilities, true
 }
 
 // SetCapabilities sets field value

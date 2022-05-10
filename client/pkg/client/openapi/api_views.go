@@ -12,37 +12,32 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-)
-
-// Linger please
-var (
-	_ _context.Context
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // ViewsApiService ViewsApi service
 type ViewsApiService service
 
-type ApiGetWorkflowsViewRequest struct {
-	ctx        _context.Context
+type ViewsApiGetWorkflowsViewRequest struct {
+	ctx        context.Context
 	ApiService *ViewsApiService
 }
 
-func (r ApiGetWorkflowsViewRequest) Execute() (WorkflowsView, *_nethttp.Response, error) {
+func (r ViewsApiGetWorkflowsViewRequest) Execute() (*WorkflowsView, *http.Response, error) {
 	return r.ApiService.GetWorkflowsViewExecute(r)
 }
 
 /*
 GetWorkflowsView Customized view of all workflows
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetWorkflowsViewRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ViewsApiGetWorkflowsViewRequest
 */
-func (a *ViewsApiService) GetWorkflowsView(ctx _context.Context) ApiGetWorkflowsViewRequest {
-	return ApiGetWorkflowsViewRequest{
+func (a *ViewsApiService) GetWorkflowsView(ctx context.Context) ViewsApiGetWorkflowsViewRequest {
+	return ViewsApiGetWorkflowsViewRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -50,26 +45,24 @@ func (a *ViewsApiService) GetWorkflowsView(ctx _context.Context) ApiGetWorkflows
 
 // Execute executes the request
 //  @return WorkflowsView
-func (a *ViewsApiService) GetWorkflowsViewExecute(r ApiGetWorkflowsViewRequest) (WorkflowsView, *_nethttp.Response, error) {
+func (a *ViewsApiService) GetWorkflowsViewExecute(r ViewsApiGetWorkflowsViewRequest) (*WorkflowsView, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  WorkflowsView
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WorkflowsView
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.GetWorkflowsView")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/views/workflows"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -88,7 +81,7 @@ func (a *ViewsApiService) GetWorkflowsViewExecute(r ApiGetWorkflowsViewRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -98,15 +91,15 @@ func (a *ViewsApiService) GetWorkflowsViewExecute(r ApiGetWorkflowsViewRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -122,7 +115,7 @@ func (a *ViewsApiService) GetWorkflowsViewExecute(r ApiGetWorkflowsViewRequest) 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

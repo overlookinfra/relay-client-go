@@ -22,7 +22,9 @@ type Token struct {
 
 // UserTokenAsToken is a convenience function that returns UserToken wrapped in Token
 func UserTokenAsToken(v *UserToken) Token {
-	return Token{UserToken: v}
+	return Token{
+		UserToken: v,
+	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
@@ -30,7 +32,7 @@ func (dst *Token) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
-	err = json.Unmarshal(data, &jsonDict)
+	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
 	}
@@ -59,34 +61,7 @@ func (dst *Token) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	match := 0
-	// try to unmarshal data into UserToken
-	err = json.Unmarshal(data, &dst.UserToken)
-	if err == nil {
-		jsonUserToken, err := json.Marshal(dst.UserToken)
-		if err == nil {
-			if string(jsonUserToken) == "" || string(jsonUserToken) == "{}" { // empty struct
-				dst.UserToken = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.UserToken = nil
-		}
-	} else {
-		dst.UserToken = nil
-	}
-
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.UserToken = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(Token)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(Token)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -100,6 +75,9 @@ func (src Token) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *Token) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
 	if obj.UserToken != nil {
 		return obj.UserToken
 	}

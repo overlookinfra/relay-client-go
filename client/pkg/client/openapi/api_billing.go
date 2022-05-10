@@ -12,38 +12,33 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // BillingApiService BillingApi service
 type BillingApiService service
 
-type ApiGetAccountPlanRequest struct {
-	ctx        _context.Context
+type BillingApiGetAccountPlanRequest struct {
+	ctx        context.Context
 	ApiService *BillingApiService
 }
 
-func (r ApiGetAccountPlanRequest) Execute() (AccountEntity, *_nethttp.Response, error) {
+func (r BillingApiGetAccountPlanRequest) Execute() (*AccountEntity, *http.Response, error) {
 	return r.ApiService.GetAccountPlanExecute(r)
 }
 
 /*
 GetAccountPlan Retrieve information about the current account plan and quotas
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAccountPlanRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return BillingApiGetAccountPlanRequest
 */
-func (a *BillingApiService) GetAccountPlan(ctx _context.Context) ApiGetAccountPlanRequest {
-	return ApiGetAccountPlanRequest{
+func (a *BillingApiService) GetAccountPlan(ctx context.Context) BillingApiGetAccountPlanRequest {
+	return BillingApiGetAccountPlanRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -51,26 +46,24 @@ func (a *BillingApiService) GetAccountPlan(ctx _context.Context) ApiGetAccountPl
 
 // Execute executes the request
 //  @return AccountEntity
-func (a *BillingApiService) GetAccountPlanExecute(r ApiGetAccountPlanRequest) (AccountEntity, *_nethttp.Response, error) {
+func (a *BillingApiService) GetAccountPlanExecute(r BillingApiGetAccountPlanRequest) (*AccountEntity, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AccountEntity
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountEntity
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.GetAccountPlan")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/account/plan"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -89,7 +82,7 @@ func (a *BillingApiService) GetAccountPlanExecute(r ApiGetAccountPlanRequest) (A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -99,15 +92,15 @@ func (a *BillingApiService) GetAccountPlanExecute(r ApiGetAccountPlanRequest) (A
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -123,7 +116,7 @@ func (a *BillingApiService) GetAccountPlanExecute(r ApiGetAccountPlanRequest) (A
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -133,23 +126,23 @@ func (a *BillingApiService) GetAccountPlanExecute(r ApiGetAccountPlanRequest) (A
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetPlansRequest struct {
-	ctx        _context.Context
+type BillingApiGetPlansRequest struct {
+	ctx        context.Context
 	ApiService *BillingApiService
 }
 
-func (r ApiGetPlansRequest) Execute() (InlineResponse20011, *_nethttp.Response, error) {
+func (r BillingApiGetPlansRequest) Execute() (*InlineResponse20011, *http.Response, error) {
 	return r.ApiService.GetPlansExecute(r)
 }
 
 /*
 GetPlans Retrieve the list of available billing plans
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetPlansRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return BillingApiGetPlansRequest
 */
-func (a *BillingApiService) GetPlans(ctx _context.Context) ApiGetPlansRequest {
-	return ApiGetPlansRequest{
+func (a *BillingApiService) GetPlans(ctx context.Context) BillingApiGetPlansRequest {
+	return BillingApiGetPlansRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -157,26 +150,24 @@ func (a *BillingApiService) GetPlans(ctx _context.Context) ApiGetPlansRequest {
 
 // Execute executes the request
 //  @return InlineResponse20011
-func (a *BillingApiService) GetPlansExecute(r ApiGetPlansRequest) (InlineResponse20011, *_nethttp.Response, error) {
+func (a *BillingApiService) GetPlansExecute(r BillingApiGetPlansRequest) (*InlineResponse20011, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse20011
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InlineResponse20011
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.GetPlans")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/plans"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -195,7 +186,7 @@ func (a *BillingApiService) GetPlansExecute(r ApiGetPlansRequest) (InlineRespons
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -205,15 +196,15 @@ func (a *BillingApiService) GetPlansExecute(r ApiGetPlansRequest) (InlineRespons
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -229,7 +220,7 @@ func (a *BillingApiService) GetPlansExecute(r ApiGetPlansRequest) (InlineRespons
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -239,23 +230,23 @@ func (a *BillingApiService) GetPlansExecute(r ApiGetPlansRequest) (InlineRespons
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostAccountPlanBillingRequest struct {
-	ctx        _context.Context
+type BillingApiPostAccountPlanBillingRequest struct {
+	ctx        context.Context
 	ApiService *BillingApiService
 }
 
-func (r ApiPostAccountPlanBillingRequest) Execute() (InlineResponse2003, *_nethttp.Response, error) {
+func (r BillingApiPostAccountPlanBillingRequest) Execute() (*InlineResponse2003, *http.Response, error) {
 	return r.ApiService.PostAccountPlanBillingExecute(r)
 }
 
 /*
 PostAccountPlanBilling Edit account plan billing data (e.g. payment method, number of seats, etc.)
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostAccountPlanBillingRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return BillingApiPostAccountPlanBillingRequest
 */
-func (a *BillingApiService) PostAccountPlanBilling(ctx _context.Context) ApiPostAccountPlanBillingRequest {
-	return ApiPostAccountPlanBillingRequest{
+func (a *BillingApiService) PostAccountPlanBilling(ctx context.Context) BillingApiPostAccountPlanBillingRequest {
+	return BillingApiPostAccountPlanBillingRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -263,26 +254,24 @@ func (a *BillingApiService) PostAccountPlanBilling(ctx _context.Context) ApiPost
 
 // Execute executes the request
 //  @return InlineResponse2003
-func (a *BillingApiService) PostAccountPlanBillingExecute(r ApiPostAccountPlanBillingRequest) (InlineResponse2003, *_nethttp.Response, error) {
+func (a *BillingApiService) PostAccountPlanBillingExecute(r BillingApiPostAccountPlanBillingRequest) (*InlineResponse2003, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2003
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InlineResponse2003
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.PostAccountPlanBilling")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/account/plan/billing"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -301,7 +290,7 @@ func (a *BillingApiService) PostAccountPlanBillingExecute(r ApiPostAccountPlanBi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -311,15 +300,15 @@ func (a *BillingApiService) PostAccountPlanBillingExecute(r ApiPostAccountPlanBi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -335,7 +324,7 @@ func (a *BillingApiService) PostAccountPlanBillingExecute(r ApiPostAccountPlanBi
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -345,27 +334,27 @@ func (a *BillingApiService) PostAccountPlanBillingExecute(r ApiPostAccountPlanBi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostPlanPriceRequest struct {
-	ctx        _context.Context
+type BillingApiPostPlanPriceRequest struct {
+	ctx        context.Context
 	ApiService *BillingApiService
 	planId     string
 	priceId    string
 }
 
-func (r ApiPostPlanPriceRequest) Execute() (InlineResponse20012, *_nethttp.Response, error) {
+func (r BillingApiPostPlanPriceRequest) Execute() (*InlineResponse20012, *http.Response, error) {
 	return r.ApiService.PostPlanPriceExecute(r)
 }
 
 /*
 PostPlanPrice Start a new subscription to a billing plan
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param planId The unique billing plan ID
  @param priceId The unique billing plan price ID
- @return ApiPostPlanPriceRequest
+ @return BillingApiPostPlanPriceRequest
 */
-func (a *BillingApiService) PostPlanPrice(ctx _context.Context, planId string, priceId string) ApiPostPlanPriceRequest {
-	return ApiPostPlanPriceRequest{
+func (a *BillingApiService) PostPlanPrice(ctx context.Context, planId string, priceId string) BillingApiPostPlanPriceRequest {
+	return BillingApiPostPlanPriceRequest{
 		ApiService: a,
 		ctx:        ctx,
 		planId:     planId,
@@ -375,28 +364,26 @@ func (a *BillingApiService) PostPlanPrice(ctx _context.Context, planId string, p
 
 // Execute executes the request
 //  @return InlineResponse20012
-func (a *BillingApiService) PostPlanPriceExecute(r ApiPostPlanPriceRequest) (InlineResponse20012, *_nethttp.Response, error) {
+func (a *BillingApiService) PostPlanPriceExecute(r BillingApiPostPlanPriceRequest) (*InlineResponse20012, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse20012
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InlineResponse20012
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.PostPlanPrice")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/plans/{planId}/prices/{priceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"planId"+"}", _neturl.PathEscape(parameterToString(r.planId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"priceId"+"}", _neturl.PathEscape(parameterToString(r.priceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"planId"+"}", url.PathEscape(parameterToString(r.planId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"priceId"+"}", url.PathEscape(parameterToString(r.priceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -415,7 +402,7 @@ func (a *BillingApiService) PostPlanPriceExecute(r ApiPostPlanPriceRequest) (Inl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -425,15 +412,15 @@ func (a *BillingApiService) PostPlanPriceExecute(r ApiPostPlanPriceRequest) (Inl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -449,7 +436,7 @@ func (a *BillingApiService) PostPlanPriceExecute(r ApiPostPlanPriceRequest) (Inl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -459,23 +446,23 @@ func (a *BillingApiService) PostPlanPriceExecute(r ApiPostPlanPriceRequest) (Inl
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiSyncAccountPlanRequest struct {
-	ctx        _context.Context
+type BillingApiSyncAccountPlanRequest struct {
+	ctx        context.Context
 	ApiService *BillingApiService
 }
 
-func (r ApiSyncAccountPlanRequest) Execute() (AccountEntity, *_nethttp.Response, error) {
+func (r BillingApiSyncAccountPlanRequest) Execute() (*AccountEntity, *http.Response, error) {
 	return r.ApiService.SyncAccountPlanExecute(r)
 }
 
 /*
 SyncAccountPlan Synchronize the current plan with the payment provider
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSyncAccountPlanRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return BillingApiSyncAccountPlanRequest
 */
-func (a *BillingApiService) SyncAccountPlan(ctx _context.Context) ApiSyncAccountPlanRequest {
-	return ApiSyncAccountPlanRequest{
+func (a *BillingApiService) SyncAccountPlan(ctx context.Context) BillingApiSyncAccountPlanRequest {
+	return BillingApiSyncAccountPlanRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -483,26 +470,24 @@ func (a *BillingApiService) SyncAccountPlan(ctx _context.Context) ApiSyncAccount
 
 // Execute executes the request
 //  @return AccountEntity
-func (a *BillingApiService) SyncAccountPlanExecute(r ApiSyncAccountPlanRequest) (AccountEntity, *_nethttp.Response, error) {
+func (a *BillingApiService) SyncAccountPlanExecute(r BillingApiSyncAccountPlanRequest) (*AccountEntity, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AccountEntity
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountEntity
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.SyncAccountPlan")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/account/plan/sync"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -521,7 +506,7 @@ func (a *BillingApiService) SyncAccountPlanExecute(r ApiSyncAccountPlanRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -531,15 +516,15 @@ func (a *BillingApiService) SyncAccountPlanExecute(r ApiSyncAccountPlanRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -555,7 +540,7 @@ func (a *BillingApiService) SyncAccountPlanExecute(r ApiSyncAccountPlanRequest) 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

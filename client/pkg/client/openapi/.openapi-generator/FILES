@@ -1,4 +1,9 @@
+api_access_control.go
+api_auth.go
 api_billing.go
+api_connection_providers.go
+api_connections.go
+api_content.go
 api_events.go
 api_notifications.go
 api_revisions.go
@@ -10,8 +15,12 @@ api_workflow_revisions.go
 api_workflow_runs.go
 api_workflow_secrets.go
 api_workflow_triggers.go
+api_workflows.go
 client.go
 configuration.go
+model_accept_account_terms_request.go
+model_accept_account_terms_request_account.go
+model_accept_account_terms_request_user.go
 model_accepted_terms.go
 model_account.go
 model_account_contact.go
@@ -49,6 +58,12 @@ model_container_mixin.go
 model_container_workflow_run_step_state.go
 model_container_workflow_step.go
 model_container_workflow_step_all_of.go
+model_create_account_request.go
+model_create_account_request_account.go
+model_create_account_request_user.go
+model_create_connection_request.go
+model_create_invite_request.go
+model_create_workflow_request.go
 model_create_workflow_run.go
 model_deleted_resource.go
 model_entity.go
@@ -67,6 +82,8 @@ model_event_source.go
 model_event_source_trigger.go
 model_event_summary.go
 model_event_workflow_run_creator.go
+model_exchange_connection_o_auth2_auth_request.go
+model_forgot_password_request.go
 model_inline_response_200.go
 model_inline_response_200_1.go
 model_inline_response_200_10.go
@@ -77,6 +94,7 @@ model_inline_response_200_14.go
 model_inline_response_200_15.go
 model_inline_response_200_16.go
 model_inline_response_200_17.go
+model_inline_response_200_18.go
 model_inline_response_200_2.go
 model_inline_response_200_3.go
 model_inline_response_200_4.go
@@ -108,6 +126,7 @@ model_o_auth2_connection_auth_input.go
 model_o_auth2_connection_auth_status.go
 model_o_auth2_connection_provider_auth.go
 model_o_auth2_connection_provider_auth_scope.go
+model_old_update_workflow_request.go
 model_permission.go
 model_permission_grant.go
 model_permission_identifier.go
@@ -121,13 +140,18 @@ model_plan_subscription.go
 model_plan_subscription_all_of.go
 model_plan_summary.go
 model_plan_summary_all_of.go
+model_post_account_contacts_request.go
+model_post_azure_app_registration_request.go
 model_profile_entity.go
 model_push_workflow_trigger_source.go
 model_push_workflow_trigger_source_state.go
+model_put_account_contacts_request.go
+model_reauthorize_connection_o_auth2_auth_request.go
 model_reference_urls.go
 model_revision_relay_source.go
 model_revision_repository_source.go
 model_revision_repository_source_source_data.go
+model_revision_source.go
 model_role.go
 model_role_identifier.go
 model_role_permission.go
@@ -143,6 +167,7 @@ model_secret_connection_provider_auth.go
 model_session.go
 model_spec_validation_workflow_run_step_message.go
 model_spec_validation_workflow_run_step_message_all_of.go
+model_start_connection_provider_o_auth2_auth_request.go
 model_terms.go
 model_token.go
 model_token_request.go
@@ -150,6 +175,10 @@ model_token_response.go
 model_token_response_all_of.go
 model_token_with_secret.go
 model_tokens.go
+model_update_connection_request.go
+model_update_profile_request.go
+model_update_user_request.go
+model_update_workflow_request.go
 model_update_workflow_run.go
 model_update_workflow_run_step.go
 model_user.go
@@ -190,6 +219,7 @@ model_workflow_parameter_all_of.go
 model_workflow_parameter_reference.go
 model_workflow_relay_source.go
 model_workflow_repository_source.go
+model_workflow_revision.go
 model_workflow_revision_all_of.go
 model_workflow_revision_identifier.go
 model_workflow_revision_summary.go

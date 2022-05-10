@@ -17,7 +17,7 @@ import (
 // WorkflowsView An object containing an array of workflows
 type WorkflowsView struct {
 	// A list of workflows
-	Workflows *[]WorkflowView `json:"workflows,omitempty"`
+	Workflows []WorkflowView `json:"workflows,omitempty"`
 }
 
 // NewWorkflowsView instantiates a new WorkflowsView object
@@ -43,12 +43,12 @@ func (o *WorkflowsView) GetWorkflows() []WorkflowView {
 		var ret []WorkflowView
 		return ret
 	}
-	return *o.Workflows
+	return o.Workflows
 }
 
 // GetWorkflowsOk returns a tuple with the Workflows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowsView) GetWorkflowsOk() (*[]WorkflowView, bool) {
+func (o *WorkflowsView) GetWorkflowsOk() ([]WorkflowView, bool) {
 	if o == nil || o.Workflows == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *WorkflowsView) HasWorkflows() bool {
 
 // SetWorkflows gets a reference to the given []WorkflowView and assigns it to the Workflows field.
 func (o *WorkflowsView) SetWorkflows(v []WorkflowView) {
-	o.Workflows = &v
+	o.Workflows = v
 }
 
 func (o WorkflowsView) MarshalJSON() ([]byte, error) {

@@ -14,10 +14,10 @@ import (
 	"encoding/json"
 )
 
-// InlineResponse20015 The response type for the list of account users
+// InlineResponse20015 The evaluated content
 type InlineResponse20015 struct {
-	// The list of users in this account
-	Users *[]User `json:"users,omitempty"`
+	// The content
+	Content *string `json:"content,omitempty"`
 }
 
 // NewInlineResponse20015 instantiates a new InlineResponse20015 object
@@ -37,42 +37,42 @@ func NewInlineResponse20015WithDefaults() *InlineResponse20015 {
 	return &this
 }
 
-// GetUsers returns the Users field value if set, zero value otherwise.
-func (o *InlineResponse20015) GetUsers() []User {
-	if o == nil || o.Users == nil {
-		var ret []User
+// GetContent returns the Content field value if set, zero value otherwise.
+func (o *InlineResponse20015) GetContent() string {
+	if o == nil || o.Content == nil {
+		var ret string
 		return ret
 	}
-	return *o.Users
+	return *o.Content
 }
 
-// GetUsersOk returns a tuple with the Users field value if set, nil otherwise
+// GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse20015) GetUsersOk() (*[]User, bool) {
-	if o == nil || o.Users == nil {
+func (o *InlineResponse20015) GetContentOk() (*string, bool) {
+	if o == nil || o.Content == nil {
 		return nil, false
 	}
-	return o.Users, true
+	return o.Content, true
 }
 
-// HasUsers returns a boolean if a field has been set.
-func (o *InlineResponse20015) HasUsers() bool {
-	if o != nil && o.Users != nil {
+// HasContent returns a boolean if a field has been set.
+func (o *InlineResponse20015) HasContent() bool {
+	if o != nil && o.Content != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUsers gets a reference to the given []User and assigns it to the Users field.
-func (o *InlineResponse20015) SetUsers(v []User) {
-	o.Users = &v
+// SetContent gets a reference to the given string and assigns it to the Content field.
+func (o *InlineResponse20015) SetContent(v string) {
+	o.Content = &v
 }
 
 func (o InlineResponse20015) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Users != nil {
-		toSerialize["users"] = o.Users
+	if o.Content != nil {
+		toSerialize["content"] = o.Content
 	}
 	return json.Marshal(toSerialize)
 }

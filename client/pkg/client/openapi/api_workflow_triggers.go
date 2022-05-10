@@ -12,43 +12,38 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"os"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // WorkflowTriggersApiService WorkflowTriggersApi service
 type WorkflowTriggersApiService service
 
-type ApiGetWorkflowTriggerRequest struct {
-	ctx          _context.Context
+type WorkflowTriggersApiGetWorkflowTriggerRequest struct {
+	ctx          context.Context
 	ApiService   *WorkflowTriggersApiService
 	workflowName string
 	triggerId    string
 }
 
-func (r ApiGetWorkflowTriggerRequest) Execute() (WorkflowTriggerComposite, *_nethttp.Response, error) {
+func (r WorkflowTriggersApiGetWorkflowTriggerRequest) Execute() (*WorkflowTriggerComposite, *http.Response, error) {
 	return r.ApiService.GetWorkflowTriggerExecute(r)
 }
 
 /*
 GetWorkflowTrigger Gets a workflow trigger accessed with a workflow name and trigger id
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workflowName Workflow name
  @param triggerId Trigger ID
- @return ApiGetWorkflowTriggerRequest
+ @return WorkflowTriggersApiGetWorkflowTriggerRequest
 */
-func (a *WorkflowTriggersApiService) GetWorkflowTrigger(ctx _context.Context, workflowName string, triggerId string) ApiGetWorkflowTriggerRequest {
-	return ApiGetWorkflowTriggerRequest{
+func (a *WorkflowTriggersApiService) GetWorkflowTrigger(ctx context.Context, workflowName string, triggerId string) WorkflowTriggersApiGetWorkflowTriggerRequest {
+	return WorkflowTriggersApiGetWorkflowTriggerRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		workflowName: workflowName,
@@ -58,28 +53,26 @@ func (a *WorkflowTriggersApiService) GetWorkflowTrigger(ctx _context.Context, wo
 
 // Execute executes the request
 //  @return WorkflowTriggerComposite
-func (a *WorkflowTriggersApiService) GetWorkflowTriggerExecute(r ApiGetWorkflowTriggerRequest) (WorkflowTriggerComposite, *_nethttp.Response, error) {
+func (a *WorkflowTriggersApiService) GetWorkflowTriggerExecute(r WorkflowTriggersApiGetWorkflowTriggerRequest) (*WorkflowTriggerComposite, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  WorkflowTriggerComposite
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WorkflowTriggerComposite
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowTriggersApiService.GetWorkflowTrigger")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/workflows/{workflowName}/triggers/{triggerId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"triggerId"+"}", _neturl.PathEscape(parameterToString(r.triggerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"triggerId"+"}", url.PathEscape(parameterToString(r.triggerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -98,7 +91,7 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerExecute(r ApiGetWorkflowT
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -108,15 +101,15 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerExecute(r ApiGetWorkflowT
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -132,7 +125,7 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerExecute(r ApiGetWorkflowT
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -142,27 +135,27 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerExecute(r ApiGetWorkflowT
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetWorkflowTriggerLogRequest struct {
-	ctx          _context.Context
+type WorkflowTriggersApiGetWorkflowTriggerLogRequest struct {
+	ctx          context.Context
 	ApiService   *WorkflowTriggersApiService
 	workflowName string
 	triggerId    string
 }
 
-func (r ApiGetWorkflowTriggerLogRequest) Execute() (*os.File, *_nethttp.Response, error) {
+func (r WorkflowTriggersApiGetWorkflowTriggerLogRequest) Execute() (**os.File, *http.Response, error) {
 	return r.ApiService.GetWorkflowTriggerLogExecute(r)
 }
 
 /*
 GetWorkflowTriggerLog Returns the log for a workflow trigger, accessed by workflow name and trigger id
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workflowName Workflow name
  @param triggerId Trigger ID
- @return ApiGetWorkflowTriggerLogRequest
+ @return WorkflowTriggersApiGetWorkflowTriggerLogRequest
 */
-func (a *WorkflowTriggersApiService) GetWorkflowTriggerLog(ctx _context.Context, workflowName string, triggerId string) ApiGetWorkflowTriggerLogRequest {
-	return ApiGetWorkflowTriggerLogRequest{
+func (a *WorkflowTriggersApiService) GetWorkflowTriggerLog(ctx context.Context, workflowName string, triggerId string) WorkflowTriggersApiGetWorkflowTriggerLogRequest {
+	return WorkflowTriggersApiGetWorkflowTriggerLogRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		workflowName: workflowName,
@@ -172,28 +165,26 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerLog(ctx _context.Context,
 
 // Execute executes the request
 //  @return *os.File
-func (a *WorkflowTriggersApiService) GetWorkflowTriggerLogExecute(r ApiGetWorkflowTriggerLogRequest) (*os.File, *_nethttp.Response, error) {
+func (a *WorkflowTriggersApiService) GetWorkflowTriggerLogExecute(r WorkflowTriggersApiGetWorkflowTriggerLogRequest) (**os.File, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  *os.File
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue **os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowTriggersApiService.GetWorkflowTriggerLog")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/workflows/{workflowName}/triggers/{triggerId}/logs"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"triggerId"+"}", _neturl.PathEscape(parameterToString(r.triggerId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"triggerId"+"}", url.PathEscape(parameterToString(r.triggerId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -212,7 +203,7 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerLogExecute(r ApiGetWorkfl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -222,15 +213,15 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerLogExecute(r ApiGetWorkfl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -246,7 +237,7 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerLogExecute(r ApiGetWorkfl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -256,25 +247,25 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerLogExecute(r ApiGetWorkfl
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetWorkflowTriggersRequest struct {
-	ctx          _context.Context
+type WorkflowTriggersApiGetWorkflowTriggersRequest struct {
+	ctx          context.Context
 	ApiService   *WorkflowTriggersApiService
 	workflowName string
 }
 
-func (r ApiGetWorkflowTriggersRequest) Execute() (InlineResponse20017, *_nethttp.Response, error) {
+func (r WorkflowTriggersApiGetWorkflowTriggersRequest) Execute() (*InlineResponse20018, *http.Response, error) {
 	return r.ApiService.GetWorkflowTriggersExecute(r)
 }
 
 /*
 GetWorkflowTriggers Get all workflow triggers
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workflowName Workflow name
- @return ApiGetWorkflowTriggersRequest
+ @return WorkflowTriggersApiGetWorkflowTriggersRequest
 */
-func (a *WorkflowTriggersApiService) GetWorkflowTriggers(ctx _context.Context, workflowName string) ApiGetWorkflowTriggersRequest {
-	return ApiGetWorkflowTriggersRequest{
+func (a *WorkflowTriggersApiService) GetWorkflowTriggers(ctx context.Context, workflowName string) WorkflowTriggersApiGetWorkflowTriggersRequest {
+	return WorkflowTriggersApiGetWorkflowTriggersRequest{
 		ApiService:   a,
 		ctx:          ctx,
 		workflowName: workflowName,
@@ -282,28 +273,26 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggers(ctx _context.Context, w
 }
 
 // Execute executes the request
-//  @return InlineResponse20017
-func (a *WorkflowTriggersApiService) GetWorkflowTriggersExecute(r ApiGetWorkflowTriggersRequest) (InlineResponse20017, *_nethttp.Response, error) {
+//  @return InlineResponse20018
+func (a *WorkflowTriggersApiService) GetWorkflowTriggersExecute(r WorkflowTriggersApiGetWorkflowTriggersRequest) (*InlineResponse20018, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse20017
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InlineResponse20018
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowTriggersApiService.GetWorkflowTriggers")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/workflows/{workflowName}/triggers"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -322,7 +311,7 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggersExecute(r ApiGetWorkflow
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -332,15 +321,15 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggersExecute(r ApiGetWorkflow
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -356,7 +345,231 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggersExecute(r ApiGetWorkflow
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type WorkflowTriggersApiPostWorkflowTriggerDisableRequest struct {
+	ctx          context.Context
+	ApiService   *WorkflowTriggersApiService
+	workflowName string
+	triggerId    string
+}
+
+func (r WorkflowTriggersApiPostWorkflowTriggerDisableRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+	return r.ApiService.PostWorkflowTriggerDisableExecute(r)
+}
+
+/*
+PostWorkflowTriggerDisable Updates the enabled state on a workflow trigger to false
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowName Workflow name
+ @param triggerId Trigger ID
+ @return WorkflowTriggersApiPostWorkflowTriggerDisableRequest
+*/
+func (a *WorkflowTriggersApiService) PostWorkflowTriggerDisable(ctx context.Context, workflowName string, triggerId string) WorkflowTriggersApiPostWorkflowTriggerDisableRequest {
+	return WorkflowTriggersApiPostWorkflowTriggerDisableRequest{
+		ApiService:   a,
+		ctx:          ctx,
+		workflowName: workflowName,
+		triggerId:    triggerId,
+	}
+}
+
+// Execute executes the request
+//  @return InlineResponse2002
+func (a *WorkflowTriggersApiService) PostWorkflowTriggerDisableExecute(r WorkflowTriggersApiPostWorkflowTriggerDisableRequest) (*InlineResponse2002, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InlineResponse2002
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowTriggersApiService.PostWorkflowTriggerDisable")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/workflows/{workflowName}/triggers/{triggerId}/disable"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"triggerId"+"}", url.PathEscape(parameterToString(r.triggerId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/vnd.puppet.relay.v20200615+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type WorkflowTriggersApiPostWorkflowTriggerEnableRequest struct {
+	ctx          context.Context
+	ApiService   *WorkflowTriggersApiService
+	workflowName string
+	triggerId    string
+}
+
+func (r WorkflowTriggersApiPostWorkflowTriggerEnableRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+	return r.ApiService.PostWorkflowTriggerEnableExecute(r)
+}
+
+/*
+PostWorkflowTriggerEnable Updates the enabled state on a workflow trigger to true
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowName Workflow name
+ @param triggerId Trigger ID
+ @return WorkflowTriggersApiPostWorkflowTriggerEnableRequest
+*/
+func (a *WorkflowTriggersApiService) PostWorkflowTriggerEnable(ctx context.Context, workflowName string, triggerId string) WorkflowTriggersApiPostWorkflowTriggerEnableRequest {
+	return WorkflowTriggersApiPostWorkflowTriggerEnableRequest{
+		ApiService:   a,
+		ctx:          ctx,
+		workflowName: workflowName,
+		triggerId:    triggerId,
+	}
+}
+
+// Execute executes the request
+//  @return InlineResponse2002
+func (a *WorkflowTriggersApiService) PostWorkflowTriggerEnableExecute(r WorkflowTriggersApiPostWorkflowTriggerEnableRequest) (*InlineResponse2002, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InlineResponse2002
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowTriggersApiService.PostWorkflowTriggerEnable")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/workflows/{workflowName}/triggers/{triggerId}/enable"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"triggerId"+"}", url.PathEscape(parameterToString(r.triggerId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/vnd.puppet.relay.v20200615+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v InlineResponseDefault
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -14,10 +14,10 @@ import (
 	"encoding/json"
 )
 
-// InlineResponse20016 An object containing an array of workflows
+// InlineResponse20016 The response type for the list of account users
 type InlineResponse20016 struct {
-	// A list of workflows
-	Workflows *[]WorkflowView `json:"workflows,omitempty"`
+	// The list of users in this account
+	Users []User `json:"users,omitempty"`
 }
 
 // NewInlineResponse20016 instantiates a new InlineResponse20016 object
@@ -37,42 +37,42 @@ func NewInlineResponse20016WithDefaults() *InlineResponse20016 {
 	return &this
 }
 
-// GetWorkflows returns the Workflows field value if set, zero value otherwise.
-func (o *InlineResponse20016) GetWorkflows() []WorkflowView {
-	if o == nil || o.Workflows == nil {
-		var ret []WorkflowView
+// GetUsers returns the Users field value if set, zero value otherwise.
+func (o *InlineResponse20016) GetUsers() []User {
+	if o == nil || o.Users == nil {
+		var ret []User
 		return ret
 	}
-	return *o.Workflows
+	return o.Users
 }
 
-// GetWorkflowsOk returns a tuple with the Workflows field value if set, nil otherwise
+// GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse20016) GetWorkflowsOk() (*[]WorkflowView, bool) {
-	if o == nil || o.Workflows == nil {
+func (o *InlineResponse20016) GetUsersOk() ([]User, bool) {
+	if o == nil || o.Users == nil {
 		return nil, false
 	}
-	return o.Workflows, true
+	return o.Users, true
 }
 
-// HasWorkflows returns a boolean if a field has been set.
-func (o *InlineResponse20016) HasWorkflows() bool {
-	if o != nil && o.Workflows != nil {
+// HasUsers returns a boolean if a field has been set.
+func (o *InlineResponse20016) HasUsers() bool {
+	if o != nil && o.Users != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkflows gets a reference to the given []WorkflowView and assigns it to the Workflows field.
-func (o *InlineResponse20016) SetWorkflows(v []WorkflowView) {
-	o.Workflows = &v
+// SetUsers gets a reference to the given []User and assigns it to the Users field.
+func (o *InlineResponse20016) SetUsers(v []User) {
+	o.Users = v
 }
 
 func (o InlineResponse20016) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Workflows != nil {
-		toSerialize["workflows"] = o.Workflows
+	if o.Users != nil {
+		toSerialize["users"] = o.Users
 	}
 	return json.Marshal(toSerialize)
 }
