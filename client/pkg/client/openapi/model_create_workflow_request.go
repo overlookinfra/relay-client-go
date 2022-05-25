@@ -18,6 +18,7 @@ import (
 type CreateWorkflowRequest struct {
 	// User provided friendly workflow description
 	Description *string `json:"description,omitempty"`
+	Folder      *string `json:"folder,omitempty"`
 	// Optional url specifying path to a yaml file containing initial workflow content
 	InitialContentURL *string `json:"initialContentURL,omitempty"`
 	Name              string  `json:"name"`
@@ -71,6 +72,38 @@ func (o *CreateWorkflowRequest) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *CreateWorkflowRequest) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetFolder returns the Folder field value if set, zero value otherwise.
+func (o *CreateWorkflowRequest) GetFolder() string {
+	if o == nil || o.Folder == nil {
+		var ret string
+		return ret
+	}
+	return *o.Folder
+}
+
+// GetFolderOk returns a tuple with the Folder field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateWorkflowRequest) GetFolderOk() (*string, bool) {
+	if o == nil || o.Folder == nil {
+		return nil, false
+	}
+	return o.Folder, true
+}
+
+// HasFolder returns a boolean if a field has been set.
+func (o *CreateWorkflowRequest) HasFolder() bool {
+	if o != nil && o.Folder != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFolder gets a reference to the given string and assigns it to the Folder field.
+func (o *CreateWorkflowRequest) SetFolder(v string) {
+	o.Folder = &v
 }
 
 // GetInitialContentURL returns the InitialContentURL field value if set, zero value otherwise.
@@ -133,6 +166,9 @@ func (o CreateWorkflowRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.Folder != nil {
+		toSerialize["folder"] = o.Folder
 	}
 	if o.InitialContentURL != nil {
 		toSerialize["initialContentURL"] = o.InitialContentURL

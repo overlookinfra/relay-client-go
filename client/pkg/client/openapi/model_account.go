@@ -26,8 +26,8 @@ type Account struct {
 	// The unique identifier for the account
 	Id string `json:"id"`
 	// The name of the account
-	Name             string                   `json:"name"`
-	PlanSubscription NullablePlanSubscription `json:"plan_subscription,omitempty"`
+	Name             string                          `json:"name"`
+	PlanSubscription NullableAccountPlanSubscription `json:"plan_subscription,omitempty"`
 	// The name of the billing plan this account is subscribed to. DEPRECATED, use `plan_subscription` sub-object instead.
 	// Deprecated
 	PlanType *string `json:"plan_type,omitempty"`
@@ -219,9 +219,9 @@ func (o *Account) SetName(v string) {
 }
 
 // GetPlanSubscription returns the PlanSubscription field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Account) GetPlanSubscription() PlanSubscription {
+func (o *Account) GetPlanSubscription() AccountPlanSubscription {
 	if o == nil || o.PlanSubscription.Get() == nil {
-		var ret PlanSubscription
+		var ret AccountPlanSubscription
 		return ret
 	}
 	return *o.PlanSubscription.Get()
@@ -230,7 +230,7 @@ func (o *Account) GetPlanSubscription() PlanSubscription {
 // GetPlanSubscriptionOk returns a tuple with the PlanSubscription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Account) GetPlanSubscriptionOk() (*PlanSubscription, bool) {
+func (o *Account) GetPlanSubscriptionOk() (*AccountPlanSubscription, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -246,8 +246,8 @@ func (o *Account) HasPlanSubscription() bool {
 	return false
 }
 
-// SetPlanSubscription gets a reference to the given NullablePlanSubscription and assigns it to the PlanSubscription field.
-func (o *Account) SetPlanSubscription(v PlanSubscription) {
+// SetPlanSubscription gets a reference to the given NullableAccountPlanSubscription and assigns it to the PlanSubscription field.
+func (o *Account) SetPlanSubscription(v AccountPlanSubscription) {
 	o.PlanSubscription.Set(&v)
 }
 

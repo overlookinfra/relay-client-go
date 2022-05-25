@@ -17,7 +17,8 @@ import (
 
 // WorkflowView struct for WorkflowView
 type WorkflowView struct {
-	Name string `json:"name"`
+	Folder string `json:"folder"`
+	Name   string `json:"name"`
 	// User provided friendly workflow description
 	Description *string `json:"description,omitempty"`
 	// If true, this workflow cannot be edited or run directly by the user.
@@ -33,8 +34,9 @@ type WorkflowView struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWorkflowView(name string, createdAt time.Time, updatedAt time.Time) *WorkflowView {
+func NewWorkflowView(folder string, name string, createdAt time.Time, updatedAt time.Time) *WorkflowView {
 	this := WorkflowView{}
+	this.Folder = folder
 	this.Name = name
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
@@ -47,6 +49,30 @@ func NewWorkflowView(name string, createdAt time.Time, updatedAt time.Time) *Wor
 func NewWorkflowViewWithDefaults() *WorkflowView {
 	this := WorkflowView{}
 	return &this
+}
+
+// GetFolder returns the Folder field value
+func (o *WorkflowView) GetFolder() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Folder
+}
+
+// GetFolderOk returns a tuple with the Folder field value
+// and a boolean to check if the value has been set.
+func (o *WorkflowView) GetFolderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Folder, true
+}
+
+// SetFolder sets field value
+func (o *WorkflowView) SetFolder(v string) {
+	o.Folder = v
 }
 
 // GetName returns the Name field value
@@ -219,6 +245,9 @@ func (o *WorkflowView) SetMostRecentRun(v WorkflowRunView) {
 
 func (o WorkflowView) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["folder"] = o.Folder
+	}
 	if true {
 		toSerialize["name"] = o.Name
 	}

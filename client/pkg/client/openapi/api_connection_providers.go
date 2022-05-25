@@ -28,7 +28,7 @@ type ConnectionProvidersApiGetConnectionProviderRequest struct {
 	connectionProviderName string
 }
 
-func (r ConnectionProvidersApiGetConnectionProviderRequest) Execute() (*ConnectionProviderEntity, *http.Response, error) {
+func (r ConnectionProvidersApiGetConnectionProviderRequest) Execute() (*GetConnectionProvider200Response, *http.Response, error) {
 	return r.ApiService.GetConnectionProviderExecute(r)
 }
 
@@ -48,13 +48,13 @@ func (a *ConnectionProvidersApiService) GetConnectionProvider(ctx context.Contex
 }
 
 // Execute executes the request
-//  @return ConnectionProviderEntity
-func (a *ConnectionProvidersApiService) GetConnectionProviderExecute(r ConnectionProvidersApiGetConnectionProviderRequest) (*ConnectionProviderEntity, *http.Response, error) {
+//  @return GetConnectionProvider200Response
+func (a *ConnectionProvidersApiService) GetConnectionProviderExecute(r ConnectionProvidersApiGetConnectionProviderRequest) (*GetConnectionProvider200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ConnectionProviderEntity
+		localVarReturnValue *GetConnectionProvider200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectionProvidersApiService.GetConnectionProvider")
@@ -108,7 +108,7 @@ func (a *ConnectionProvidersApiService) GetConnectionProviderExecute(r Connectio
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -143,7 +143,7 @@ func (r ConnectionProvidersApiStartConnectionProviderOAuth2AuthRequest) StartCon
 	return r
 }
 
-func (r ConnectionProvidersApiStartConnectionProviderOAuth2AuthRequest) Execute() (*InlineResponse2005, *http.Response, error) {
+func (r ConnectionProvidersApiStartConnectionProviderOAuth2AuthRequest) Execute() (*StartConnectionProviderOAuth2Auth200Response, *http.Response, error) {
 	return r.ApiService.StartConnectionProviderOAuth2AuthExecute(r)
 }
 
@@ -163,13 +163,13 @@ func (a *ConnectionProvidersApiService) StartConnectionProviderOAuth2Auth(ctx co
 }
 
 // Execute executes the request
-//  @return InlineResponse2005
-func (a *ConnectionProvidersApiService) StartConnectionProviderOAuth2AuthExecute(r ConnectionProvidersApiStartConnectionProviderOAuth2AuthRequest) (*InlineResponse2005, *http.Response, error) {
+//  @return StartConnectionProviderOAuth2Auth200Response
+func (a *ConnectionProvidersApiService) StartConnectionProviderOAuth2AuthExecute(r ConnectionProvidersApiStartConnectionProviderOAuth2AuthRequest) (*StartConnectionProviderOAuth2Auth200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2005
+		localVarReturnValue *StartConnectionProviderOAuth2Auth200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectionProvidersApiService.StartConnectionProviderOAuth2Auth")
@@ -228,7 +228,7 @@ func (a *ConnectionProvidersApiService) StartConnectionProviderOAuth2AuthExecute
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

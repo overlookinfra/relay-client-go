@@ -34,7 +34,7 @@ func (r RevisionsApiPostRevisionValidateRequest) Body(body *os.File) RevisionsAp
 	return r
 }
 
-func (r RevisionsApiPostRevisionValidateRequest) Execute() (*Entity, *http.Response, error) {
+func (r RevisionsApiPostRevisionValidateRequest) Execute() (*PostRevisionValidate200Response, *http.Response, error) {
 	return r.ApiService.PostRevisionValidateExecute(r)
 }
 
@@ -52,13 +52,13 @@ func (a *RevisionsApiService) PostRevisionValidate(ctx context.Context) Revision
 }
 
 // Execute executes the request
-//  @return Entity
-func (a *RevisionsApiService) PostRevisionValidateExecute(r RevisionsApiPostRevisionValidateRequest) (*Entity, *http.Response, error) {
+//  @return PostRevisionValidate200Response
+func (a *RevisionsApiService) PostRevisionValidateExecute(r RevisionsApiPostRevisionValidateRequest) (*PostRevisionValidate200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Entity
+		localVarReturnValue *PostRevisionValidate200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.PostRevisionValidate")
@@ -116,7 +116,7 @@ func (a *RevisionsApiService) PostRevisionValidateExecute(r RevisionsApiPostRevi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

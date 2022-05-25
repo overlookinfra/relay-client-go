@@ -25,7 +25,7 @@ type SubscriptionsApiService service
 type SubscriptionsApiGetWorkflowSubscriptionsRequest struct {
 	ctx          context.Context
 	ApiService   *SubscriptionsApiService
-	workflowName string
+	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
 }
 
 func (r SubscriptionsApiGetWorkflowSubscriptionsRequest) Execute() (*UserWorkflowSubscriptions, *http.Response, error) {
@@ -36,14 +36,14 @@ func (r SubscriptionsApiGetWorkflowSubscriptionsRequest) Execute() (*UserWorkflo
 GetWorkflowSubscriptions Retrieve the current user's workflow subscriptions
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
+ @param workflowPath Folder + Workflow name
  @return SubscriptionsApiGetWorkflowSubscriptionsRequest
 */
-func (a *SubscriptionsApiService) GetWorkflowSubscriptions(ctx context.Context, workflowName string) SubscriptionsApiGetWorkflowSubscriptionsRequest {
+func (a *SubscriptionsApiService) GetWorkflowSubscriptions(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) SubscriptionsApiGetWorkflowSubscriptionsRequest {
 	return SubscriptionsApiGetWorkflowSubscriptionsRequest{
 		ApiService:   a,
 		ctx:          ctx,
-		workflowName: workflowName,
+		workflowPath: workflowPath,
 	}
 }
 
@@ -62,8 +62,8 @@ func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r Subscription
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/subscriptions/workflows/{workflowName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath := localBasePath + "/api/subscriptions/workflows/{workflowPath}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -108,7 +108,7 @@ func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r Subscription
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -212,7 +212,7 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r Subscriptio
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -237,7 +237,7 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r Subscriptio
 type SubscriptionsApiPutWorkflowSubscriptionsRequest struct {
 	ctx                       context.Context
 	ApiService                *SubscriptionsApiService
-	workflowName              string
+	workflowPath              GetWorkflowSubscriptionsWorkflowPathParameter
 	userWorkflowSubscriptions *UserWorkflowSubscriptions
 }
 
@@ -255,14 +255,14 @@ func (r SubscriptionsApiPutWorkflowSubscriptionsRequest) Execute() (*UserWorkflo
 PutWorkflowSubscriptions Update the current user's workflow subscriptions
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
+ @param workflowPath Folder + Workflow name
  @return SubscriptionsApiPutWorkflowSubscriptionsRequest
 */
-func (a *SubscriptionsApiService) PutWorkflowSubscriptions(ctx context.Context, workflowName string) SubscriptionsApiPutWorkflowSubscriptionsRequest {
+func (a *SubscriptionsApiService) PutWorkflowSubscriptions(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) SubscriptionsApiPutWorkflowSubscriptionsRequest {
 	return SubscriptionsApiPutWorkflowSubscriptionsRequest{
 		ApiService:   a,
 		ctx:          ctx,
-		workflowName: workflowName,
+		workflowPath: workflowPath,
 	}
 }
 
@@ -281,8 +281,8 @@ func (a *SubscriptionsApiService) PutWorkflowSubscriptionsExecute(r Subscription
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/subscriptions/workflows/{workflowName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath := localBasePath + "/api/subscriptions/workflows/{workflowPath}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -332,7 +332,7 @@ func (a *SubscriptionsApiService) PutWorkflowSubscriptionsExecute(r Subscription
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

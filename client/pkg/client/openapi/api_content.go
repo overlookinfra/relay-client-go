@@ -33,7 +33,7 @@ func (r ContentApiPostAzureAppRegistrationRequest) PostAzureAppRegistrationReque
 	return r
 }
 
-func (r ContentApiPostAzureAppRegistrationRequest) Execute() (*InlineResponse20015, *http.Response, error) {
+func (r ContentApiPostAzureAppRegistrationRequest) Execute() (*PostAzureAppRegistration200Response, *http.Response, error) {
 	return r.ApiService.PostAzureAppRegistrationExecute(r)
 }
 
@@ -51,13 +51,13 @@ func (a *ContentApiService) PostAzureAppRegistration(ctx context.Context) Conten
 }
 
 // Execute executes the request
-//  @return InlineResponse20015
-func (a *ContentApiService) PostAzureAppRegistrationExecute(r ContentApiPostAzureAppRegistrationRequest) (*InlineResponse20015, *http.Response, error) {
+//  @return PostAzureAppRegistration200Response
+func (a *ContentApiService) PostAzureAppRegistrationExecute(r ContentApiPostAzureAppRegistrationRequest) (*PostAzureAppRegistration200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse20015
+		localVarReturnValue *PostAzureAppRegistration200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContentApiService.PostAzureAppRegistration")
@@ -115,7 +115,7 @@ func (a *ContentApiService) PostAzureAppRegistrationExecute(r ContentApiPostAzur
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

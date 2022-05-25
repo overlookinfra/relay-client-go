@@ -26,7 +26,7 @@ type TermsApiGetTermsRequest struct {
 	ApiService *TermsApiService
 }
 
-func (r TermsApiGetTermsRequest) Execute() (*Entity, *http.Response, error) {
+func (r TermsApiGetTermsRequest) Execute() (*GetTerms200Response, *http.Response, error) {
 	return r.ApiService.GetTermsExecute(r)
 }
 
@@ -44,13 +44,13 @@ func (a *TermsApiService) GetTerms(ctx context.Context) TermsApiGetTermsRequest 
 }
 
 // Execute executes the request
-//  @return Entity
-func (a *TermsApiService) GetTermsExecute(r TermsApiGetTermsRequest) (*Entity, *http.Response, error) {
+//  @return GetTerms200Response
+func (a *TermsApiService) GetTermsExecute(r TermsApiGetTermsRequest) (*GetTerms200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Entity
+		localVarReturnValue *GetTerms200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TermsApiService.GetTerms")
@@ -103,7 +103,7 @@ func (a *TermsApiService) GetTermsExecute(r TermsApiGetTermsRequest) (*Entity, *
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

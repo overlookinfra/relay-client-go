@@ -27,7 +27,7 @@ type BillingApiGetAccountPlanRequest struct {
 	ApiService *BillingApiService
 }
 
-func (r BillingApiGetAccountPlanRequest) Execute() (*AccountEntity, *http.Response, error) {
+func (r BillingApiGetAccountPlanRequest) Execute() (*GetAccountPlan200Response, *http.Response, error) {
 	return r.ApiService.GetAccountPlanExecute(r)
 }
 
@@ -45,13 +45,13 @@ func (a *BillingApiService) GetAccountPlan(ctx context.Context) BillingApiGetAcc
 }
 
 // Execute executes the request
-//  @return AccountEntity
-func (a *BillingApiService) GetAccountPlanExecute(r BillingApiGetAccountPlanRequest) (*AccountEntity, *http.Response, error) {
+//  @return GetAccountPlan200Response
+func (a *BillingApiService) GetAccountPlanExecute(r BillingApiGetAccountPlanRequest) (*GetAccountPlan200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountEntity
+		localVarReturnValue *GetAccountPlan200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.GetAccountPlan")
@@ -104,7 +104,7 @@ func (a *BillingApiService) GetAccountPlanExecute(r BillingApiGetAccountPlanRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -131,7 +131,7 @@ type BillingApiGetPlansRequest struct {
 	ApiService *BillingApiService
 }
 
-func (r BillingApiGetPlansRequest) Execute() (*InlineResponse20011, *http.Response, error) {
+func (r BillingApiGetPlansRequest) Execute() (*GetPlans200Response, *http.Response, error) {
 	return r.ApiService.GetPlansExecute(r)
 }
 
@@ -149,13 +149,13 @@ func (a *BillingApiService) GetPlans(ctx context.Context) BillingApiGetPlansRequ
 }
 
 // Execute executes the request
-//  @return InlineResponse20011
-func (a *BillingApiService) GetPlansExecute(r BillingApiGetPlansRequest) (*InlineResponse20011, *http.Response, error) {
+//  @return GetPlans200Response
+func (a *BillingApiService) GetPlansExecute(r BillingApiGetPlansRequest) (*GetPlans200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse20011
+		localVarReturnValue *GetPlans200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.GetPlans")
@@ -208,7 +208,7 @@ func (a *BillingApiService) GetPlansExecute(r BillingApiGetPlansRequest) (*Inlin
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -235,7 +235,7 @@ type BillingApiPostAccountPlanBillingRequest struct {
 	ApiService *BillingApiService
 }
 
-func (r BillingApiPostAccountPlanBillingRequest) Execute() (*InlineResponse2003, *http.Response, error) {
+func (r BillingApiPostAccountPlanBillingRequest) Execute() (*PostAccountPlanBilling200Response, *http.Response, error) {
 	return r.ApiService.PostAccountPlanBillingExecute(r)
 }
 
@@ -253,13 +253,13 @@ func (a *BillingApiService) PostAccountPlanBilling(ctx context.Context) BillingA
 }
 
 // Execute executes the request
-//  @return InlineResponse2003
-func (a *BillingApiService) PostAccountPlanBillingExecute(r BillingApiPostAccountPlanBillingRequest) (*InlineResponse2003, *http.Response, error) {
+//  @return PostAccountPlanBilling200Response
+func (a *BillingApiService) PostAccountPlanBillingExecute(r BillingApiPostAccountPlanBillingRequest) (*PostAccountPlanBilling200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2003
+		localVarReturnValue *PostAccountPlanBilling200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.PostAccountPlanBilling")
@@ -312,7 +312,7 @@ func (a *BillingApiService) PostAccountPlanBillingExecute(r BillingApiPostAccoun
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -341,7 +341,7 @@ type BillingApiPostPlanPriceRequest struct {
 	priceId    string
 }
 
-func (r BillingApiPostPlanPriceRequest) Execute() (*InlineResponse20012, *http.Response, error) {
+func (r BillingApiPostPlanPriceRequest) Execute() (*PostPlanPrice200Response, *http.Response, error) {
 	return r.ApiService.PostPlanPriceExecute(r)
 }
 
@@ -363,13 +363,13 @@ func (a *BillingApiService) PostPlanPrice(ctx context.Context, planId string, pr
 }
 
 // Execute executes the request
-//  @return InlineResponse20012
-func (a *BillingApiService) PostPlanPriceExecute(r BillingApiPostPlanPriceRequest) (*InlineResponse20012, *http.Response, error) {
+//  @return PostPlanPrice200Response
+func (a *BillingApiService) PostPlanPriceExecute(r BillingApiPostPlanPriceRequest) (*PostPlanPrice200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse20012
+		localVarReturnValue *PostPlanPrice200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.PostPlanPrice")
@@ -424,7 +424,7 @@ func (a *BillingApiService) PostPlanPriceExecute(r BillingApiPostPlanPriceReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -451,7 +451,7 @@ type BillingApiSyncAccountPlanRequest struct {
 	ApiService *BillingApiService
 }
 
-func (r BillingApiSyncAccountPlanRequest) Execute() (*AccountEntity, *http.Response, error) {
+func (r BillingApiSyncAccountPlanRequest) Execute() (*GetAccountPlan200Response, *http.Response, error) {
 	return r.ApiService.SyncAccountPlanExecute(r)
 }
 
@@ -469,13 +469,13 @@ func (a *BillingApiService) SyncAccountPlan(ctx context.Context) BillingApiSyncA
 }
 
 // Execute executes the request
-//  @return AccountEntity
-func (a *BillingApiService) SyncAccountPlanExecute(r BillingApiSyncAccountPlanRequest) (*AccountEntity, *http.Response, error) {
+//  @return GetAccountPlan200Response
+func (a *BillingApiService) SyncAccountPlanExecute(r BillingApiSyncAccountPlanRequest) (*GetAccountPlan200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountEntity
+		localVarReturnValue *GetAccountPlan200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingApiService.SyncAccountPlan")
@@ -528,7 +528,7 @@ func (a *BillingApiService) SyncAccountPlanExecute(r BillingApiSyncAccountPlanRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

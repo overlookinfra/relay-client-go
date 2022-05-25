@@ -34,7 +34,7 @@ func (r AccessControlApiAcceptAccountTermsRequest) AcceptAccountTermsRequest(acc
 	return r
 }
 
-func (r AccessControlApiAcceptAccountTermsRequest) Execute() (*Entity, *http.Response, error) {
+func (r AccessControlApiAcceptAccountTermsRequest) Execute() (*AcceptAccountTerms200Response, *http.Response, error) {
 	return r.ApiService.AcceptAccountTermsExecute(r)
 }
 
@@ -52,13 +52,13 @@ func (a *AccessControlApiService) AcceptAccountTerms(ctx context.Context) Access
 }
 
 // Execute executes the request
-//  @return Entity
-func (a *AccessControlApiService) AcceptAccountTermsExecute(r AccessControlApiAcceptAccountTermsRequest) (*Entity, *http.Response, error) {
+//  @return AcceptAccountTerms200Response
+func (a *AccessControlApiService) AcceptAccountTermsExecute(r AccessControlApiAcceptAccountTermsRequest) (*AcceptAccountTerms200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Entity
+		localVarReturnValue *AcceptAccountTerms200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.AcceptAccountTerms")
@@ -116,7 +116,7 @@ func (a *AccessControlApiService) AcceptAccountTermsExecute(r AccessControlApiAc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -236,7 +236,7 @@ func (a *AccessControlApiService) AcceptInviteExecute(r AccessControlApiAcceptIn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -265,7 +265,7 @@ type AccessControlApiAttachUserRoleRequest struct {
 	roleId     string
 }
 
-func (r AccessControlApiAttachUserRoleRequest) Execute() (*UserEntity, *http.Response, error) {
+func (r AccessControlApiAttachUserRoleRequest) Execute() (*AttachUserRole201Response, *http.Response, error) {
 	return r.ApiService.AttachUserRoleExecute(r)
 }
 
@@ -287,13 +287,13 @@ func (a *AccessControlApiService) AttachUserRole(ctx context.Context, userId str
 }
 
 // Execute executes the request
-//  @return UserEntity
-func (a *AccessControlApiService) AttachUserRoleExecute(r AccessControlApiAttachUserRoleRequest) (*UserEntity, *http.Response, error) {
+//  @return AttachUserRole201Response
+func (a *AccessControlApiService) AttachUserRoleExecute(r AccessControlApiAttachUserRoleRequest) (*AttachUserRole201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UserEntity
+		localVarReturnValue *AttachUserRole201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.AttachUserRole")
@@ -348,7 +348,7 @@ func (a *AccessControlApiService) AttachUserRoleExecute(r AccessControlApiAttach
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -382,7 +382,7 @@ func (r AccessControlApiCreateAccountRequest) CreateAccountRequest(createAccount
 	return r
 }
 
-func (r AccessControlApiCreateAccountRequest) Execute() (*InlineResponse2004, *http.Response, error) {
+func (r AccessControlApiCreateAccountRequest) Execute() (*CreateAccount200Response, *http.Response, error) {
 	return r.ApiService.CreateAccountExecute(r)
 }
 
@@ -400,13 +400,13 @@ func (a *AccessControlApiService) CreateAccount(ctx context.Context) AccessContr
 }
 
 // Execute executes the request
-//  @return InlineResponse2004
-func (a *AccessControlApiService) CreateAccountExecute(r AccessControlApiCreateAccountRequest) (*InlineResponse2004, *http.Response, error) {
+//  @return CreateAccount200Response
+func (a *AccessControlApiService) CreateAccountExecute(r AccessControlApiCreateAccountRequest) (*CreateAccount200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2004
+		localVarReturnValue *CreateAccount200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.CreateAccount")
@@ -464,7 +464,7 @@ func (a *AccessControlApiService) CreateAccountExecute(r AccessControlApiCreateA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -498,7 +498,7 @@ func (r AccessControlApiCreateInviteRequest) CreateInviteRequest(createInviteReq
 	return r
 }
 
-func (r AccessControlApiCreateInviteRequest) Execute() (*InviteEntity, *http.Response, error) {
+func (r AccessControlApiCreateInviteRequest) Execute() (*CreateInvite201Response, *http.Response, error) {
 	return r.ApiService.CreateInviteExecute(r)
 }
 
@@ -516,13 +516,13 @@ func (a *AccessControlApiService) CreateInvite(ctx context.Context) AccessContro
 }
 
 // Execute executes the request
-//  @return InviteEntity
-func (a *AccessControlApiService) CreateInviteExecute(r AccessControlApiCreateInviteRequest) (*InviteEntity, *http.Response, error) {
+//  @return CreateInvite201Response
+func (a *AccessControlApiService) CreateInviteExecute(r AccessControlApiCreateInviteRequest) (*CreateInvite201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InviteEntity
+		localVarReturnValue *CreateInvite201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.CreateInvite")
@@ -580,7 +580,7 @@ func (a *AccessControlApiService) CreateInviteExecute(r AccessControlApiCreateIn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -608,7 +608,7 @@ type AccessControlApiDeleteAccountContactsRequest struct {
 	contactId  string
 }
 
-func (r AccessControlApiDeleteAccountContactsRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r AccessControlApiDeleteAccountContactsRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.DeleteAccountContactsExecute(r)
 }
 
@@ -628,13 +628,13 @@ func (a *AccessControlApiService) DeleteAccountContacts(ctx context.Context, con
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *AccessControlApiService) DeleteAccountContactsExecute(r AccessControlApiDeleteAccountContactsRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *AccessControlApiService) DeleteAccountContactsExecute(r AccessControlApiDeleteAccountContactsRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.DeleteAccountContacts")
@@ -688,7 +688,7 @@ func (a *AccessControlApiService) DeleteAccountContactsExecute(r AccessControlAp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -796,7 +796,7 @@ func (a *AccessControlApiService) DeleteInviteExecute(r AccessControlApiDeleteIn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -904,7 +904,7 @@ func (a *AccessControlApiService) DeleteUserExecute(r AccessControlApiDeleteUser
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1016,7 +1016,7 @@ func (a *AccessControlApiService) DetachUserRoleExecute(r AccessControlApiDetach
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1043,7 +1043,7 @@ type AccessControlApiGetAccessRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiGetAccessRequest) Execute() (*InlineResponse200, *http.Response, error) {
+func (r AccessControlApiGetAccessRequest) Execute() (*GetAccess200Response, *http.Response, error) {
 	return r.ApiService.GetAccessExecute(r)
 }
 
@@ -1061,13 +1061,13 @@ func (a *AccessControlApiService) GetAccess(ctx context.Context) AccessControlAp
 }
 
 // Execute executes the request
-//  @return InlineResponse200
-func (a *AccessControlApiService) GetAccessExecute(r AccessControlApiGetAccessRequest) (*InlineResponse200, *http.Response, error) {
+//  @return GetAccess200Response
+func (a *AccessControlApiService) GetAccessExecute(r AccessControlApiGetAccessRequest) (*GetAccess200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse200
+		localVarReturnValue *GetAccess200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetAccess")
@@ -1120,7 +1120,7 @@ func (a *AccessControlApiService) GetAccessExecute(r AccessControlApiGetAccessRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1147,7 +1147,7 @@ type AccessControlApiGetAccountRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiGetAccountRequest) Execute() (*AccountEntity, *http.Response, error) {
+func (r AccessControlApiGetAccountRequest) Execute() (*GetAccount200Response, *http.Response, error) {
 	return r.ApiService.GetAccountExecute(r)
 }
 
@@ -1165,13 +1165,13 @@ func (a *AccessControlApiService) GetAccount(ctx context.Context) AccessControlA
 }
 
 // Execute executes the request
-//  @return AccountEntity
-func (a *AccessControlApiService) GetAccountExecute(r AccessControlApiGetAccountRequest) (*AccountEntity, *http.Response, error) {
+//  @return GetAccount200Response
+func (a *AccessControlApiService) GetAccountExecute(r AccessControlApiGetAccountRequest) (*GetAccount200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountEntity
+		localVarReturnValue *GetAccount200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetAccount")
@@ -1224,7 +1224,7 @@ func (a *AccessControlApiService) GetAccountExecute(r AccessControlApiGetAccount
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1251,7 +1251,7 @@ type AccessControlApiGetAccountContactsRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiGetAccountContactsRequest) Execute() (*InlineResponse2001, *http.Response, error) {
+func (r AccessControlApiGetAccountContactsRequest) Execute() (*GetAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.GetAccountContactsExecute(r)
 }
 
@@ -1269,13 +1269,13 @@ func (a *AccessControlApiService) GetAccountContacts(ctx context.Context) Access
 }
 
 // Execute executes the request
-//  @return InlineResponse2001
-func (a *AccessControlApiService) GetAccountContactsExecute(r AccessControlApiGetAccountContactsRequest) (*InlineResponse2001, *http.Response, error) {
+//  @return GetAccountContacts200Response
+func (a *AccessControlApiService) GetAccountContactsExecute(r AccessControlApiGetAccountContactsRequest) (*GetAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2001
+		localVarReturnValue *GetAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetAccountContacts")
@@ -1328,7 +1328,7 @@ func (a *AccessControlApiService) GetAccountContactsExecute(r AccessControlApiGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1355,7 +1355,7 @@ type AccessControlApiGetAccountPlanRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiGetAccountPlanRequest) Execute() (*AccountEntity, *http.Response, error) {
+func (r AccessControlApiGetAccountPlanRequest) Execute() (*GetAccountPlan200Response, *http.Response, error) {
 	return r.ApiService.GetAccountPlanExecute(r)
 }
 
@@ -1373,13 +1373,13 @@ func (a *AccessControlApiService) GetAccountPlan(ctx context.Context) AccessCont
 }
 
 // Execute executes the request
-//  @return AccountEntity
-func (a *AccessControlApiService) GetAccountPlanExecute(r AccessControlApiGetAccountPlanRequest) (*AccountEntity, *http.Response, error) {
+//  @return GetAccountPlan200Response
+func (a *AccessControlApiService) GetAccountPlanExecute(r AccessControlApiGetAccountPlanRequest) (*GetAccountPlan200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountEntity
+		localVarReturnValue *GetAccountPlan200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetAccountPlan")
@@ -1432,7 +1432,7 @@ func (a *AccessControlApiService) GetAccountPlanExecute(r AccessControlApiGetAcc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1460,7 +1460,7 @@ type AccessControlApiGetInviteRequest struct {
 	inviteId   string
 }
 
-func (r AccessControlApiGetInviteRequest) Execute() (*InviteEntity, *http.Response, error) {
+func (r AccessControlApiGetInviteRequest) Execute() (*GetInvite200Response, *http.Response, error) {
 	return r.ApiService.GetInviteExecute(r)
 }
 
@@ -1480,13 +1480,13 @@ func (a *AccessControlApiService) GetInvite(ctx context.Context, inviteId string
 }
 
 // Execute executes the request
-//  @return InviteEntity
-func (a *AccessControlApiService) GetInviteExecute(r AccessControlApiGetInviteRequest) (*InviteEntity, *http.Response, error) {
+//  @return GetInvite200Response
+func (a *AccessControlApiService) GetInviteExecute(r AccessControlApiGetInviteRequest) (*GetInvite200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InviteEntity
+		localVarReturnValue *GetInvite200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetInvite")
@@ -1540,7 +1540,7 @@ func (a *AccessControlApiService) GetInviteExecute(r AccessControlApiGetInviteRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1574,7 +1574,7 @@ func (r AccessControlApiGetInvitesRequest) Status(status string) AccessControlAp
 	return r
 }
 
-func (r AccessControlApiGetInvitesRequest) Execute() (*InlineResponse2009, *http.Response, error) {
+func (r AccessControlApiGetInvitesRequest) Execute() (*GetInvites200Response, *http.Response, error) {
 	return r.ApiService.GetInvitesExecute(r)
 }
 
@@ -1592,13 +1592,13 @@ func (a *AccessControlApiService) GetInvites(ctx context.Context) AccessControlA
 }
 
 // Execute executes the request
-//  @return InlineResponse2009
-func (a *AccessControlApiService) GetInvitesExecute(r AccessControlApiGetInvitesRequest) (*InlineResponse2009, *http.Response, error) {
+//  @return GetInvites200Response
+func (a *AccessControlApiService) GetInvitesExecute(r AccessControlApiGetInvitesRequest) (*GetInvites200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2009
+		localVarReturnValue *GetInvites200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetInvites")
@@ -1654,7 +1654,7 @@ func (a *AccessControlApiService) GetInvitesExecute(r AccessControlApiGetInvites
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1681,7 +1681,7 @@ type AccessControlApiGetPermissionsRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiGetPermissionsRequest) Execute() (*InlineResponse20010, *http.Response, error) {
+func (r AccessControlApiGetPermissionsRequest) Execute() (*GetPermissions200Response, *http.Response, error) {
 	return r.ApiService.GetPermissionsExecute(r)
 }
 
@@ -1699,13 +1699,13 @@ func (a *AccessControlApiService) GetPermissions(ctx context.Context) AccessCont
 }
 
 // Execute executes the request
-//  @return InlineResponse20010
-func (a *AccessControlApiService) GetPermissionsExecute(r AccessControlApiGetPermissionsRequest) (*InlineResponse20010, *http.Response, error) {
+//  @return GetPermissions200Response
+func (a *AccessControlApiService) GetPermissionsExecute(r AccessControlApiGetPermissionsRequest) (*GetPermissions200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse20010
+		localVarReturnValue *GetPermissions200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetPermissions")
@@ -1758,7 +1758,7 @@ func (a *AccessControlApiService) GetPermissionsExecute(r AccessControlApiGetPer
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1786,7 +1786,7 @@ type AccessControlApiGetRolePermissionsRequest struct {
 	roleId     string
 }
 
-func (r AccessControlApiGetRolePermissionsRequest) Execute() (*InlineResponse20014, *http.Response, error) {
+func (r AccessControlApiGetRolePermissionsRequest) Execute() (*GetRolePermissions200Response, *http.Response, error) {
 	return r.ApiService.GetRolePermissionsExecute(r)
 }
 
@@ -1806,13 +1806,13 @@ func (a *AccessControlApiService) GetRolePermissions(ctx context.Context, roleId
 }
 
 // Execute executes the request
-//  @return InlineResponse20014
-func (a *AccessControlApiService) GetRolePermissionsExecute(r AccessControlApiGetRolePermissionsRequest) (*InlineResponse20014, *http.Response, error) {
+//  @return GetRolePermissions200Response
+func (a *AccessControlApiService) GetRolePermissionsExecute(r AccessControlApiGetRolePermissionsRequest) (*GetRolePermissions200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse20014
+		localVarReturnValue *GetRolePermissions200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetRolePermissions")
@@ -1866,7 +1866,7 @@ func (a *AccessControlApiService) GetRolePermissionsExecute(r AccessControlApiGe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1893,7 +1893,7 @@ type AccessControlApiGetRolesRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiGetRolesRequest) Execute() (*InlineResponse20013, *http.Response, error) {
+func (r AccessControlApiGetRolesRequest) Execute() (*GetRoles200Response, *http.Response, error) {
 	return r.ApiService.GetRolesExecute(r)
 }
 
@@ -1911,13 +1911,13 @@ func (a *AccessControlApiService) GetRoles(ctx context.Context) AccessControlApi
 }
 
 // Execute executes the request
-//  @return InlineResponse20013
-func (a *AccessControlApiService) GetRolesExecute(r AccessControlApiGetRolesRequest) (*InlineResponse20013, *http.Response, error) {
+//  @return GetRoles200Response
+func (a *AccessControlApiService) GetRolesExecute(r AccessControlApiGetRolesRequest) (*GetRoles200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse20013
+		localVarReturnValue *GetRoles200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetRoles")
@@ -1970,7 +1970,7 @@ func (a *AccessControlApiService) GetRolesExecute(r AccessControlApiGetRolesRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1998,7 +1998,7 @@ type AccessControlApiGetUserRequest struct {
 	userId     string
 }
 
-func (r AccessControlApiGetUserRequest) Execute() (*UserEntity, *http.Response, error) {
+func (r AccessControlApiGetUserRequest) Execute() (*GetUser200Response, *http.Response, error) {
 	return r.ApiService.GetUserExecute(r)
 }
 
@@ -2018,13 +2018,13 @@ func (a *AccessControlApiService) GetUser(ctx context.Context, userId string) Ac
 }
 
 // Execute executes the request
-//  @return UserEntity
-func (a *AccessControlApiService) GetUserExecute(r AccessControlApiGetUserRequest) (*UserEntity, *http.Response, error) {
+//  @return GetUser200Response
+func (a *AccessControlApiService) GetUserExecute(r AccessControlApiGetUserRequest) (*GetUser200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UserEntity
+		localVarReturnValue *GetUser200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetUser")
@@ -2078,7 +2078,7 @@ func (a *AccessControlApiService) GetUserExecute(r AccessControlApiGetUserReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -2105,7 +2105,7 @@ type AccessControlApiGetUsersRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiGetUsersRequest) Execute() (*InlineResponse20016, *http.Response, error) {
+func (r AccessControlApiGetUsersRequest) Execute() (*GetUsers200Response, *http.Response, error) {
 	return r.ApiService.GetUsersExecute(r)
 }
 
@@ -2123,13 +2123,13 @@ func (a *AccessControlApiService) GetUsers(ctx context.Context) AccessControlApi
 }
 
 // Execute executes the request
-//  @return InlineResponse20016
-func (a *AccessControlApiService) GetUsersExecute(r AccessControlApiGetUsersRequest) (*InlineResponse20016, *http.Response, error) {
+//  @return GetUsers200Response
+func (a *AccessControlApiService) GetUsersExecute(r AccessControlApiGetUsersRequest) (*GetUsers200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse20016
+		localVarReturnValue *GetUsers200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetUsers")
@@ -2182,7 +2182,7 @@ func (a *AccessControlApiService) GetUsersExecute(r AccessControlApiGetUsersRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -2216,7 +2216,7 @@ func (r AccessControlApiPostAccountContactsRequest) PostAccountContactsRequest(p
 	return r
 }
 
-func (r AccessControlApiPostAccountContactsRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r AccessControlApiPostAccountContactsRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PostAccountContactsExecute(r)
 }
 
@@ -2234,13 +2234,13 @@ func (a *AccessControlApiService) PostAccountContacts(ctx context.Context) Acces
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *AccessControlApiService) PostAccountContactsExecute(r AccessControlApiPostAccountContactsRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *AccessControlApiService) PostAccountContactsExecute(r AccessControlApiPostAccountContactsRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.PostAccountContacts")
@@ -2298,7 +2298,7 @@ func (a *AccessControlApiService) PostAccountContactsExecute(r AccessControlApiP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -2325,7 +2325,7 @@ type AccessControlApiPostAccountPlanBillingRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiPostAccountPlanBillingRequest) Execute() (*InlineResponse2003, *http.Response, error) {
+func (r AccessControlApiPostAccountPlanBillingRequest) Execute() (*PostAccountPlanBilling200Response, *http.Response, error) {
 	return r.ApiService.PostAccountPlanBillingExecute(r)
 }
 
@@ -2343,13 +2343,13 @@ func (a *AccessControlApiService) PostAccountPlanBilling(ctx context.Context) Ac
 }
 
 // Execute executes the request
-//  @return InlineResponse2003
-func (a *AccessControlApiService) PostAccountPlanBillingExecute(r AccessControlApiPostAccountPlanBillingRequest) (*InlineResponse2003, *http.Response, error) {
+//  @return PostAccountPlanBilling200Response
+func (a *AccessControlApiService) PostAccountPlanBillingExecute(r AccessControlApiPostAccountPlanBillingRequest) (*PostAccountPlanBilling200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2003
+		localVarReturnValue *PostAccountPlanBilling200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.PostAccountPlanBilling")
@@ -2402,7 +2402,7 @@ func (a *AccessControlApiService) PostAccountPlanBillingExecute(r AccessControlA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -2437,7 +2437,7 @@ func (r AccessControlApiPutAccountContactsRequest) PutAccountContactsRequest(put
 	return r
 }
 
-func (r AccessControlApiPutAccountContactsRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r AccessControlApiPutAccountContactsRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PutAccountContactsExecute(r)
 }
 
@@ -2457,13 +2457,13 @@ func (a *AccessControlApiService) PutAccountContacts(ctx context.Context, contac
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *AccessControlApiService) PutAccountContactsExecute(r AccessControlApiPutAccountContactsRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *AccessControlApiService) PutAccountContactsExecute(r AccessControlApiPutAccountContactsRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.PutAccountContacts")
@@ -2522,7 +2522,7 @@ func (a *AccessControlApiService) PutAccountContactsExecute(r AccessControlApiPu
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -2550,7 +2550,7 @@ type AccessControlApiResendInviteRequest struct {
 	inviteId   string
 }
 
-func (r AccessControlApiResendInviteRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r AccessControlApiResendInviteRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.ResendInviteExecute(r)
 }
 
@@ -2570,13 +2570,13 @@ func (a *AccessControlApiService) ResendInvite(ctx context.Context, inviteId str
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *AccessControlApiService) ResendInviteExecute(r AccessControlApiResendInviteRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *AccessControlApiService) ResendInviteExecute(r AccessControlApiResendInviteRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.ResendInvite")
@@ -2630,7 +2630,7 @@ func (a *AccessControlApiService) ResendInviteExecute(r AccessControlApiResendIn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -2657,7 +2657,7 @@ type AccessControlApiSendAccountDigestRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiSendAccountDigestRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r AccessControlApiSendAccountDigestRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.SendAccountDigestExecute(r)
 }
 
@@ -2675,13 +2675,13 @@ func (a *AccessControlApiService) SendAccountDigest(ctx context.Context) AccessC
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *AccessControlApiService) SendAccountDigestExecute(r AccessControlApiSendAccountDigestRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *AccessControlApiService) SendAccountDigestExecute(r AccessControlApiSendAccountDigestRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.SendAccountDigest")
@@ -2734,7 +2734,7 @@ func (a *AccessControlApiService) SendAccountDigestExecute(r AccessControlApiSen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -2761,7 +2761,7 @@ type AccessControlApiSyncAccountPlanRequest struct {
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiSyncAccountPlanRequest) Execute() (*AccountEntity, *http.Response, error) {
+func (r AccessControlApiSyncAccountPlanRequest) Execute() (*GetAccountPlan200Response, *http.Response, error) {
 	return r.ApiService.SyncAccountPlanExecute(r)
 }
 
@@ -2779,13 +2779,13 @@ func (a *AccessControlApiService) SyncAccountPlan(ctx context.Context) AccessCon
 }
 
 // Execute executes the request
-//  @return AccountEntity
-func (a *AccessControlApiService) SyncAccountPlanExecute(r AccessControlApiSyncAccountPlanRequest) (*AccountEntity, *http.Response, error) {
+//  @return GetAccountPlan200Response
+func (a *AccessControlApiService) SyncAccountPlanExecute(r AccessControlApiSyncAccountPlanRequest) (*GetAccountPlan200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *AccountEntity
+		localVarReturnValue *GetAccountPlan200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.SyncAccountPlan")
@@ -2838,7 +2838,7 @@ func (a *AccessControlApiService) SyncAccountPlanExecute(r AccessControlApiSyncA
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -2873,7 +2873,7 @@ func (r AccessControlApiUpdateUserRequest) UpdateUserRequest(updateUserRequest U
 	return r
 }
 
-func (r AccessControlApiUpdateUserRequest) Execute() (*UserEntity, *http.Response, error) {
+func (r AccessControlApiUpdateUserRequest) Execute() (*UpdateUser200Response, *http.Response, error) {
 	return r.ApiService.UpdateUserExecute(r)
 }
 
@@ -2893,13 +2893,13 @@ func (a *AccessControlApiService) UpdateUser(ctx context.Context, userId string)
 }
 
 // Execute executes the request
-//  @return UserEntity
-func (a *AccessControlApiService) UpdateUserExecute(r AccessControlApiUpdateUserRequest) (*UserEntity, *http.Response, error) {
+//  @return UpdateUser200Response
+func (a *AccessControlApiService) UpdateUserExecute(r AccessControlApiUpdateUserRequest) (*UpdateUser200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *UserEntity
+		localVarReturnValue *UpdateUser200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.UpdateUser")
@@ -2958,7 +2958,7 @@ func (a *AccessControlApiService) UpdateUserExecute(r AccessControlApiUpdateUser
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

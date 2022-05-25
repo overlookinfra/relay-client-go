@@ -18,6 +18,7 @@ import (
 type UpdateWorkflowRequest struct {
 	// User provided friendly workflow description
 	Description *string         `json:"description,omitempty"`
+	Folder      *FolderRequest  `json:"folder,omitempty"`
 	Source      *WorkflowSource `json:"source,omitempty"`
 }
 
@@ -70,6 +71,38 @@ func (o *UpdateWorkflowRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetFolder returns the Folder field value if set, zero value otherwise.
+func (o *UpdateWorkflowRequest) GetFolder() FolderRequest {
+	if o == nil || o.Folder == nil {
+		var ret FolderRequest
+		return ret
+	}
+	return *o.Folder
+}
+
+// GetFolderOk returns a tuple with the Folder field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateWorkflowRequest) GetFolderOk() (*FolderRequest, bool) {
+	if o == nil || o.Folder == nil {
+		return nil, false
+	}
+	return o.Folder, true
+}
+
+// HasFolder returns a boolean if a field has been set.
+func (o *UpdateWorkflowRequest) HasFolder() bool {
+	if o != nil && o.Folder != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFolder gets a reference to the given FolderRequest and assigns it to the Folder field.
+func (o *UpdateWorkflowRequest) SetFolder(v FolderRequest) {
+	o.Folder = &v
+}
+
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *UpdateWorkflowRequest) GetSource() WorkflowSource {
 	if o == nil || o.Source == nil {
@@ -106,6 +139,9 @@ func (o UpdateWorkflowRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.Folder != nil {
+		toSerialize["folder"] = o.Folder
 	}
 	if o.Source != nil {
 		toSerialize["source"] = o.Source

@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+JAR_DIR="$(dirname "${BASH_SOURCE[0]}")"
+GENERATOR_VERSION="6.0.0"
+GENERATOR_JAR="${JAR_DIR}/openapi-generator-cli-${GENERATOR_VERSION}.jar"
+RELAY_API_OPENAPI_URL="${RELAY_API_OPENAPI_URL:-"https://api.relay.sh/openapi/latest"}"
+
+if [ ! -e "${GENERATOR_JAR}" ]; then
+  curl -o "${GENERATOR_JAR}" https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/${GENERATOR_VERSION}/openapi-generator-cli-${GENERATOR_VERSION}.jar
+fi
+
+rm -f pkg/client/openapi/*.go
+java -jar "${GENERATOR_JAR}" generate -i "${RELAY_API_OPENAPI_URL}" -g go --enable-post-process-file --global-property apis,models,supportingFiles,apiDocs=false,modelDocs=false --additional-properties useOneOfDiscriminatorLookup=true,structPrefix=true -o pkg/client/openapi
+goimports -w pkg

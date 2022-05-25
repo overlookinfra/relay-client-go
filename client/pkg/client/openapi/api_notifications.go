@@ -124,7 +124,7 @@ func (a *NotificationsApiService) GetNotificationsExecute(r NotificationsApiGetN
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -158,7 +158,7 @@ func (r NotificationsApiPostAllNotificationDoneRequest) NotificationIdentifiers(
 	return r
 }
 
-func (r NotificationsApiPostAllNotificationDoneRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r NotificationsApiPostAllNotificationDoneRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PostAllNotificationDoneExecute(r)
 }
 
@@ -176,13 +176,13 @@ func (a *NotificationsApiService) PostAllNotificationDone(ctx context.Context) N
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *NotificationsApiService) PostAllNotificationDoneExecute(r NotificationsApiPostAllNotificationDoneRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *NotificationsApiService) PostAllNotificationDoneExecute(r NotificationsApiPostAllNotificationDoneRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationsApiService.PostAllNotificationDone")
@@ -237,7 +237,7 @@ func (a *NotificationsApiService) PostAllNotificationDoneExecute(r Notifications
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -271,7 +271,7 @@ func (r NotificationsApiPostAllNotificationReadRequest) NotificationIdentifiers(
 	return r
 }
 
-func (r NotificationsApiPostAllNotificationReadRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r NotificationsApiPostAllNotificationReadRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PostAllNotificationReadExecute(r)
 }
 
@@ -289,13 +289,13 @@ func (a *NotificationsApiService) PostAllNotificationRead(ctx context.Context) N
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *NotificationsApiService) PostAllNotificationReadExecute(r NotificationsApiPostAllNotificationReadRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *NotificationsApiService) PostAllNotificationReadExecute(r NotificationsApiPostAllNotificationReadRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationsApiService.PostAllNotificationRead")
@@ -350,7 +350,7 @@ func (a *NotificationsApiService) PostAllNotificationReadExecute(r Notifications
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -378,7 +378,7 @@ type NotificationsApiPostNotificationDoneRequest struct {
 	notificationId string
 }
 
-func (r NotificationsApiPostNotificationDoneRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r NotificationsApiPostNotificationDoneRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PostNotificationDoneExecute(r)
 }
 
@@ -398,13 +398,13 @@ func (a *NotificationsApiService) PostNotificationDone(ctx context.Context, noti
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *NotificationsApiService) PostNotificationDoneExecute(r NotificationsApiPostNotificationDoneRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *NotificationsApiService) PostNotificationDoneExecute(r NotificationsApiPostNotificationDoneRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationsApiService.PostNotificationDone")
@@ -458,7 +458,7 @@ func (a *NotificationsApiService) PostNotificationDoneExecute(r NotificationsApi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -486,7 +486,7 @@ type NotificationsApiPostNotificationReadRequest struct {
 	notificationId string
 }
 
-func (r NotificationsApiPostNotificationReadRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r NotificationsApiPostNotificationReadRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PostNotificationReadExecute(r)
 }
 
@@ -506,13 +506,13 @@ func (a *NotificationsApiService) PostNotificationRead(ctx context.Context, noti
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *NotificationsApiService) PostNotificationReadExecute(r NotificationsApiPostNotificationReadRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *NotificationsApiService) PostNotificationReadExecute(r NotificationsApiPostNotificationReadRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationsApiService.PostNotificationRead")
@@ -566,7 +566,7 @@ func (a *NotificationsApiService) PostNotificationReadExecute(r NotificationsApi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

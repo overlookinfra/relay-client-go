@@ -26,10 +26,10 @@ type WorkflowRevisionsApiService service
 type WorkflowRevisionsApiGetLatestWorkflowRevisionRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowRevisionsApiService
-	workflowName string
+	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
 }
 
-func (r WorkflowRevisionsApiGetLatestWorkflowRevisionRequest) Execute() (*Entity, *http.Response, error) {
+func (r WorkflowRevisionsApiGetLatestWorkflowRevisionRequest) Execute() (*PostRevisionValidate200Response, *http.Response, error) {
 	return r.ApiService.GetLatestWorkflowRevisionExecute(r)
 }
 
@@ -37,25 +37,25 @@ func (r WorkflowRevisionsApiGetLatestWorkflowRevisionRequest) Execute() (*Entity
 GetLatestWorkflowRevision Retrieve the latest workflow revision
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
+ @param workflowPath Folder + Workflow name
  @return WorkflowRevisionsApiGetLatestWorkflowRevisionRequest
 */
-func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevision(ctx context.Context, workflowName string) WorkflowRevisionsApiGetLatestWorkflowRevisionRequest {
+func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevision(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowRevisionsApiGetLatestWorkflowRevisionRequest {
 	return WorkflowRevisionsApiGetLatestWorkflowRevisionRequest{
 		ApiService:   a,
 		ctx:          ctx,
-		workflowName: workflowName,
+		workflowPath: workflowPath,
 	}
 }
 
 // Execute executes the request
-//  @return Entity
-func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevisionExecute(r WorkflowRevisionsApiGetLatestWorkflowRevisionRequest) (*Entity, *http.Response, error) {
+//  @return PostRevisionValidate200Response
+func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevisionExecute(r WorkflowRevisionsApiGetLatestWorkflowRevisionRequest) (*PostRevisionValidate200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Entity
+		localVarReturnValue *PostRevisionValidate200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowRevisionsApiService.GetLatestWorkflowRevision")
@@ -63,8 +63,8 @@ func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevisionExecute(r Workflo
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/workflows/{workflowName}/revisions/latest"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath := localBasePath + "/api/workflows/{workflowPath}/revisions/latest"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -109,7 +109,7 @@ func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevisionExecute(r Workflo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -134,11 +134,11 @@ func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevisionExecute(r Workflo
 type WorkflowRevisionsApiGetWorkflowRevisionRequest struct {
 	ctx              context.Context
 	ApiService       *WorkflowRevisionsApiService
-	workflowName     string
+	workflowPath     GetWorkflowSubscriptionsWorkflowPathParameter
 	workflowRevision string
 }
 
-func (r WorkflowRevisionsApiGetWorkflowRevisionRequest) Execute() (*Entity, *http.Response, error) {
+func (r WorkflowRevisionsApiGetWorkflowRevisionRequest) Execute() (*PostRevisionValidate200Response, *http.Response, error) {
 	return r.ApiService.GetWorkflowRevisionExecute(r)
 }
 
@@ -146,27 +146,27 @@ func (r WorkflowRevisionsApiGetWorkflowRevisionRequest) Execute() (*Entity, *htt
 GetWorkflowRevision Retrieve workflow revision
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
+ @param workflowPath Folder + Workflow name
  @param workflowRevision The workflow revision to reference
  @return WorkflowRevisionsApiGetWorkflowRevisionRequest
 */
-func (a *WorkflowRevisionsApiService) GetWorkflowRevision(ctx context.Context, workflowName string, workflowRevision string) WorkflowRevisionsApiGetWorkflowRevisionRequest {
+func (a *WorkflowRevisionsApiService) GetWorkflowRevision(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, workflowRevision string) WorkflowRevisionsApiGetWorkflowRevisionRequest {
 	return WorkflowRevisionsApiGetWorkflowRevisionRequest{
 		ApiService:       a,
 		ctx:              ctx,
-		workflowName:     workflowName,
+		workflowPath:     workflowPath,
 		workflowRevision: workflowRevision,
 	}
 }
 
 // Execute executes the request
-//  @return Entity
-func (a *WorkflowRevisionsApiService) GetWorkflowRevisionExecute(r WorkflowRevisionsApiGetWorkflowRevisionRequest) (*Entity, *http.Response, error) {
+//  @return PostRevisionValidate200Response
+func (a *WorkflowRevisionsApiService) GetWorkflowRevisionExecute(r WorkflowRevisionsApiGetWorkflowRevisionRequest) (*PostRevisionValidate200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Entity
+		localVarReturnValue *PostRevisionValidate200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowRevisionsApiService.GetWorkflowRevision")
@@ -174,8 +174,8 @@ func (a *WorkflowRevisionsApiService) GetWorkflowRevisionExecute(r WorkflowRevis
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/workflows/{workflowName}/revisions/{workflowRevision}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath := localBasePath + "/api/workflows/{workflowPath}/revisions/{workflowRevision}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"workflowRevision"+"}", url.PathEscape(parameterToString(r.workflowRevision, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -221,7 +221,7 @@ func (a *WorkflowRevisionsApiService) GetWorkflowRevisionExecute(r WorkflowRevis
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -246,7 +246,7 @@ func (a *WorkflowRevisionsApiService) GetWorkflowRevisionExecute(r WorkflowRevis
 type WorkflowRevisionsApiPostWorkflowRevisionRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowRevisionsApiService
-	workflowName string
+	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
 	body         **os.File
 }
 
@@ -256,7 +256,7 @@ func (r WorkflowRevisionsApiPostWorkflowRevisionRequest) Body(body *os.File) Wor
 	return r
 }
 
-func (r WorkflowRevisionsApiPostWorkflowRevisionRequest) Execute() (*Entity, *http.Response, error) {
+func (r WorkflowRevisionsApiPostWorkflowRevisionRequest) Execute() (*PostRevisionValidate200Response, *http.Response, error) {
 	return r.ApiService.PostWorkflowRevisionExecute(r)
 }
 
@@ -264,25 +264,25 @@ func (r WorkflowRevisionsApiPostWorkflowRevisionRequest) Execute() (*Entity, *ht
 PostWorkflowRevision Update the workflow revision
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
+ @param workflowPath Folder + Workflow name
  @return WorkflowRevisionsApiPostWorkflowRevisionRequest
 */
-func (a *WorkflowRevisionsApiService) PostWorkflowRevision(ctx context.Context, workflowName string) WorkflowRevisionsApiPostWorkflowRevisionRequest {
+func (a *WorkflowRevisionsApiService) PostWorkflowRevision(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowRevisionsApiPostWorkflowRevisionRequest {
 	return WorkflowRevisionsApiPostWorkflowRevisionRequest{
 		ApiService:   a,
 		ctx:          ctx,
-		workflowName: workflowName,
+		workflowPath: workflowPath,
 	}
 }
 
 // Execute executes the request
-//  @return Entity
-func (a *WorkflowRevisionsApiService) PostWorkflowRevisionExecute(r WorkflowRevisionsApiPostWorkflowRevisionRequest) (*Entity, *http.Response, error) {
+//  @return PostRevisionValidate200Response
+func (a *WorkflowRevisionsApiService) PostWorkflowRevisionExecute(r WorkflowRevisionsApiPostWorkflowRevisionRequest) (*PostRevisionValidate200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Entity
+		localVarReturnValue *PostRevisionValidate200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowRevisionsApiService.PostWorkflowRevision")
@@ -290,8 +290,8 @@ func (a *WorkflowRevisionsApiService) PostWorkflowRevisionExecute(r WorkflowRevi
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/workflows/{workflowName}/revisions"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", url.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath := localBasePath + "/api/workflows/{workflowPath}/revisions"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -341,7 +341,7 @@ func (a *WorkflowRevisionsApiService) PostWorkflowRevisionExecute(r WorkflowRevi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

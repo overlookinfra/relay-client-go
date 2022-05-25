@@ -115,7 +115,7 @@ func (a *AuthApiService) CreateSessionExecute(r AuthApiCreateSessionRequest) (*S
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -142,7 +142,7 @@ type AuthApiCreateSessionDeviceRequest struct {
 	ApiService *AuthApiService
 }
 
-func (r AuthApiCreateSessionDeviceRequest) Execute() (*Session, *http.Response, error) {
+func (r AuthApiCreateSessionDeviceRequest) Execute() (*CreateSessionDevice201Response, *http.Response, error) {
 	return r.ApiService.CreateSessionDeviceExecute(r)
 }
 
@@ -160,13 +160,13 @@ func (a *AuthApiService) CreateSessionDevice(ctx context.Context) AuthApiCreateS
 }
 
 // Execute executes the request
-//  @return Session
-func (a *AuthApiService) CreateSessionDeviceExecute(r AuthApiCreateSessionDeviceRequest) (*Session, *http.Response, error) {
+//  @return CreateSessionDevice201Response
+func (a *AuthApiService) CreateSessionDeviceExecute(r AuthApiCreateSessionDeviceRequest) (*CreateSessionDevice201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *Session
+		localVarReturnValue *CreateSessionDevice201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthApiService.CreateSessionDevice")
@@ -219,7 +219,7 @@ func (a *AuthApiService) CreateSessionDeviceExecute(r AuthApiCreateSessionDevice
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -246,7 +246,7 @@ type AuthApiDeleteSessionRequest struct {
 	ApiService *AuthApiService
 }
 
-func (r AuthApiDeleteSessionRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r AuthApiDeleteSessionRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.DeleteSessionExecute(r)
 }
 
@@ -264,13 +264,13 @@ func (a *AuthApiService) DeleteSession(ctx context.Context) AuthApiDeleteSession
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *AuthApiService) DeleteSessionExecute(r AuthApiDeleteSessionRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *AuthApiService) DeleteSessionExecute(r AuthApiDeleteSessionRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthApiService.DeleteSession")
@@ -323,123 +323,7 @@ func (a *AuthApiService) DeleteSessionExecute(r AuthApiDeleteSessionRequest) (*I
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type AuthApiForgotPasswordRequest struct {
-	ctx                   context.Context
-	ApiService            *AuthApiService
-	forgotPasswordRequest *ForgotPasswordRequest
-}
-
-// Information about the user to request a password reset for
-func (r AuthApiForgotPasswordRequest) ForgotPasswordRequest(forgotPasswordRequest ForgotPasswordRequest) AuthApiForgotPasswordRequest {
-	r.forgotPasswordRequest = &forgotPasswordRequest
-	return r
-}
-
-func (r AuthApiForgotPasswordRequest) Execute() (*InlineResponse2002, *http.Response, error) {
-	return r.ApiService.ForgotPasswordExecute(r)
-}
-
-/*
-ForgotPassword Request a password reset for a user identified by their email address
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return AuthApiForgotPasswordRequest
-*/
-func (a *AuthApiService) ForgotPassword(ctx context.Context) AuthApiForgotPasswordRequest {
-	return AuthApiForgotPasswordRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//  @return InlineResponse2002
-func (a *AuthApiService) ForgotPasswordExecute(r AuthApiForgotPasswordRequest) (*InlineResponse2002, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthApiService.ForgotPassword")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/forgot-password"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.forgotPasswordRequest == nil {
-		return localVarReturnValue, nil, reportError("forgotPasswordRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/vnd.puppet.relay.v20200615+json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/vnd.puppet.relay.v20200615+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.forgotPasswordRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -466,7 +350,7 @@ type AuthApiGetProfileRequest struct {
 	ApiService *AuthApiService
 }
 
-func (r AuthApiGetProfileRequest) Execute() (*ProfileEntity, *http.Response, error) {
+func (r AuthApiGetProfileRequest) Execute() (*GetProfile200Response, *http.Response, error) {
 	return r.ApiService.GetProfileExecute(r)
 }
 
@@ -484,13 +368,13 @@ func (a *AuthApiService) GetProfile(ctx context.Context) AuthApiGetProfileReques
 }
 
 // Execute executes the request
-//  @return ProfileEntity
-func (a *AuthApiService) GetProfileExecute(r AuthApiGetProfileRequest) (*ProfileEntity, *http.Response, error) {
+//  @return GetProfile200Response
+func (a *AuthApiService) GetProfileExecute(r AuthApiGetProfileRequest) (*GetProfile200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProfileEntity
+		localVarReturnValue *GetProfile200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthApiService.GetProfile")
@@ -543,7 +427,7 @@ func (a *AuthApiService) GetProfileExecute(r AuthApiGetProfileRequest) (*Profile
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -647,7 +531,7 @@ func (a *AuthApiService) GetProfilePreferencesExecute(r AuthApiGetProfilePrefere
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -751,7 +635,7 @@ func (a *AuthApiService) GetProfileSettingsExecute(r AuthApiGetProfileSettingsRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -778,7 +662,7 @@ type AuthApiGetSessionRequest struct {
 	ApiService *AuthApiService
 }
 
-func (r AuthApiGetSessionRequest) Execute() (*InlineResponse2002, *http.Response, error) {
+func (r AuthApiGetSessionRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.GetSessionExecute(r)
 }
 
@@ -796,13 +680,13 @@ func (a *AuthApiService) GetSession(ctx context.Context) AuthApiGetSessionReques
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *AuthApiService) GetSessionExecute(r AuthApiGetSessionRequest) (*InlineResponse2002, *http.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *AuthApiService) GetSessionExecute(r AuthApiGetSessionRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *InlineResponse2002
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthApiService.GetSession")
@@ -855,7 +739,7 @@ func (a *AuthApiService) GetSessionExecute(r AuthApiGetSessionRequest) (*InlineR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -889,7 +773,7 @@ func (r AuthApiUpdateProfileRequest) UpdateProfileRequest(updateProfileRequest U
 	return r
 }
 
-func (r AuthApiUpdateProfileRequest) Execute() (*ProfileEntity, *http.Response, error) {
+func (r AuthApiUpdateProfileRequest) Execute() (*UpdateProfile200Response, *http.Response, error) {
 	return r.ApiService.UpdateProfileExecute(r)
 }
 
@@ -907,13 +791,13 @@ func (a *AuthApiService) UpdateProfile(ctx context.Context) AuthApiUpdateProfile
 }
 
 // Execute executes the request
-//  @return ProfileEntity
-func (a *AuthApiService) UpdateProfileExecute(r AuthApiUpdateProfileRequest) (*ProfileEntity, *http.Response, error) {
+//  @return UpdateProfile200Response
+func (a *AuthApiService) UpdateProfileExecute(r AuthApiUpdateProfileRequest) (*UpdateProfile200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPut
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ProfileEntity
+		localVarReturnValue *UpdateProfile200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthApiService.UpdateProfile")
@@ -971,7 +855,7 @@ func (a *AuthApiService) UpdateProfileExecute(r AuthApiUpdateProfileRequest) (*P
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1087,7 +971,7 @@ func (a *AuthApiService) UpdateProfilePreferencesExecute(r AuthApiUpdateProfileP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -1203,7 +1087,7 @@ func (a *AuthApiService) UpdateProfileSettingsExecute(r AuthApiUpdateProfileSett
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

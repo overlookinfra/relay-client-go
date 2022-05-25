@@ -103,7 +103,7 @@ func (a *ViewsApiService) GetWorkflowsViewExecute(r ViewsApiGetWorkflowsViewRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()

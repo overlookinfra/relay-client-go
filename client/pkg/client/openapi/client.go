@@ -63,6 +63,8 @@ type APIClient struct {
 
 	EventsApi *EventsApiService
 
+	FoldersApi *FoldersApiService
+
 	NotificationsApi *NotificationsApiService
 
 	RevisionsApi *RevisionsApiService
@@ -109,6 +111,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ConnectionsApi = (*ConnectionsApiService)(&c.common)
 	c.ContentApi = (*ContentApiService)(&c.common)
 	c.EventsApi = (*EventsApiService)(&c.common)
+	c.FoldersApi = (*FoldersApiService)(&c.common)
 	c.NotificationsApi = (*NotificationsApiService)(&c.common)
 	c.RevisionsApi = (*RevisionsApiService)(&c.common)
 	c.SubscriptionsApi = (*SubscriptionsApiService)(&c.common)
@@ -241,9 +244,9 @@ func (c *APIClient) GetConfig() *Configuration {
 }
 
 type formFile struct {
-		fileBytes []byte
-		fileName string
-		formFileName string
+	fileBytes    []byte
+	fileName     string
+	formFileName string
 }
 
 // prepareRequest build the request
@@ -297,11 +300,11 @@ func (c *APIClient) prepareRequest(
 				w.Boundary()
 				part, err := w.CreateFormFile(formFile.formFileName, filepath.Base(formFile.fileName))
 				if err != nil {
-						return nil, err
+					return nil, err
 				}
 				_, err = part.Write(formFile.fileBytes)
 				if err != nil {
-						return nil, err
+					return nil, err
 				}
 			}
 		}
