@@ -25,8 +25,6 @@ jobs:
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
-    - name: Install goimports
-      run: go get golang.org/x/tools/cmd/goimports
     - name: Check
       run: |
         go mod tidy
