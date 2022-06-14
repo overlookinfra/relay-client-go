@@ -710,6 +710,117 @@ func (a *AccessControlApiService) DeleteAccountContactsExecute(r AccessControlAp
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type AccessControlApiDeleteAccountEntitlementRequest struct {
+	ctx             context.Context
+	ApiService      *AccessControlApiService
+	entitlementSlug string
+}
+
+func (r AccessControlApiDeleteAccountEntitlementRequest) Execute() (*AccountEntitlement, *http.Response, error) {
+	return r.ApiService.DeleteAccountEntitlementExecute(r)
+}
+
+/*
+DeleteAccountEntitlement Cancel an account entitlement subscription
+
+Note that the result of this request will be to set the subscription `expiration_behavior` to `terminate` if it is not already. Entitlement subscriptions will remain active until their existing expiration date.
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param entitlementSlug Unique reference string for a given product entitlement
+ @return AccessControlApiDeleteAccountEntitlementRequest
+*/
+func (a *AccessControlApiService) DeleteAccountEntitlement(ctx context.Context, entitlementSlug string) AccessControlApiDeleteAccountEntitlementRequest {
+	return AccessControlApiDeleteAccountEntitlementRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		entitlementSlug: entitlementSlug,
+	}
+}
+
+// Execute executes the request
+//  @return AccountEntitlement
+func (a *AccessControlApiService) DeleteAccountEntitlementExecute(r AccessControlApiDeleteAccountEntitlementRequest) (*AccountEntitlement, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountEntitlement
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.DeleteAccountEntitlement")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/account/entitlements/{entitlementSlug}"
+	localVarPath = strings.Replace(localVarPath, "{"+"entitlementSlug"+"}", url.PathEscape(parameterToString(r.entitlementSlug, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/vnd.puppet.relay.v20200615+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v GetAccessDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AccessControlApiDeleteInviteRequest struct {
 	ctx        context.Context
 	ApiService *AccessControlApiService
@@ -1388,6 +1499,110 @@ func (a *AccessControlApiService) GetAccountPlanExecute(r AccessControlApiGetAcc
 	}
 
 	localVarPath := localBasePath + "/api/account/plan"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/vnd.puppet.relay.v20200615+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v GetAccessDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type AccessControlApiGetEntitlementsRequest struct {
+	ctx        context.Context
+	ApiService *AccessControlApiService
+}
+
+func (r AccessControlApiGetEntitlementsRequest) Execute() (*GetEntitlements200Response, *http.Response, error) {
+	return r.ApiService.GetEntitlementsExecute(r)
+}
+
+/*
+GetEntitlements Get a list of all product entitlements
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return AccessControlApiGetEntitlementsRequest
+*/
+func (a *AccessControlApiService) GetEntitlements(ctx context.Context) AccessControlApiGetEntitlementsRequest {
+	return AccessControlApiGetEntitlementsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return GetEntitlements200Response
+func (a *AccessControlApiService) GetEntitlementsExecute(r AccessControlApiGetEntitlementsRequest) (*GetEntitlements200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetEntitlements200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.GetEntitlements")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/entitlements"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2204,6 +2419,113 @@ func (a *AccessControlApiService) GetUsersExecute(r AccessControlApiGetUsersRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type AccessControlApiPostAccountBillingRequest struct {
+	ctx        context.Context
+	ApiService *AccessControlApiService
+}
+
+func (r AccessControlApiPostAccountBillingRequest) Execute() (*PostAccountBilling201Response, *http.Response, error) {
+	return r.ApiService.PostAccountBillingExecute(r)
+}
+
+/*
+PostAccountBilling Manage and review account billing data
+
+This will eventually replace the `/api/account/plan/billing` endpoint, but both endpoints will be active until we are fully migrated to the new product entilement subscription system.
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return AccessControlApiPostAccountBillingRequest
+*/
+func (a *AccessControlApiService) PostAccountBilling(ctx context.Context) AccessControlApiPostAccountBillingRequest {
+	return AccessControlApiPostAccountBillingRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return PostAccountBilling201Response
+func (a *AccessControlApiService) PostAccountBillingExecute(r AccessControlApiPostAccountBillingRequest) (*PostAccountBilling201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PostAccountBilling201Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.PostAccountBilling")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/account/billing"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/vnd.puppet.relay.v20200615+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v GetAccessDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AccessControlApiPostAccountContactsRequest struct {
 	ctx                        context.Context
 	ApiService                 *AccessControlApiService
@@ -2320,12 +2642,152 @@ func (a *AccessControlApiService) PostAccountContactsExecute(r AccessControlApiP
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type AccessControlApiPostAccountEntitlementRequest struct {
+	ctx                           context.Context
+	ApiService                    *AccessControlApiService
+	entitlementSlug               string
+	postAccountEntitlementRequest *PostAccountEntitlementRequest
+}
+
+// Create or modify an account entitlement subscription
+func (r AccessControlApiPostAccountEntitlementRequest) PostAccountEntitlementRequest(postAccountEntitlementRequest PostAccountEntitlementRequest) AccessControlApiPostAccountEntitlementRequest {
+	r.postAccountEntitlementRequest = &postAccountEntitlementRequest
+	return r
+}
+
+func (r AccessControlApiPostAccountEntitlementRequest) Execute() (*AccountEntitlement, *http.Response, error) {
+	return r.ApiService.PostAccountEntitlementExecute(r)
+}
+
+/*
+PostAccountEntitlement Create or modify an account entitlement subscription
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param entitlementSlug Unique reference string for a given product entitlement
+ @return AccessControlApiPostAccountEntitlementRequest
+*/
+func (a *AccessControlApiService) PostAccountEntitlement(ctx context.Context, entitlementSlug string) AccessControlApiPostAccountEntitlementRequest {
+	return AccessControlApiPostAccountEntitlementRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		entitlementSlug: entitlementSlug,
+	}
+}
+
+// Execute executes the request
+//  @return AccountEntitlement
+func (a *AccessControlApiService) PostAccountEntitlementExecute(r AccessControlApiPostAccountEntitlementRequest) (*AccountEntitlement, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccountEntitlement
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.PostAccountEntitlement")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/account/entitlements/{entitlementSlug}"
+	localVarPath = strings.Replace(localVarPath, "{"+"entitlementSlug"+"}", url.PathEscape(parameterToString(r.entitlementSlug, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.postAccountEntitlementRequest == nil {
+		return localVarReturnValue, nil, reportError("postAccountEntitlementRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/vnd.puppet.relay.v20200615+json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/vnd.puppet.relay.v20200615+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.postAccountEntitlementRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		var v GetAccessDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type AccessControlApiPostAccountPlanBillingRequest struct {
 	ctx        context.Context
 	ApiService *AccessControlApiService
 }
 
-func (r AccessControlApiPostAccountPlanBillingRequest) Execute() (*PostAccountPlanBilling200Response, *http.Response, error) {
+func (r AccessControlApiPostAccountPlanBillingRequest) Execute() (*PostAccountBilling201Response, *http.Response, error) {
 	return r.ApiService.PostAccountPlanBillingExecute(r)
 }
 
@@ -2343,13 +2805,13 @@ func (a *AccessControlApiService) PostAccountPlanBilling(ctx context.Context) Ac
 }
 
 // Execute executes the request
-//  @return PostAccountPlanBilling200Response
-func (a *AccessControlApiService) PostAccountPlanBillingExecute(r AccessControlApiPostAccountPlanBillingRequest) (*PostAccountPlanBilling200Response, *http.Response, error) {
+//  @return PostAccountBilling201Response
+func (a *AccessControlApiService) PostAccountPlanBillingExecute(r AccessControlApiPostAccountPlanBillingRequest) (*PostAccountBilling201Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *PostAccountPlanBilling200Response
+		localVarReturnValue *PostAccountBilling201Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessControlApiService.PostAccountPlanBilling")

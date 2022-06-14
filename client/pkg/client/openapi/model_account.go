@@ -21,6 +21,8 @@ type Account struct {
 	AcceptedTermsAt NullableTime `json:"accepted_terms_at,omitempty"`
 	// The latest version of the terms and conditions accepted by an owner of this account
 	AcceptedTermsVersion NullableString `json:"accepted_terms_version,omitempty"`
+	// Map of this account's entitlements, keys are entitlement slugs
+	Entitlements *map[string]AccountEntitlement `json:"entitlements,omitempty"`
 	// The flags on the account
 	Flags []string `json:"flags,omitempty"`
 	// The unique identifier for the account
@@ -136,6 +138,38 @@ func (o *Account) SetAcceptedTermsVersionNil() {
 // UnsetAcceptedTermsVersion ensures that no value is present for AcceptedTermsVersion, not even an explicit nil
 func (o *Account) UnsetAcceptedTermsVersion() {
 	o.AcceptedTermsVersion.Unset()
+}
+
+// GetEntitlements returns the Entitlements field value if set, zero value otherwise.
+func (o *Account) GetEntitlements() map[string]AccountEntitlement {
+	if o == nil || o.Entitlements == nil {
+		var ret map[string]AccountEntitlement
+		return ret
+	}
+	return *o.Entitlements
+}
+
+// GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Account) GetEntitlementsOk() (*map[string]AccountEntitlement, bool) {
+	if o == nil || o.Entitlements == nil {
+		return nil, false
+	}
+	return o.Entitlements, true
+}
+
+// HasEntitlements returns a boolean if a field has been set.
+func (o *Account) HasEntitlements() bool {
+	if o != nil && o.Entitlements != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEntitlements gets a reference to the given map[string]AccountEntitlement and assigns it to the Entitlements field.
+func (o *Account) SetEntitlements(v map[string]AccountEntitlement) {
+	o.Entitlements = &v
 }
 
 // GetFlags returns the Flags field value if set, zero value otherwise.
@@ -303,6 +337,9 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	}
 	if o.AcceptedTermsVersion.IsSet() {
 		toSerialize["accepted_terms_version"] = o.AcceptedTermsVersion.Get()
+	}
+	if o.Entitlements != nil {
+		toSerialize["entitlements"] = o.Entitlements
 	}
 	if o.Flags != nil {
 		toSerialize["flags"] = o.Flags

@@ -26,7 +26,7 @@ type WorkflowRunsApiService service
 type WorkflowRunsApiGetWorkflowRunRequest struct {
 	ctx               context.Context
 	ApiService        *WorkflowRunsApiService
-	workflowPath      GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath      string
 	workflowRunNumber int32
 }
 
@@ -42,7 +42,7 @@ GetWorkflowRun Gets a workflow run accessed with a workflow name and run number
  @param workflowRunNumber Run number of the associated workflow
  @return WorkflowRunsApiGetWorkflowRunRequest
 */
-func (a *WorkflowRunsApiService) GetWorkflowRun(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, workflowRunNumber int32) WorkflowRunsApiGetWorkflowRunRequest {
+func (a *WorkflowRunsApiService) GetWorkflowRun(ctx context.Context, workflowPath string, workflowRunNumber int32) WorkflowRunsApiGetWorkflowRunRequest {
 	return WorkflowRunsApiGetWorkflowRunRequest{
 		ApiService:        a,
 		ctx:               ctx,
@@ -141,7 +141,7 @@ func (a *WorkflowRunsApiService) GetWorkflowRunExecute(r WorkflowRunsApiGetWorkf
 type WorkflowRunsApiGetWorkflowRunStepLogRequest struct {
 	ctx               context.Context
 	ApiService        *WorkflowRunsApiService
-	workflowPath      GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath      string
 	workflowRunNumber int32
 	workflowStepName  string
 	follow            *bool
@@ -166,7 +166,7 @@ GetWorkflowRunStepLog Returns the log for a workflow step, accessed by workflow 
  @param workflowStepName The name of the step in the associated workflow
  @return WorkflowRunsApiGetWorkflowRunStepLogRequest
 */
-func (a *WorkflowRunsApiService) GetWorkflowRunStepLog(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, workflowRunNumber int32, workflowStepName string) WorkflowRunsApiGetWorkflowRunStepLogRequest {
+func (a *WorkflowRunsApiService) GetWorkflowRunStepLog(ctx context.Context, workflowPath string, workflowRunNumber int32, workflowStepName string) WorkflowRunsApiGetWorkflowRunStepLogRequest {
 	return WorkflowRunsApiGetWorkflowRunStepLogRequest{
 		ApiService:        a,
 		ctx:               ctx,
@@ -270,7 +270,7 @@ func (a *WorkflowRunsApiService) GetWorkflowRunStepLogExecute(r WorkflowRunsApiG
 type WorkflowRunsApiGetWorkflowRunsRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowRunsApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 }
 
 func (r WorkflowRunsApiGetWorkflowRunsRequest) Execute() (*WorkflowRunsSummary, *http.Response, error) {
@@ -284,7 +284,7 @@ GetWorkflowRuns Get all the runs of a workflow
  @param workflowPath Folder + Workflow name
  @return WorkflowRunsApiGetWorkflowRunsRequest
 */
-func (a *WorkflowRunsApiService) GetWorkflowRuns(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowRunsApiGetWorkflowRunsRequest {
+func (a *WorkflowRunsApiService) GetWorkflowRuns(ctx context.Context, workflowPath string) WorkflowRunsApiGetWorkflowRunsRequest {
 	return WorkflowRunsApiGetWorkflowRunsRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -378,7 +378,7 @@ func (a *WorkflowRunsApiService) GetWorkflowRunsExecute(r WorkflowRunsApiGetWork
 type WorkflowRunsApiPatchWorkflowRunRequest struct {
 	ctx               context.Context
 	ApiService        *WorkflowRunsApiService
-	workflowPath      GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath      string
 	workflowRunNumber int32
 	updateWorkflowRun *UpdateWorkflowRun
 }
@@ -401,7 +401,7 @@ PatchWorkflowRun Update properties of a workflow
  @param workflowRunNumber Run number of the associated workflow
  @return WorkflowRunsApiPatchWorkflowRunRequest
 */
-func (a *WorkflowRunsApiService) PatchWorkflowRun(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, workflowRunNumber int32) WorkflowRunsApiPatchWorkflowRunRequest {
+func (a *WorkflowRunsApiService) PatchWorkflowRun(ctx context.Context, workflowPath string, workflowRunNumber int32) WorkflowRunsApiPatchWorkflowRunRequest {
 	return WorkflowRunsApiPatchWorkflowRunRequest{
 		ApiService:        a,
 		ctx:               ctx,
@@ -502,7 +502,7 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunExecute(r WorkflowRunsApiPatchW
 type WorkflowRunsApiPatchWorkflowRunStepRequest struct {
 	ctx                   context.Context
 	ApiService            *WorkflowRunsApiService
-	workflowPath          GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath          string
 	workflowRunNumber     int32
 	workflowStepName      string
 	updateWorkflowRunStep *UpdateWorkflowRunStep
@@ -527,7 +527,7 @@ PatchWorkflowRunStep Update properties of a workflow run step
  @param workflowStepName The name of the step in the associated workflow
  @return WorkflowRunsApiPatchWorkflowRunStepRequest
 */
-func (a *WorkflowRunsApiService) PatchWorkflowRunStep(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, workflowRunNumber int32, workflowStepName string) WorkflowRunsApiPatchWorkflowRunStepRequest {
+func (a *WorkflowRunsApiService) PatchWorkflowRunStep(ctx context.Context, workflowPath string, workflowRunNumber int32, workflowStepName string) WorkflowRunsApiPatchWorkflowRunStepRequest {
 	return WorkflowRunsApiPatchWorkflowRunStepRequest{
 		ApiService:        a,
 		ctx:               ctx,
@@ -630,7 +630,7 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunStepExecute(r WorkflowRunsApiPa
 type WorkflowRunsApiRunWorkflowRequest struct {
 	ctx               context.Context
 	ApiService        *WorkflowRunsApiService
-	workflowPath      GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath      string
 	createWorkflowRun *CreateWorkflowRun
 }
 
@@ -651,7 +651,7 @@ RunWorkflow Runs the given workflow
  @param workflowPath Folder + Workflow name
  @return WorkflowRunsApiRunWorkflowRequest
 */
-func (a *WorkflowRunsApiService) RunWorkflow(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowRunsApiRunWorkflowRequest {
+func (a *WorkflowRunsApiService) RunWorkflow(ctx context.Context, workflowPath string) WorkflowRunsApiRunWorkflowRequest {
 	return WorkflowRunsApiRunWorkflowRequest{
 		ApiService:   a,
 		ctx:          ctx,

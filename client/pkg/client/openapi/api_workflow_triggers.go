@@ -26,7 +26,7 @@ type WorkflowTriggersApiService service
 type WorkflowTriggersApiGetWorkflowTriggerRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowTriggersApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 	triggerId    string
 }
 
@@ -42,7 +42,7 @@ GetWorkflowTrigger Gets a workflow trigger accessed with a workflow name and tri
  @param triggerId Trigger ID
  @return WorkflowTriggersApiGetWorkflowTriggerRequest
 */
-func (a *WorkflowTriggersApiService) GetWorkflowTrigger(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, triggerId string) WorkflowTriggersApiGetWorkflowTriggerRequest {
+func (a *WorkflowTriggersApiService) GetWorkflowTrigger(ctx context.Context, workflowPath string, triggerId string) WorkflowTriggersApiGetWorkflowTriggerRequest {
 	return WorkflowTriggersApiGetWorkflowTriggerRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -138,7 +138,7 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerExecute(r WorkflowTrigger
 type WorkflowTriggersApiGetWorkflowTriggerLogRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowTriggersApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 	triggerId    string
 }
 
@@ -154,7 +154,7 @@ GetWorkflowTriggerLog Returns the log for a workflow trigger, accessed by workfl
  @param triggerId Trigger ID
  @return WorkflowTriggersApiGetWorkflowTriggerLogRequest
 */
-func (a *WorkflowTriggersApiService) GetWorkflowTriggerLog(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, triggerId string) WorkflowTriggersApiGetWorkflowTriggerLogRequest {
+func (a *WorkflowTriggersApiService) GetWorkflowTriggerLog(ctx context.Context, workflowPath string, triggerId string) WorkflowTriggersApiGetWorkflowTriggerLogRequest {
 	return WorkflowTriggersApiGetWorkflowTriggerLogRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -250,7 +250,7 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggerLogExecute(r WorkflowTrig
 type WorkflowTriggersApiGetWorkflowTriggersRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowTriggersApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 }
 
 func (r WorkflowTriggersApiGetWorkflowTriggersRequest) Execute() (*GetWorkflowTriggers200Response, *http.Response, error) {
@@ -264,7 +264,7 @@ GetWorkflowTriggers Get all workflow triggers
  @param workflowPath Folder + Workflow name
  @return WorkflowTriggersApiGetWorkflowTriggersRequest
 */
-func (a *WorkflowTriggersApiService) GetWorkflowTriggers(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowTriggersApiGetWorkflowTriggersRequest {
+func (a *WorkflowTriggersApiService) GetWorkflowTriggers(ctx context.Context, workflowPath string) WorkflowTriggersApiGetWorkflowTriggersRequest {
 	return WorkflowTriggersApiGetWorkflowTriggersRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -358,7 +358,7 @@ func (a *WorkflowTriggersApiService) GetWorkflowTriggersExecute(r WorkflowTrigge
 type WorkflowTriggersApiPostWorkflowTriggerDisableRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowTriggersApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 	triggerId    string
 }
 
@@ -374,7 +374,7 @@ PostWorkflowTriggerDisable Updates the enabled state on a workflow trigger to fa
  @param triggerId Trigger ID
  @return WorkflowTriggersApiPostWorkflowTriggerDisableRequest
 */
-func (a *WorkflowTriggersApiService) PostWorkflowTriggerDisable(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, triggerId string) WorkflowTriggersApiPostWorkflowTriggerDisableRequest {
+func (a *WorkflowTriggersApiService) PostWorkflowTriggerDisable(ctx context.Context, workflowPath string, triggerId string) WorkflowTriggersApiPostWorkflowTriggerDisableRequest {
 	return WorkflowTriggersApiPostWorkflowTriggerDisableRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -470,7 +470,7 @@ func (a *WorkflowTriggersApiService) PostWorkflowTriggerDisableExecute(r Workflo
 type WorkflowTriggersApiPostWorkflowTriggerEnableRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowTriggersApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 	triggerId    string
 }
 
@@ -486,7 +486,7 @@ PostWorkflowTriggerEnable Updates the enabled state on a workflow trigger to tru
  @param triggerId Trigger ID
  @return WorkflowTriggersApiPostWorkflowTriggerEnableRequest
 */
-func (a *WorkflowTriggersApiService) PostWorkflowTriggerEnable(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, triggerId string) WorkflowTriggersApiPostWorkflowTriggerEnableRequest {
+func (a *WorkflowTriggersApiService) PostWorkflowTriggerEnable(ctx context.Context, workflowPath string, triggerId string) WorkflowTriggersApiPostWorkflowTriggerEnableRequest {
 	return WorkflowTriggersApiPostWorkflowTriggerEnableRequest{
 		ApiService:   a,
 		ctx:          ctx,

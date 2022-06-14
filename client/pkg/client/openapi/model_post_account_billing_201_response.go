@@ -14,31 +14,31 @@ import (
 	"encoding/json"
 )
 
-// PostAccountPlanBilling200Response struct for PostAccountPlanBilling200Response
-type PostAccountPlanBilling200Response struct {
+// PostAccountBilling201Response struct for PostAccountBilling201Response
+type PostAccountBilling201Response struct {
 	// URL user should be redirect to in order to manage their billing plan
 	RedirectUrl *string `json:"redirect_url,omitempty"`
 }
 
-// NewPostAccountPlanBilling200Response instantiates a new PostAccountPlanBilling200Response object
+// NewPostAccountBilling201Response instantiates a new PostAccountBilling201Response object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPostAccountPlanBilling200Response() *PostAccountPlanBilling200Response {
-	this := PostAccountPlanBilling200Response{}
+func NewPostAccountBilling201Response() *PostAccountBilling201Response {
+	this := PostAccountBilling201Response{}
 	return &this
 }
 
-// NewPostAccountPlanBilling200ResponseWithDefaults instantiates a new PostAccountPlanBilling200Response object
+// NewPostAccountBilling201ResponseWithDefaults instantiates a new PostAccountBilling201Response object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPostAccountPlanBilling200ResponseWithDefaults() *PostAccountPlanBilling200Response {
-	this := PostAccountPlanBilling200Response{}
+func NewPostAccountBilling201ResponseWithDefaults() *PostAccountBilling201Response {
+	this := PostAccountBilling201Response{}
 	return &this
 }
 
 // GetRedirectUrl returns the RedirectUrl field value if set, zero value otherwise.
-func (o *PostAccountPlanBilling200Response) GetRedirectUrl() string {
+func (o *PostAccountBilling201Response) GetRedirectUrl() string {
 	if o == nil || o.RedirectUrl == nil {
 		var ret string
 		return ret
@@ -48,7 +48,7 @@ func (o *PostAccountPlanBilling200Response) GetRedirectUrl() string {
 
 // GetRedirectUrlOk returns a tuple with the RedirectUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PostAccountPlanBilling200Response) GetRedirectUrlOk() (*string, bool) {
+func (o *PostAccountBilling201Response) GetRedirectUrlOk() (*string, bool) {
 	if o == nil || o.RedirectUrl == nil {
 		return nil, false
 	}
@@ -56,7 +56,7 @@ func (o *PostAccountPlanBilling200Response) GetRedirectUrlOk() (*string, bool) {
 }
 
 // HasRedirectUrl returns a boolean if a field has been set.
-func (o *PostAccountPlanBilling200Response) HasRedirectUrl() bool {
+func (o *PostAccountBilling201Response) HasRedirectUrl() bool {
 	if o != nil && o.RedirectUrl != nil {
 		return true
 	}
@@ -65,11 +65,11 @@ func (o *PostAccountPlanBilling200Response) HasRedirectUrl() bool {
 }
 
 // SetRedirectUrl gets a reference to the given string and assigns it to the RedirectUrl field.
-func (o *PostAccountPlanBilling200Response) SetRedirectUrl(v string) {
+func (o *PostAccountBilling201Response) SetRedirectUrl(v string) {
 	o.RedirectUrl = &v
 }
 
-func (o PostAccountPlanBilling200Response) MarshalJSON() ([]byte, error) {
+func (o PostAccountBilling201Response) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.RedirectUrl != nil {
 		toSerialize["redirect_url"] = o.RedirectUrl
@@ -77,38 +77,38 @@ func (o PostAccountPlanBilling200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullablePostAccountPlanBilling200Response struct {
-	value *PostAccountPlanBilling200Response
+type NullablePostAccountBilling201Response struct {
+	value *PostAccountBilling201Response
 	isSet bool
 }
 
-func (v NullablePostAccountPlanBilling200Response) Get() *PostAccountPlanBilling200Response {
+func (v NullablePostAccountBilling201Response) Get() *PostAccountBilling201Response {
 	return v.value
 }
 
-func (v *NullablePostAccountPlanBilling200Response) Set(val *PostAccountPlanBilling200Response) {
+func (v *NullablePostAccountBilling201Response) Set(val *PostAccountBilling201Response) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePostAccountPlanBilling200Response) IsSet() bool {
+func (v NullablePostAccountBilling201Response) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePostAccountPlanBilling200Response) Unset() {
+func (v *NullablePostAccountBilling201Response) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePostAccountPlanBilling200Response(val *PostAccountPlanBilling200Response) *NullablePostAccountPlanBilling200Response {
-	return &NullablePostAccountPlanBilling200Response{value: val, isSet: true}
+func NewNullablePostAccountBilling201Response(val *PostAccountBilling201Response) *NullablePostAccountBilling201Response {
+	return &NullablePostAccountBilling201Response{value: val, isSet: true}
 }
 
-func (v NullablePostAccountPlanBilling200Response) MarshalJSON() ([]byte, error) {
+func (v NullablePostAccountBilling201Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePostAccountPlanBilling200Response) UnmarshalJSON(src []byte) error {
+func (v *NullablePostAccountBilling201Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

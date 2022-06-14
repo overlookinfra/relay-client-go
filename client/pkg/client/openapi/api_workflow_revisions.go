@@ -26,7 +26,7 @@ type WorkflowRevisionsApiService service
 type WorkflowRevisionsApiGetLatestWorkflowRevisionRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowRevisionsApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 }
 
 func (r WorkflowRevisionsApiGetLatestWorkflowRevisionRequest) Execute() (*PostRevisionValidate200Response, *http.Response, error) {
@@ -40,7 +40,7 @@ GetLatestWorkflowRevision Retrieve the latest workflow revision
  @param workflowPath Folder + Workflow name
  @return WorkflowRevisionsApiGetLatestWorkflowRevisionRequest
 */
-func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevision(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowRevisionsApiGetLatestWorkflowRevisionRequest {
+func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevision(ctx context.Context, workflowPath string) WorkflowRevisionsApiGetLatestWorkflowRevisionRequest {
 	return WorkflowRevisionsApiGetLatestWorkflowRevisionRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -134,7 +134,7 @@ func (a *WorkflowRevisionsApiService) GetLatestWorkflowRevisionExecute(r Workflo
 type WorkflowRevisionsApiGetWorkflowRevisionRequest struct {
 	ctx              context.Context
 	ApiService       *WorkflowRevisionsApiService
-	workflowPath     GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath     string
 	workflowRevision string
 }
 
@@ -150,7 +150,7 @@ GetWorkflowRevision Retrieve workflow revision
  @param workflowRevision The workflow revision to reference
  @return WorkflowRevisionsApiGetWorkflowRevisionRequest
 */
-func (a *WorkflowRevisionsApiService) GetWorkflowRevision(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, workflowRevision string) WorkflowRevisionsApiGetWorkflowRevisionRequest {
+func (a *WorkflowRevisionsApiService) GetWorkflowRevision(ctx context.Context, workflowPath string, workflowRevision string) WorkflowRevisionsApiGetWorkflowRevisionRequest {
 	return WorkflowRevisionsApiGetWorkflowRevisionRequest{
 		ApiService:       a,
 		ctx:              ctx,
@@ -246,7 +246,7 @@ func (a *WorkflowRevisionsApiService) GetWorkflowRevisionExecute(r WorkflowRevis
 type WorkflowRevisionsApiPostWorkflowRevisionRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowRevisionsApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 	body         **os.File
 }
 
@@ -267,7 +267,7 @@ PostWorkflowRevision Update the workflow revision
  @param workflowPath Folder + Workflow name
  @return WorkflowRevisionsApiPostWorkflowRevisionRequest
 */
-func (a *WorkflowRevisionsApiService) PostWorkflowRevision(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowRevisionsApiPostWorkflowRevisionRequest {
+func (a *WorkflowRevisionsApiService) PostWorkflowRevision(ctx context.Context, workflowPath string) WorkflowRevisionsApiPostWorkflowRevisionRequest {
 	return WorkflowRevisionsApiPostWorkflowRevisionRequest{
 		ApiService:   a,
 		ctx:          ctx,

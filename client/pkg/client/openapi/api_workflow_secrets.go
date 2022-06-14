@@ -25,7 +25,7 @@ type WorkflowSecretsApiService service
 type WorkflowSecretsApiCreateWorkflowSecretRequest struct {
 	ctx            context.Context
 	ApiService     *WorkflowSecretsApiService
-	workflowPath   GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath   string
 	workflowSecret *WorkflowSecret
 }
 
@@ -46,7 +46,7 @@ CreateWorkflowSecret Add a new secret to the given workflow
  @param workflowPath Folder + Workflow name
  @return WorkflowSecretsApiCreateWorkflowSecretRequest
 */
-func (a *WorkflowSecretsApiService) CreateWorkflowSecret(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowSecretsApiCreateWorkflowSecretRequest {
+func (a *WorkflowSecretsApiService) CreateWorkflowSecret(ctx context.Context, workflowPath string) WorkflowSecretsApiCreateWorkflowSecretRequest {
 	return WorkflowSecretsApiCreateWorkflowSecretRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -145,7 +145,7 @@ func (a *WorkflowSecretsApiService) CreateWorkflowSecretExecute(r WorkflowSecret
 type WorkflowSecretsApiDeleteWorkflowSecretRequest struct {
 	ctx                context.Context
 	ApiService         *WorkflowSecretsApiService
-	workflowPath       GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath       string
 	workflowSecretName string
 }
 
@@ -161,7 +161,7 @@ DeleteWorkflowSecret Delete the secret associated with the given workflow and se
  @param workflowSecretName The name of a workflow secret
  @return WorkflowSecretsApiDeleteWorkflowSecretRequest
 */
-func (a *WorkflowSecretsApiService) DeleteWorkflowSecret(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, workflowSecretName string) WorkflowSecretsApiDeleteWorkflowSecretRequest {
+func (a *WorkflowSecretsApiService) DeleteWorkflowSecret(ctx context.Context, workflowPath string, workflowSecretName string) WorkflowSecretsApiDeleteWorkflowSecretRequest {
 	return WorkflowSecretsApiDeleteWorkflowSecretRequest{
 		ApiService:         a,
 		ctx:                ctx,
@@ -257,7 +257,7 @@ func (a *WorkflowSecretsApiService) DeleteWorkflowSecretExecute(r WorkflowSecret
 type WorkflowSecretsApiListWorkflowSecretsRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowSecretsApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 }
 
 func (r WorkflowSecretsApiListWorkflowSecretsRequest) Execute() (*WorkflowSecretsSummary, *http.Response, error) {
@@ -271,7 +271,7 @@ ListWorkflowSecrets Get all secrets associated with the given workflow
  @param workflowPath Folder + Workflow name
  @return WorkflowSecretsApiListWorkflowSecretsRequest
 */
-func (a *WorkflowSecretsApiService) ListWorkflowSecrets(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowSecretsApiListWorkflowSecretsRequest {
+func (a *WorkflowSecretsApiService) ListWorkflowSecrets(ctx context.Context, workflowPath string) WorkflowSecretsApiListWorkflowSecretsRequest {
 	return WorkflowSecretsApiListWorkflowSecretsRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -365,7 +365,7 @@ func (a *WorkflowSecretsApiService) ListWorkflowSecretsExecute(r WorkflowSecrets
 type WorkflowSecretsApiUpdateWorkflowSecretRequest struct {
 	ctx                 context.Context
 	ApiService          *WorkflowSecretsApiService
-	workflowPath        GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath        string
 	workflowSecretName  string
 	workflowSecretValue *WorkflowSecretValue
 }
@@ -388,7 +388,7 @@ UpdateWorkflowSecret Update the secret associated with the given workflow and se
  @param workflowSecretName The name of a workflow secret
  @return WorkflowSecretsApiUpdateWorkflowSecretRequest
 */
-func (a *WorkflowSecretsApiService) UpdateWorkflowSecret(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter, workflowSecretName string) WorkflowSecretsApiUpdateWorkflowSecretRequest {
+func (a *WorkflowSecretsApiService) UpdateWorkflowSecret(ctx context.Context, workflowPath string, workflowSecretName string) WorkflowSecretsApiUpdateWorkflowSecretRequest {
 	return WorkflowSecretsApiUpdateWorkflowSecretRequest{
 		ApiService:         a,
 		ctx:                ctx,

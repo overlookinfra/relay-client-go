@@ -141,7 +141,7 @@ func (a *WorkflowsApiService) CreateWorkflowExecute(r WorkflowsApiCreateWorkflow
 type WorkflowsApiDeleteWorkflowRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowsApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 }
 
 func (r WorkflowsApiDeleteWorkflowRequest) Execute() (*DeletedResource, *http.Response, error) {
@@ -155,7 +155,7 @@ DeleteWorkflow Delete a workflow
  @param workflowPath Folder + Workflow name
  @return WorkflowsApiDeleteWorkflowRequest
 */
-func (a *WorkflowsApiService) DeleteWorkflow(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowsApiDeleteWorkflowRequest {
+func (a *WorkflowsApiService) DeleteWorkflow(ctx context.Context, workflowPath string) WorkflowsApiDeleteWorkflowRequest {
 	return WorkflowsApiDeleteWorkflowRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -249,7 +249,7 @@ func (a *WorkflowsApiService) DeleteWorkflowExecute(r WorkflowsApiDeleteWorkflow
 type WorkflowsApiGetWorkflowRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowsApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 }
 
 func (r WorkflowsApiGetWorkflowRequest) Execute() (*GetWorkflow200Response, *http.Response, error) {
@@ -263,7 +263,7 @@ GetWorkflow Retrieve a workflow
  @param workflowPath Folder + Workflow name
  @return WorkflowsApiGetWorkflowRequest
 */
-func (a *WorkflowsApiService) GetWorkflow(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowsApiGetWorkflowRequest {
+func (a *WorkflowsApiService) GetWorkflow(ctx context.Context, workflowPath string) WorkflowsApiGetWorkflowRequest {
 	return WorkflowsApiGetWorkflowRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -565,7 +565,7 @@ func (a *WorkflowsApiService) GetWorkflowsViewExecute(r WorkflowsApiGetWorkflows
 type WorkflowsApiOldUpdateWorkflowRequest struct {
 	ctx                      context.Context
 	ApiService               *WorkflowsApiService
-	workflowPath             GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath             string
 	oldUpdateWorkflowRequest *OldUpdateWorkflowRequest
 }
 
@@ -588,7 +588,7 @@ OldUpdateWorkflow Update a workflow
 
 Deprecated
 */
-func (a *WorkflowsApiService) OldUpdateWorkflow(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowsApiOldUpdateWorkflowRequest {
+func (a *WorkflowsApiService) OldUpdateWorkflow(ctx context.Context, workflowPath string) WorkflowsApiOldUpdateWorkflowRequest {
 	return WorkflowsApiOldUpdateWorkflowRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -688,7 +688,7 @@ func (a *WorkflowsApiService) OldUpdateWorkflowExecute(r WorkflowsApiOldUpdateWo
 type WorkflowsApiSyncWorkflowSourceControlRequest struct {
 	ctx          context.Context
 	ApiService   *WorkflowsApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 }
 
 func (r WorkflowsApiSyncWorkflowSourceControlRequest) Execute() (*PostRevisionValidate200Response, *http.Response, error) {
@@ -702,7 +702,7 @@ SyncWorkflowSourceControl Sync a source-controlled workflow
  @param workflowPath Folder + Workflow name
  @return WorkflowsApiSyncWorkflowSourceControlRequest
 */
-func (a *WorkflowsApiService) SyncWorkflowSourceControl(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowsApiSyncWorkflowSourceControlRequest {
+func (a *WorkflowsApiService) SyncWorkflowSourceControl(ctx context.Context, workflowPath string) WorkflowsApiSyncWorkflowSourceControlRequest {
 	return WorkflowsApiSyncWorkflowSourceControlRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -796,7 +796,7 @@ func (a *WorkflowsApiService) SyncWorkflowSourceControlExecute(r WorkflowsApiSyn
 type WorkflowsApiUpdateWorkflowRequest struct {
 	ctx                   context.Context
 	ApiService            *WorkflowsApiService
-	workflowPath          GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath          string
 	updateWorkflowRequest *UpdateWorkflowRequest
 }
 
@@ -817,7 +817,7 @@ UpdateWorkflow Update a workflow
  @param workflowPath Folder + Workflow name
  @return WorkflowsApiUpdateWorkflowRequest
 */
-func (a *WorkflowsApiService) UpdateWorkflow(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) WorkflowsApiUpdateWorkflowRequest {
+func (a *WorkflowsApiService) UpdateWorkflow(ctx context.Context, workflowPath string) WorkflowsApiUpdateWorkflowRequest {
 	return WorkflowsApiUpdateWorkflowRequest{
 		ApiService:   a,
 		ctx:          ctx,

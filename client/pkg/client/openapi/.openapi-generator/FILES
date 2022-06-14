@@ -27,6 +27,7 @@ model_accept_account_terms_request_user.go
 model_accepted_terms.go
 model_account.go
 model_account_contact.go
+model_account_entitlement.go
 model_account_entity.go
 model_account_plan_subscription.go
 model_account_quotas.go
@@ -85,6 +86,17 @@ model_create_workflow_run.go
 model_create_workflow_secret_201_response.go
 model_create_workflow_secret_201_response_all_of.go
 model_deleted_resource.go
+model_entitlement.go
+model_entitlement_all_of.go
+model_entitlement_plan.go
+model_entitlement_plan_all_of.go
+model_entitlement_plan_price.go
+model_entitlement_plan_price_all_of.go
+model_entitlement_plan_price_summary.go
+model_entitlement_plan_summary.go
+model_entitlement_slug.go
+model_entitlement_summary.go
+model_entitlement_summary_all_of.go
 model_entity.go
 model_entity_access.go
 model_error.go
@@ -120,6 +132,7 @@ model_get_connection_provider_200_response.go
 model_get_connection_provider_200_response_all_of.go
 model_get_connections_200_response.go
 model_get_connections_200_response_all_of.go
+model_get_entitlements_200_response.go
 model_get_folder_200_response.go
 model_get_folder_200_response_all_of.go
 model_get_folders_200_response.go
@@ -139,7 +152,6 @@ model_get_user_200_response_all_of.go
 model_get_users_200_response.go
 model_get_workflow_200_response.go
 model_get_workflow_200_response_all_of.go
-model_get_workflow_subscriptions_workflow_path_parameter.go
 model_get_workflow_trigger_200_response.go
 model_get_workflow_triggers_200_response.go
 model_get_workflows_200_response.go
@@ -181,9 +193,10 @@ model_plan_subscription.go
 model_plan_subscription_all_of.go
 model_plan_summary.go
 model_plan_summary_all_of.go
+model_post_account_billing_201_response.go
 model_post_account_contacts_200_response.go
 model_post_account_contacts_request.go
-model_post_account_plan_billing_200_response.go
+model_post_account_entitlement_request.go
 model_post_azure_app_registration_200_response.go
 model_post_azure_app_registration_request.go
 model_post_plan_price_200_response.go

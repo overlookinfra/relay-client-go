@@ -25,7 +25,7 @@ type SubscriptionsApiService service
 type SubscriptionsApiGetWorkflowSubscriptionsRequest struct {
 	ctx          context.Context
 	ApiService   *SubscriptionsApiService
-	workflowPath GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath string
 }
 
 func (r SubscriptionsApiGetWorkflowSubscriptionsRequest) Execute() (*UserWorkflowSubscriptions, *http.Response, error) {
@@ -39,7 +39,7 @@ GetWorkflowSubscriptions Retrieve the current user's workflow subscriptions
  @param workflowPath Folder + Workflow name
  @return SubscriptionsApiGetWorkflowSubscriptionsRequest
 */
-func (a *SubscriptionsApiService) GetWorkflowSubscriptions(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) SubscriptionsApiGetWorkflowSubscriptionsRequest {
+func (a *SubscriptionsApiService) GetWorkflowSubscriptions(ctx context.Context, workflowPath string) SubscriptionsApiGetWorkflowSubscriptionsRequest {
 	return SubscriptionsApiGetWorkflowSubscriptionsRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -237,7 +237,7 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r Subscriptio
 type SubscriptionsApiPutWorkflowSubscriptionsRequest struct {
 	ctx                       context.Context
 	ApiService                *SubscriptionsApiService
-	workflowPath              GetWorkflowSubscriptionsWorkflowPathParameter
+	workflowPath              string
 	userWorkflowSubscriptions *UserWorkflowSubscriptions
 }
 
@@ -258,7 +258,7 @@ PutWorkflowSubscriptions Update the current user's workflow subscriptions
  @param workflowPath Folder + Workflow name
  @return SubscriptionsApiPutWorkflowSubscriptionsRequest
 */
-func (a *SubscriptionsApiService) PutWorkflowSubscriptions(ctx context.Context, workflowPath GetWorkflowSubscriptionsWorkflowPathParameter) SubscriptionsApiPutWorkflowSubscriptionsRequest {
+func (a *SubscriptionsApiService) PutWorkflowSubscriptions(ctx context.Context, workflowPath string) SubscriptionsApiPutWorkflowSubscriptionsRequest {
 	return SubscriptionsApiPutWorkflowSubscriptionsRequest{
 		ApiService:   a,
 		ctx:          ctx,

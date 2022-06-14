@@ -16,7 +16,6 @@ import (
 
 // UpdateFolderRequest The fields to update a folder
 type UpdateFolderRequest struct {
-	// A descriptive folder name
 	Name string `json:"name"`
 }
 
