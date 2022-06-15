@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.5.0] - 2022-06-15
+
+### Changed
+
+* Updated to building with v6.0.0 of openapi-generator, plus https://github.com/OpenAPITools/openapi-generator/pull/11837 which fixes nested OneOf/AllOf declarations needed by many of our clients.
+* API client names have generally all changed in a backwards-incompatible way to avoid naming conflicts. Model names have mostly remained the same.
+
+### Added
+
+* Access control api client and models
+* Connections api client and models
+* Content api client and models
+* Folders api client and models
+* Workflows api client and models
+
 ## [0.4.6] - 2022-03-03
 
 ### Added
@@ -78,7 +93,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Client generation for workflow view specification changes.
 * Initial migration from [puppetlabs/relay](https://github.com/puppetlabs/relay).
 
-[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.6...HEAD
+[Unreleased]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.5.0...HEAD
+[0.5.0]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.6...client/v0.5.0
 [0.4.6]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.6...client/v0.4.6
 [0.4.5]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.4...client/v0.4.5
 [0.4.4]: https://github.com/puppetlabs/relay-client-go/compare/client/v0.4.3...client/v0.4.4
