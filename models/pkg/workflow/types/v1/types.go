@@ -10,8 +10,8 @@ import (
 	"github.com/puppetlabs/relay-core/pkg/expr/parse"
 	"github.com/puppetlabs/relay-core/pkg/expr/serialize"
 	"github.com/puppetlabs/relay-core/pkg/manager/input"
-	"github.com/robfig/cron/v3"
-	"gopkg.in/yaml.v3"
+	cron "github.com/robfig/cron/v3"
+	yaml "gopkg.in/yaml.v3"
 )
 
 type WorkflowStepType string

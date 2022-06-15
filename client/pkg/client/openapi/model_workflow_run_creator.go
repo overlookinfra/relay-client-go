@@ -23,12 +23,16 @@ type WorkflowRunCreator struct {
 
 // EventWorkflowRunCreatorAsWorkflowRunCreator is a convenience function that returns EventWorkflowRunCreator wrapped in WorkflowRunCreator
 func EventWorkflowRunCreatorAsWorkflowRunCreator(v *EventWorkflowRunCreator) WorkflowRunCreator {
-	return WorkflowRunCreator{EventWorkflowRunCreator: v}
+	return WorkflowRunCreator{
+		EventWorkflowRunCreator: v,
+	}
 }
 
 // UserWorkflowRunCreatorAsWorkflowRunCreator is a convenience function that returns UserWorkflowRunCreator wrapped in WorkflowRunCreator
 func UserWorkflowRunCreatorAsWorkflowRunCreator(v *UserWorkflowRunCreator) WorkflowRunCreator {
-	return WorkflowRunCreator{UserWorkflowRunCreator: v}
+	return WorkflowRunCreator{
+		UserWorkflowRunCreator: v,
+	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
@@ -36,7 +40,7 @@ func (dst *WorkflowRunCreator) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
-	err = json.Unmarshal(data, &jsonDict)
+	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
 	}
@@ -89,52 +93,7 @@ func (dst *WorkflowRunCreator) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	match := 0
-	// try to unmarshal data into EventWorkflowRunCreator
-	err = json.Unmarshal(data, &dst.EventWorkflowRunCreator)
-	if err == nil {
-		jsonEventWorkflowRunCreator, err := json.Marshal(dst.EventWorkflowRunCreator)
-		if err == nil {
-			if string(jsonEventWorkflowRunCreator) == "" || string(jsonEventWorkflowRunCreator) == "{}" { // empty struct
-				dst.EventWorkflowRunCreator = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.EventWorkflowRunCreator = nil
-		}
-	} else {
-		dst.EventWorkflowRunCreator = nil
-	}
-
-	// try to unmarshal data into UserWorkflowRunCreator
-	err = json.Unmarshal(data, &dst.UserWorkflowRunCreator)
-	if err == nil {
-		jsonUserWorkflowRunCreator, err := json.Marshal(dst.UserWorkflowRunCreator)
-		if err == nil {
-			if string(jsonUserWorkflowRunCreator) == "" || string(jsonUserWorkflowRunCreator) == "{}" { // empty struct
-				dst.UserWorkflowRunCreator = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.UserWorkflowRunCreator = nil
-		}
-	} else {
-		dst.UserWorkflowRunCreator = nil
-	}
-
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.EventWorkflowRunCreator = nil
-		dst.UserWorkflowRunCreator = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(WorkflowRunCreator)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(WorkflowRunCreator)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -152,6 +111,9 @@ func (src WorkflowRunCreator) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *WorkflowRunCreator) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
 	if obj.EventWorkflowRunCreator != nil {
 		return obj.EventWorkflowRunCreator
 	}

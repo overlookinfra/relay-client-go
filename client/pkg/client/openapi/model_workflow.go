@@ -17,7 +17,8 @@ import (
 
 // Workflow struct for Workflow
 type Workflow struct {
-	Name string `json:"name"`
+	Folder string `json:"folder"`
+	Name   string `json:"name"`
 	// User provided friendly workflow description
 	Description *string `json:"description,omitempty"`
 	// If true, this workflow cannot be edited or run directly by the user.
@@ -35,8 +36,9 @@ type Workflow struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWorkflow(name string, createdAt time.Time, updatedAt time.Time) *Workflow {
+func NewWorkflow(folder string, name string, createdAt time.Time, updatedAt time.Time) *Workflow {
 	this := Workflow{}
+	this.Folder = folder
 	this.Name = name
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
@@ -49,6 +51,30 @@ func NewWorkflow(name string, createdAt time.Time, updatedAt time.Time) *Workflo
 func NewWorkflowWithDefaults() *Workflow {
 	this := Workflow{}
 	return &this
+}
+
+// GetFolder returns the Folder field value
+func (o *Workflow) GetFolder() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Folder
+}
+
+// GetFolderOk returns a tuple with the Folder field value
+// and a boolean to check if the value has been set.
+func (o *Workflow) GetFolderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Folder, true
+}
+
+// SetFolder sets field value
+func (o *Workflow) SetFolder(v string) {
+	o.Folder = v
 }
 
 // GetName returns the Name field value
@@ -285,6 +311,9 @@ func (o *Workflow) SetSource(v WorkflowSource) {
 
 func (o Workflow) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["folder"] = o.Folder
+	}
 	if true {
 		toSerialize["name"] = o.Name
 	}

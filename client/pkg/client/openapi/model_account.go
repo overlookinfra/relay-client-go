@@ -21,13 +21,18 @@ type Account struct {
 	AcceptedTermsAt NullableTime `json:"accepted_terms_at,omitempty"`
 	// The latest version of the terms and conditions accepted by an owner of this account
 	AcceptedTermsVersion NullableString `json:"accepted_terms_version,omitempty"`
+	// Map of this account's entitlements, keys are entitlement slugs
+	Entitlements *map[string]AccountEntitlement `json:"entitlements,omitempty"`
 	// The flags on the account
-	Flags *[]string `json:"flags,omitempty"`
+	Flags []string `json:"flags,omitempty"`
 	// The unique identifier for the account
 	Id string `json:"id"`
 	// The name of the account
-	Name             string                   `json:"name"`
-	PlanSubscription NullablePlanSubscription `json:"plan_subscription,omitempty"`
+	Name             string                          `json:"name"`
+	PlanSubscription NullableAccountPlanSubscription `json:"plan_subscription,omitempty"`
+	// The name of the billing plan this account is subscribed to. DEPRECATED, use `plan_subscription` sub-object instead.
+	// Deprecated
+	PlanType *string `json:"plan_type,omitempty"`
 }
 
 // NewAccount instantiates a new Account object
@@ -135,18 +140,50 @@ func (o *Account) UnsetAcceptedTermsVersion() {
 	o.AcceptedTermsVersion.Unset()
 }
 
+// GetEntitlements returns the Entitlements field value if set, zero value otherwise.
+func (o *Account) GetEntitlements() map[string]AccountEntitlement {
+	if o == nil || o.Entitlements == nil {
+		var ret map[string]AccountEntitlement
+		return ret
+	}
+	return *o.Entitlements
+}
+
+// GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Account) GetEntitlementsOk() (*map[string]AccountEntitlement, bool) {
+	if o == nil || o.Entitlements == nil {
+		return nil, false
+	}
+	return o.Entitlements, true
+}
+
+// HasEntitlements returns a boolean if a field has been set.
+func (o *Account) HasEntitlements() bool {
+	if o != nil && o.Entitlements != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEntitlements gets a reference to the given map[string]AccountEntitlement and assigns it to the Entitlements field.
+func (o *Account) SetEntitlements(v map[string]AccountEntitlement) {
+	o.Entitlements = &v
+}
+
 // GetFlags returns the Flags field value if set, zero value otherwise.
 func (o *Account) GetFlags() []string {
 	if o == nil || o.Flags == nil {
 		var ret []string
 		return ret
 	}
-	return *o.Flags
+	return o.Flags
 }
 
 // GetFlagsOk returns a tuple with the Flags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Account) GetFlagsOk() (*[]string, bool) {
+func (o *Account) GetFlagsOk() ([]string, bool) {
 	if o == nil || o.Flags == nil {
 		return nil, false
 	}
@@ -164,7 +201,7 @@ func (o *Account) HasFlags() bool {
 
 // SetFlags gets a reference to the given []string and assigns it to the Flags field.
 func (o *Account) SetFlags(v []string) {
-	o.Flags = &v
+	o.Flags = v
 }
 
 // GetId returns the Id field value
@@ -216,9 +253,9 @@ func (o *Account) SetName(v string) {
 }
 
 // GetPlanSubscription returns the PlanSubscription field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Account) GetPlanSubscription() PlanSubscription {
+func (o *Account) GetPlanSubscription() AccountPlanSubscription {
 	if o == nil || o.PlanSubscription.Get() == nil {
-		var ret PlanSubscription
+		var ret AccountPlanSubscription
 		return ret
 	}
 	return *o.PlanSubscription.Get()
@@ -227,7 +264,7 @@ func (o *Account) GetPlanSubscription() PlanSubscription {
 // GetPlanSubscriptionOk returns a tuple with the PlanSubscription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Account) GetPlanSubscriptionOk() (*PlanSubscription, bool) {
+func (o *Account) GetPlanSubscriptionOk() (*AccountPlanSubscription, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -243,8 +280,8 @@ func (o *Account) HasPlanSubscription() bool {
 	return false
 }
 
-// SetPlanSubscription gets a reference to the given NullablePlanSubscription and assigns it to the PlanSubscription field.
-func (o *Account) SetPlanSubscription(v PlanSubscription) {
+// SetPlanSubscription gets a reference to the given NullableAccountPlanSubscription and assigns it to the PlanSubscription field.
+func (o *Account) SetPlanSubscription(v AccountPlanSubscription) {
 	o.PlanSubscription.Set(&v)
 }
 
@@ -258,6 +295,41 @@ func (o *Account) UnsetPlanSubscription() {
 	o.PlanSubscription.Unset()
 }
 
+// GetPlanType returns the PlanType field value if set, zero value otherwise.
+// Deprecated
+func (o *Account) GetPlanType() string {
+	if o == nil || o.PlanType == nil {
+		var ret string
+		return ret
+	}
+	return *o.PlanType
+}
+
+// GetPlanTypeOk returns a tuple with the PlanType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// Deprecated
+func (o *Account) GetPlanTypeOk() (*string, bool) {
+	if o == nil || o.PlanType == nil {
+		return nil, false
+	}
+	return o.PlanType, true
+}
+
+// HasPlanType returns a boolean if a field has been set.
+func (o *Account) HasPlanType() bool {
+	if o != nil && o.PlanType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPlanType gets a reference to the given string and assigns it to the PlanType field.
+// Deprecated
+func (o *Account) SetPlanType(v string) {
+	o.PlanType = &v
+}
+
 func (o Account) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AcceptedTermsAt.IsSet() {
@@ -265,6 +337,9 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	}
 	if o.AcceptedTermsVersion.IsSet() {
 		toSerialize["accepted_terms_version"] = o.AcceptedTermsVersion.Get()
+	}
+	if o.Entitlements != nil {
+		toSerialize["entitlements"] = o.Entitlements
 	}
 	if o.Flags != nil {
 		toSerialize["flags"] = o.Flags
@@ -277,6 +352,9 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	}
 	if o.PlanSubscription.IsSet() {
 		toSerialize["plan_subscription"] = o.PlanSubscription.Get()
+	}
+	if o.PlanType != nil {
+		toSerialize["plan_type"] = o.PlanType
 	}
 	return json.Marshal(toSerialize)
 }

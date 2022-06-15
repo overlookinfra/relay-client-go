@@ -24,17 +24,23 @@ type WorkflowTriggerSource struct {
 
 // PushWorkflowTriggerSourceAsWorkflowTriggerSource is a convenience function that returns PushWorkflowTriggerSource wrapped in WorkflowTriggerSource
 func PushWorkflowTriggerSourceAsWorkflowTriggerSource(v *PushWorkflowTriggerSource) WorkflowTriggerSource {
-	return WorkflowTriggerSource{PushWorkflowTriggerSource: v}
+	return WorkflowTriggerSource{
+		PushWorkflowTriggerSource: v,
+	}
 }
 
 // ScheduleWorkflowTriggerSourceAsWorkflowTriggerSource is a convenience function that returns ScheduleWorkflowTriggerSource wrapped in WorkflowTriggerSource
 func ScheduleWorkflowTriggerSourceAsWorkflowTriggerSource(v *ScheduleWorkflowTriggerSource) WorkflowTriggerSource {
-	return WorkflowTriggerSource{ScheduleWorkflowTriggerSource: v}
+	return WorkflowTriggerSource{
+		ScheduleWorkflowTriggerSource: v,
+	}
 }
 
 // WebhookWorkflowTriggerSourceAsWorkflowTriggerSource is a convenience function that returns WebhookWorkflowTriggerSource wrapped in WorkflowTriggerSource
 func WebhookWorkflowTriggerSourceAsWorkflowTriggerSource(v *WebhookWorkflowTriggerSource) WorkflowTriggerSource {
-	return WorkflowTriggerSource{WebhookWorkflowTriggerSource: v}
+	return WorkflowTriggerSource{
+		WebhookWorkflowTriggerSource: v,
+	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
@@ -42,7 +48,7 @@ func (dst *WorkflowTriggerSource) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
-	err = json.Unmarshal(data, &jsonDict)
+	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
 	}
@@ -119,70 +125,7 @@ func (dst *WorkflowTriggerSource) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	match := 0
-	// try to unmarshal data into PushWorkflowTriggerSource
-	err = json.Unmarshal(data, &dst.PushWorkflowTriggerSource)
-	if err == nil {
-		jsonPushWorkflowTriggerSource, err := json.Marshal(dst.PushWorkflowTriggerSource)
-		if err == nil {
-			if string(jsonPushWorkflowTriggerSource) == "" || string(jsonPushWorkflowTriggerSource) == "{}" { // empty struct
-				dst.PushWorkflowTriggerSource = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.PushWorkflowTriggerSource = nil
-		}
-	} else {
-		dst.PushWorkflowTriggerSource = nil
-	}
-
-	// try to unmarshal data into ScheduleWorkflowTriggerSource
-	err = json.Unmarshal(data, &dst.ScheduleWorkflowTriggerSource)
-	if err == nil {
-		jsonScheduleWorkflowTriggerSource, err := json.Marshal(dst.ScheduleWorkflowTriggerSource)
-		if err == nil {
-			if string(jsonScheduleWorkflowTriggerSource) == "" || string(jsonScheduleWorkflowTriggerSource) == "{}" { // empty struct
-				dst.ScheduleWorkflowTriggerSource = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.ScheduleWorkflowTriggerSource = nil
-		}
-	} else {
-		dst.ScheduleWorkflowTriggerSource = nil
-	}
-
-	// try to unmarshal data into WebhookWorkflowTriggerSource
-	err = json.Unmarshal(data, &dst.WebhookWorkflowTriggerSource)
-	if err == nil {
-		jsonWebhookWorkflowTriggerSource, err := json.Marshal(dst.WebhookWorkflowTriggerSource)
-		if err == nil {
-			if string(jsonWebhookWorkflowTriggerSource) == "" || string(jsonWebhookWorkflowTriggerSource) == "{}" { // empty struct
-				dst.WebhookWorkflowTriggerSource = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.WebhookWorkflowTriggerSource = nil
-		}
-	} else {
-		dst.WebhookWorkflowTriggerSource = nil
-	}
-
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.PushWorkflowTriggerSource = nil
-		dst.ScheduleWorkflowTriggerSource = nil
-		dst.WebhookWorkflowTriggerSource = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(WorkflowTriggerSource)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(WorkflowTriggerSource)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -204,6 +147,9 @@ func (src WorkflowTriggerSource) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *WorkflowTriggerSource) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
 	if obj.PushWorkflowTriggerSource != nil {
 		return obj.PushWorkflowTriggerSource
 	}

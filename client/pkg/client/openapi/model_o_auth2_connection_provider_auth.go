@@ -17,7 +17,7 @@ import (
 // OAuth2ConnectionProviderAuth Connection authentication information for the OAuth 2.0 protocol
 type OAuth2ConnectionProviderAuth struct {
 	// Scopes to authenticate with this connection
-	Scopes *[]OAuth2ConnectionProviderAuthScope `json:"scopes,omitempty"`
+	Scopes []OAuth2ConnectionProviderAuthScope `json:"scopes,omitempty"`
 	// The type of authentication provided by the connection
 	Type string `json:"type"`
 }
@@ -46,12 +46,12 @@ func (o *OAuth2ConnectionProviderAuth) GetScopes() []OAuth2ConnectionProviderAut
 		var ret []OAuth2ConnectionProviderAuthScope
 		return ret
 	}
-	return *o.Scopes
+	return o.Scopes
 }
 
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OAuth2ConnectionProviderAuth) GetScopesOk() (*[]OAuth2ConnectionProviderAuthScope, bool) {
+func (o *OAuth2ConnectionProviderAuth) GetScopesOk() ([]OAuth2ConnectionProviderAuthScope, bool) {
 	if o == nil || o.Scopes == nil {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *OAuth2ConnectionProviderAuth) HasScopes() bool {
 
 // SetScopes gets a reference to the given []OAuth2ConnectionProviderAuthScope and assigns it to the Scopes field.
 func (o *OAuth2ConnectionProviderAuth) SetScopes(v []OAuth2ConnectionProviderAuthScope) {
-	o.Scopes = &v
+	o.Scopes = v
 }
 
 // GetType returns the Type field value

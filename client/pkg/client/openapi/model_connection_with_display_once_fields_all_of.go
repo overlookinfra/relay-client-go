@@ -17,7 +17,7 @@ import (
 // ConnectionWithDisplayOnceFieldsAllOf A connection with optional display-once fields
 type ConnectionWithDisplayOnceFieldsAllOf struct {
 	// The additional fields to show to the user
-	DisplayOnceFields *map[string]interface{} `json:"display_once_fields,omitempty"`
+	DisplayOnceFields map[string]interface{} `json:"display_once_fields,omitempty"`
 }
 
 // NewConnectionWithDisplayOnceFieldsAllOf instantiates a new ConnectionWithDisplayOnceFieldsAllOf object
@@ -43,12 +43,12 @@ func (o *ConnectionWithDisplayOnceFieldsAllOf) GetDisplayOnceFields() map[string
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.DisplayOnceFields
+	return o.DisplayOnceFields
 }
 
 // GetDisplayOnceFieldsOk returns a tuple with the DisplayOnceFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectionWithDisplayOnceFieldsAllOf) GetDisplayOnceFieldsOk() (*map[string]interface{}, bool) {
+func (o *ConnectionWithDisplayOnceFieldsAllOf) GetDisplayOnceFieldsOk() (map[string]interface{}, bool) {
 	if o == nil || o.DisplayOnceFields == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ConnectionWithDisplayOnceFieldsAllOf) HasDisplayOnceFields() bool {
 
 // SetDisplayOnceFields gets a reference to the given map[string]interface{} and assigns it to the DisplayOnceFields field.
 func (o *ConnectionWithDisplayOnceFieldsAllOf) SetDisplayOnceFields(v map[string]interface{}) {
-	o.DisplayOnceFields = &v
+	o.DisplayOnceFields = v
 }
 
 func (o ConnectionWithDisplayOnceFieldsAllOf) MarshalJSON() ([]byte, error) {

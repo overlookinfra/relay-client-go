@@ -23,12 +23,16 @@ type ConnectionProviderAuth struct {
 
 // OAuth2ConnectionProviderAuthAsConnectionProviderAuth is a convenience function that returns OAuth2ConnectionProviderAuth wrapped in ConnectionProviderAuth
 func OAuth2ConnectionProviderAuthAsConnectionProviderAuth(v *OAuth2ConnectionProviderAuth) ConnectionProviderAuth {
-	return ConnectionProviderAuth{OAuth2ConnectionProviderAuth: v}
+	return ConnectionProviderAuth{
+		OAuth2ConnectionProviderAuth: v,
+	}
 }
 
 // SecretConnectionProviderAuthAsConnectionProviderAuth is a convenience function that returns SecretConnectionProviderAuth wrapped in ConnectionProviderAuth
 func SecretConnectionProviderAuthAsConnectionProviderAuth(v *SecretConnectionProviderAuth) ConnectionProviderAuth {
-	return ConnectionProviderAuth{SecretConnectionProviderAuth: v}
+	return ConnectionProviderAuth{
+		SecretConnectionProviderAuth: v,
+	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
@@ -36,7 +40,7 @@ func (dst *ConnectionProviderAuth) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
-	err = json.Unmarshal(data, &jsonDict)
+	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
 	}
@@ -89,52 +93,7 @@ func (dst *ConnectionProviderAuth) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	match := 0
-	// try to unmarshal data into OAuth2ConnectionProviderAuth
-	err = json.Unmarshal(data, &dst.OAuth2ConnectionProviderAuth)
-	if err == nil {
-		jsonOAuth2ConnectionProviderAuth, err := json.Marshal(dst.OAuth2ConnectionProviderAuth)
-		if err == nil {
-			if string(jsonOAuth2ConnectionProviderAuth) == "" || string(jsonOAuth2ConnectionProviderAuth) == "{}" { // empty struct
-				dst.OAuth2ConnectionProviderAuth = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.OAuth2ConnectionProviderAuth = nil
-		}
-	} else {
-		dst.OAuth2ConnectionProviderAuth = nil
-	}
-
-	// try to unmarshal data into SecretConnectionProviderAuth
-	err = json.Unmarshal(data, &dst.SecretConnectionProviderAuth)
-	if err == nil {
-		jsonSecretConnectionProviderAuth, err := json.Marshal(dst.SecretConnectionProviderAuth)
-		if err == nil {
-			if string(jsonSecretConnectionProviderAuth) == "" || string(jsonSecretConnectionProviderAuth) == "{}" { // empty struct
-				dst.SecretConnectionProviderAuth = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.SecretConnectionProviderAuth = nil
-		}
-	} else {
-		dst.SecretConnectionProviderAuth = nil
-	}
-
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.OAuth2ConnectionProviderAuth = nil
-		dst.SecretConnectionProviderAuth = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(ConnectionProviderAuth)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(ConnectionProviderAuth)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -152,6 +111,9 @@ func (src ConnectionProviderAuth) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *ConnectionProviderAuth) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
 	if obj.OAuth2ConnectionProviderAuth != nil {
 		return obj.OAuth2ConnectionProviderAuth
 	}

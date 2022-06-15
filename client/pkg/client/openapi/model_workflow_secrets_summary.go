@@ -17,7 +17,7 @@ import (
 // WorkflowSecretsSummary Workflow secrets summary
 type WorkflowSecretsSummary struct {
 	// A list of workflow secret summaries
-	Secrets *[]WorkflowSecretSummary `json:"secrets,omitempty"`
+	Secrets []WorkflowSecretSummary `json:"secrets,omitempty"`
 }
 
 // NewWorkflowSecretsSummary instantiates a new WorkflowSecretsSummary object
@@ -43,12 +43,12 @@ func (o *WorkflowSecretsSummary) GetSecrets() []WorkflowSecretSummary {
 		var ret []WorkflowSecretSummary
 		return ret
 	}
-	return *o.Secrets
+	return o.Secrets
 }
 
 // GetSecretsOk returns a tuple with the Secrets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowSecretsSummary) GetSecretsOk() (*[]WorkflowSecretSummary, bool) {
+func (o *WorkflowSecretsSummary) GetSecretsOk() ([]WorkflowSecretSummary, bool) {
 	if o == nil || o.Secrets == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *WorkflowSecretsSummary) HasSecrets() bool {
 
 // SetSecrets gets a reference to the given []WorkflowSecretSummary and assigns it to the Secrets field.
 func (o *WorkflowSecretsSummary) SetSecrets(v []WorkflowSecretSummary) {
-	o.Secrets = &v
+	o.Secrets = v
 }
 
 func (o WorkflowSecretsSummary) MarshalJSON() ([]byte, error) {

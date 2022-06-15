@@ -28,6 +28,12 @@ func WithWorkflowNameTenantOption(name string) DefaultTenantEngineMapperOption {
 	}
 }
 
+func WithFolderNameTenantOption(name string) DefaultTenantEngineMapperOption {
+	return func(m *DefaultTenantEngineMapper) {
+		m.folderName = name
+	}
+}
+
 func WithWorkflowIDTenantOption(id string) DefaultTenantEngineMapperOption {
 	return func(m *DefaultTenantEngineMapper) {
 		m.workflowID = id
@@ -70,6 +76,7 @@ type DefaultTenantEngineMapper struct {
 	namespace            string
 	workflowID           string
 	workflowName         string
+	folderName           string
 	tokenSecretName      string
 	eventURL             *url.URL
 	workflowExecutionURL *url.URL

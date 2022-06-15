@@ -18,7 +18,7 @@ import (
 type NotificationsResponse struct {
 	Access *EntityAccess `json:"access,omitempty"`
 	// A list of notifications
-	Notifications *[]Notification `json:"notifications,omitempty"`
+	Notifications []Notification `json:"notifications,omitempty"`
 }
 
 // NewNotificationsResponse instantiates a new NotificationsResponse object
@@ -76,12 +76,12 @@ func (o *NotificationsResponse) GetNotifications() []Notification {
 		var ret []Notification
 		return ret
 	}
-	return *o.Notifications
+	return o.Notifications
 }
 
 // GetNotificationsOk returns a tuple with the Notifications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationsResponse) GetNotificationsOk() (*[]Notification, bool) {
+func (o *NotificationsResponse) GetNotificationsOk() ([]Notification, bool) {
 	if o == nil || o.Notifications == nil {
 		return nil, false
 	}
@@ -99,7 +99,7 @@ func (o *NotificationsResponse) HasNotifications() bool {
 
 // SetNotifications gets a reference to the given []Notification and assigns it to the Notifications field.
 func (o *NotificationsResponse) SetNotifications(v []Notification) {
-	o.Notifications = &v
+	o.Notifications = v
 }
 
 func (o NotificationsResponse) MarshalJSON() ([]byte, error) {

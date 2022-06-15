@@ -24,17 +24,23 @@ type WorkflowRunStepMessage struct {
 
 // LogWorkflowRunStepMessageAsWorkflowRunStepMessage is a convenience function that returns LogWorkflowRunStepMessage wrapped in WorkflowRunStepMessage
 func LogWorkflowRunStepMessageAsWorkflowRunStepMessage(v *LogWorkflowRunStepMessage) WorkflowRunStepMessage {
-	return WorkflowRunStepMessage{LogWorkflowRunStepMessage: v}
+	return WorkflowRunStepMessage{
+		LogWorkflowRunStepMessage: v,
+	}
 }
 
 // SpecValidationWorkflowRunStepMessageAsWorkflowRunStepMessage is a convenience function that returns SpecValidationWorkflowRunStepMessage wrapped in WorkflowRunStepMessage
 func SpecValidationWorkflowRunStepMessageAsWorkflowRunStepMessage(v *SpecValidationWorkflowRunStepMessage) WorkflowRunStepMessage {
-	return WorkflowRunStepMessage{SpecValidationWorkflowRunStepMessage: v}
+	return WorkflowRunStepMessage{
+		SpecValidationWorkflowRunStepMessage: v,
+	}
 }
 
 // WhenEvaluationWorkflowRunStepMessageAsWorkflowRunStepMessage is a convenience function that returns WhenEvaluationWorkflowRunStepMessage wrapped in WorkflowRunStepMessage
 func WhenEvaluationWorkflowRunStepMessageAsWorkflowRunStepMessage(v *WhenEvaluationWorkflowRunStepMessage) WorkflowRunStepMessage {
-	return WorkflowRunStepMessage{WhenEvaluationWorkflowRunStepMessage: v}
+	return WorkflowRunStepMessage{
+		WhenEvaluationWorkflowRunStepMessage: v,
+	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
@@ -42,7 +48,7 @@ func (dst *WorkflowRunStepMessage) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
-	err = json.Unmarshal(data, &jsonDict)
+	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
 	}
@@ -119,70 +125,7 @@ func (dst *WorkflowRunStepMessage) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	match := 0
-	// try to unmarshal data into LogWorkflowRunStepMessage
-	err = json.Unmarshal(data, &dst.LogWorkflowRunStepMessage)
-	if err == nil {
-		jsonLogWorkflowRunStepMessage, err := json.Marshal(dst.LogWorkflowRunStepMessage)
-		if err == nil {
-			if string(jsonLogWorkflowRunStepMessage) == "" || string(jsonLogWorkflowRunStepMessage) == "{}" { // empty struct
-				dst.LogWorkflowRunStepMessage = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.LogWorkflowRunStepMessage = nil
-		}
-	} else {
-		dst.LogWorkflowRunStepMessage = nil
-	}
-
-	// try to unmarshal data into SpecValidationWorkflowRunStepMessage
-	err = json.Unmarshal(data, &dst.SpecValidationWorkflowRunStepMessage)
-	if err == nil {
-		jsonSpecValidationWorkflowRunStepMessage, err := json.Marshal(dst.SpecValidationWorkflowRunStepMessage)
-		if err == nil {
-			if string(jsonSpecValidationWorkflowRunStepMessage) == "" || string(jsonSpecValidationWorkflowRunStepMessage) == "{}" { // empty struct
-				dst.SpecValidationWorkflowRunStepMessage = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.SpecValidationWorkflowRunStepMessage = nil
-		}
-	} else {
-		dst.SpecValidationWorkflowRunStepMessage = nil
-	}
-
-	// try to unmarshal data into WhenEvaluationWorkflowRunStepMessage
-	err = json.Unmarshal(data, &dst.WhenEvaluationWorkflowRunStepMessage)
-	if err == nil {
-		jsonWhenEvaluationWorkflowRunStepMessage, err := json.Marshal(dst.WhenEvaluationWorkflowRunStepMessage)
-		if err == nil {
-			if string(jsonWhenEvaluationWorkflowRunStepMessage) == "" || string(jsonWhenEvaluationWorkflowRunStepMessage) == "{}" { // empty struct
-				dst.WhenEvaluationWorkflowRunStepMessage = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.WhenEvaluationWorkflowRunStepMessage = nil
-		}
-	} else {
-		dst.WhenEvaluationWorkflowRunStepMessage = nil
-	}
-
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.LogWorkflowRunStepMessage = nil
-		dst.SpecValidationWorkflowRunStepMessage = nil
-		dst.WhenEvaluationWorkflowRunStepMessage = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(WorkflowRunStepMessage)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(WorkflowRunStepMessage)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -204,6 +147,9 @@ func (src WorkflowRunStepMessage) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *WorkflowRunStepMessage) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
 	if obj.LogWorkflowRunStepMessage != nil {
 		return obj.LogWorkflowRunStepMessage
 	}

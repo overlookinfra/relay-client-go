@@ -17,7 +17,7 @@ import (
 // OAuth2ConnectionAuthStatus struct for OAuth2ConnectionAuthStatus
 type OAuth2ConnectionAuthStatus struct {
 	// The scopes available to this connection
-	Scopes *[]string `json:"scopes,omitempty"`
+	Scopes []string `json:"scopes,omitempty"`
 	// The authentication mechanism for this connection
 	Type string `json:"type"`
 }
@@ -46,12 +46,12 @@ func (o *OAuth2ConnectionAuthStatus) GetScopes() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Scopes
+	return o.Scopes
 }
 
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OAuth2ConnectionAuthStatus) GetScopesOk() (*[]string, bool) {
+func (o *OAuth2ConnectionAuthStatus) GetScopesOk() ([]string, bool) {
 	if o == nil || o.Scopes == nil {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *OAuth2ConnectionAuthStatus) HasScopes() bool {
 
 // SetScopes gets a reference to the given []string and assigns it to the Scopes field.
 func (o *OAuth2ConnectionAuthStatus) SetScopes(v []string) {
-	o.Scopes = &v
+	o.Scopes = v
 }
 
 // GetType returns the Type field value

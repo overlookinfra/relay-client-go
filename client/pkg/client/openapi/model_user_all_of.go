@@ -85,11 +85,11 @@ func (o *UserAllOf) GetRoles() []RoleSummary {
 
 // GetRolesOk returns a tuple with the Roles field value
 // and a boolean to check if the value has been set.
-func (o *UserAllOf) GetRolesOk() (*[]RoleSummary, bool) {
+func (o *UserAllOf) GetRolesOk() ([]RoleSummary, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Roles, true
+	return o.Roles, true
 }
 
 // SetRoles sets field value

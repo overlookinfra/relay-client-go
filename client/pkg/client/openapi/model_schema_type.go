@@ -23,7 +23,8 @@ const (
 	STRING SchemaType = "string"
 )
 
-var allowedSchemaTypeEnumValues = []SchemaType{
+// All allowed values of SchemaType enum
+var AllowedSchemaTypeEnumValues = []SchemaType{
 	"string",
 }
 
@@ -34,7 +35,7 @@ func (v *SchemaType) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := SchemaType(value)
-	for _, existing := range allowedSchemaTypeEnumValues {
+	for _, existing := range AllowedSchemaTypeEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -51,13 +52,13 @@ func NewSchemaTypeFromValue(v string) (*SchemaType, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for SchemaType: valid values are %v", v, allowedSchemaTypeEnumValues)
+		return nil, fmt.Errorf("invalid value '%v' for SchemaType: valid values are %v", v, AllowedSchemaTypeEnumValues)
 	}
 }
 
 // IsValid return true if the value is valid for the enum, false otherwise
 func (v SchemaType) IsValid() bool {
-	for _, existing := range allowedSchemaTypeEnumValues {
+	for _, existing := range AllowedSchemaTypeEnumValues {
 		if existing == v {
 			return true
 		}

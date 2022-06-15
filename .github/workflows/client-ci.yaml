@@ -27,8 +27,10 @@ jobs:
           ${{ runner.os }}-go-
     - name: Check
       run: |
+        go mod tidy
         go run github.com/golangci/golangci-lint/cmd/golangci-lint run --timeout 10m
         go generate ./...
+        git status --porcelain --untracked-files=no
         if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
           echo "Changes have been detected during generate"
           echo "Ignoring generate issues until v1.0.0 is officially released"

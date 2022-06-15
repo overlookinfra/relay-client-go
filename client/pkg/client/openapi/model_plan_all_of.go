@@ -77,11 +77,11 @@ func (o *PlanAllOf) GetPrices() []PlanPrice {
 
 // GetPricesOk returns a tuple with the Prices field value
 // and a boolean to check if the value has been set.
-func (o *PlanAllOf) GetPricesOk() (*[]PlanPrice, bool) {
+func (o *PlanAllOf) GetPricesOk() ([]PlanPrice, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Prices, true
+	return o.Prices, true
 }
 
 // SetPrices sets field value

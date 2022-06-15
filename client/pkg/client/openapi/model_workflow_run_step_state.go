@@ -18,17 +18,17 @@ import (
 // WorkflowRunStepState struct for WorkflowRunStepState
 type WorkflowRunStepState struct {
 	// The set of decorators for a workflow step
-	Decorators *[]WorkflowRunStepDecorator `json:"decorators,omitempty"`
+	Decorators []WorkflowRunStepDecorator `json:"decorators,omitempty"`
 	// Time at which the step execution ended
 	EndedAt NullableTime `json:"ended_at,omitempty"`
 	// All messages associated with this step
-	Messages *[]WorkflowRunStepMessage `json:"messages,omitempty"`
+	Messages []WorkflowRunStepMessage `json:"messages,omitempty"`
 	// Time at which step execution started
 	StartedAt NullableTime `json:"started_at,omitempty"`
 	// Workflow run step status
 	Status string `json:"status"`
 	// A list of workflow run step outputs
-	Outputs *[]WorkflowRunStepOutput `json:"outputs,omitempty"`
+	Outputs []WorkflowRunStepOutput `json:"outputs,omitempty"`
 	// Workflow run step approval for manual gates
 	Approval *string `json:"approval,omitempty"`
 	// Time at which the step was approved or rejected
@@ -67,12 +67,12 @@ func (o *WorkflowRunStepState) GetDecorators() []WorkflowRunStepDecorator {
 		var ret []WorkflowRunStepDecorator
 		return ret
 	}
-	return *o.Decorators
+	return o.Decorators
 }
 
 // GetDecoratorsOk returns a tuple with the Decorators field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowRunStepState) GetDecoratorsOk() (*[]WorkflowRunStepDecorator, bool) {
+func (o *WorkflowRunStepState) GetDecoratorsOk() ([]WorkflowRunStepDecorator, bool) {
 	if o == nil || o.Decorators == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *WorkflowRunStepState) HasDecorators() bool {
 
 // SetDecorators gets a reference to the given []WorkflowRunStepDecorator and assigns it to the Decorators field.
 func (o *WorkflowRunStepState) SetDecorators(v []WorkflowRunStepDecorator) {
-	o.Decorators = &v
+	o.Decorators = v
 }
 
 // GetEndedAt returns the EndedAt field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -142,12 +142,12 @@ func (o *WorkflowRunStepState) GetMessages() []WorkflowRunStepMessage {
 		var ret []WorkflowRunStepMessage
 		return ret
 	}
-	return *o.Messages
+	return o.Messages
 }
 
 // GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowRunStepState) GetMessagesOk() (*[]WorkflowRunStepMessage, bool) {
+func (o *WorkflowRunStepState) GetMessagesOk() ([]WorkflowRunStepMessage, bool) {
 	if o == nil || o.Messages == nil {
 		return nil, false
 	}
@@ -165,7 +165,7 @@ func (o *WorkflowRunStepState) HasMessages() bool {
 
 // SetMessages gets a reference to the given []WorkflowRunStepMessage and assigns it to the Messages field.
 func (o *WorkflowRunStepState) SetMessages(v []WorkflowRunStepMessage) {
-	o.Messages = &v
+	o.Messages = v
 }
 
 // GetStartedAt returns the StartedAt field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -241,12 +241,12 @@ func (o *WorkflowRunStepState) GetOutputs() []WorkflowRunStepOutput {
 		var ret []WorkflowRunStepOutput
 		return ret
 	}
-	return *o.Outputs
+	return o.Outputs
 }
 
 // GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowRunStepState) GetOutputsOk() (*[]WorkflowRunStepOutput, bool) {
+func (o *WorkflowRunStepState) GetOutputsOk() ([]WorkflowRunStepOutput, bool) {
 	if o == nil || o.Outputs == nil {
 		return nil, false
 	}
@@ -264,7 +264,7 @@ func (o *WorkflowRunStepState) HasOutputs() bool {
 
 // SetOutputs gets a reference to the given []WorkflowRunStepOutput and assigns it to the Outputs field.
 func (o *WorkflowRunStepState) SetOutputs(v []WorkflowRunStepOutput) {
-	o.Outputs = &v
+	o.Outputs = v
 }
 
 // GetApproval returns the Approval field value if set, zero value otherwise.

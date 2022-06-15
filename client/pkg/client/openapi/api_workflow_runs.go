@@ -12,74 +12,67 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"os"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // WorkflowRunsApiService WorkflowRunsApi service
 type WorkflowRunsApiService service
 
-type ApiGetWorkflowRunRequest struct {
-	ctx               _context.Context
+type WorkflowRunsApiGetWorkflowRunRequest struct {
+	ctx               context.Context
 	ApiService        *WorkflowRunsApiService
-	workflowName      string
+	workflowPath      string
 	workflowRunNumber int32
 }
 
-func (r ApiGetWorkflowRunRequest) Execute() (WorkflowRunEntity, *_nethttp.Response, error) {
+func (r WorkflowRunsApiGetWorkflowRunRequest) Execute() (*WorkflowRunEntity, *http.Response, error) {
 	return r.ApiService.GetWorkflowRunExecute(r)
 }
 
 /*
 GetWorkflowRun Gets a workflow run accessed with a workflow name and run number
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowPath Folder + Workflow name
  @param workflowRunNumber Run number of the associated workflow
- @return ApiGetWorkflowRunRequest
+ @return WorkflowRunsApiGetWorkflowRunRequest
 */
-func (a *WorkflowRunsApiService) GetWorkflowRun(ctx _context.Context, workflowName string, workflowRunNumber int32) ApiGetWorkflowRunRequest {
-	return ApiGetWorkflowRunRequest{
+func (a *WorkflowRunsApiService) GetWorkflowRun(ctx context.Context, workflowPath string, workflowRunNumber int32) WorkflowRunsApiGetWorkflowRunRequest {
+	return WorkflowRunsApiGetWorkflowRunRequest{
 		ApiService:        a,
 		ctx:               ctx,
-		workflowName:      workflowName,
+		workflowPath:      workflowPath,
 		workflowRunNumber: workflowRunNumber,
 	}
 }
 
 // Execute executes the request
 //  @return WorkflowRunEntity
-func (a *WorkflowRunsApiService) GetWorkflowRunExecute(r ApiGetWorkflowRunRequest) (WorkflowRunEntity, *_nethttp.Response, error) {
+func (a *WorkflowRunsApiService) GetWorkflowRunExecute(r WorkflowRunsApiGetWorkflowRunRequest) (*WorkflowRunEntity, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  WorkflowRunEntity
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WorkflowRunEntity
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowRunsApiService.GetWorkflowRun")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/workflows/{workflowName}/runs/{workflowRunNumber}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowRunNumber"+"}", _neturl.PathEscape(parameterToString(r.workflowRunNumber, "")), -1)
+	localVarPath := localBasePath + "/api/workflows/{workflowPath}/runs/{workflowRunNumber}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowRunNumber"+"}", url.PathEscape(parameterToString(r.workflowRunNumber, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.workflowRunNumber < 1 {
 		return localVarReturnValue, nil, reportError("workflowRunNumber must be greater than 1")
 	}
@@ -101,7 +94,7 @@ func (a *WorkflowRunsApiService) GetWorkflowRunExecute(r ApiGetWorkflowRunReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -111,19 +104,19 @@ func (a *WorkflowRunsApiService) GetWorkflowRunExecute(r ApiGetWorkflowRunReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -135,7 +128,7 @@ func (a *WorkflowRunsApiService) GetWorkflowRunExecute(r ApiGetWorkflowRunReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -145,39 +138,39 @@ func (a *WorkflowRunsApiService) GetWorkflowRunExecute(r ApiGetWorkflowRunReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetWorkflowRunStepLogRequest struct {
-	ctx               _context.Context
+type WorkflowRunsApiGetWorkflowRunStepLogRequest struct {
+	ctx               context.Context
 	ApiService        *WorkflowRunsApiService
-	workflowName      string
+	workflowPath      string
 	workflowRunNumber int32
 	workflowStepName  string
 	follow            *bool
 }
 
 // If true and the step is in progress, print known logs so far, then wait to send the next log chunk. Only use in conjunction with Accept: application/octet-stream.
-func (r ApiGetWorkflowRunStepLogRequest) Follow(follow bool) ApiGetWorkflowRunStepLogRequest {
+func (r WorkflowRunsApiGetWorkflowRunStepLogRequest) Follow(follow bool) WorkflowRunsApiGetWorkflowRunStepLogRequest {
 	r.follow = &follow
 	return r
 }
 
-func (r ApiGetWorkflowRunStepLogRequest) Execute() (*os.File, *_nethttp.Response, error) {
+func (r WorkflowRunsApiGetWorkflowRunStepLogRequest) Execute() (**os.File, *http.Response, error) {
 	return r.ApiService.GetWorkflowRunStepLogExecute(r)
 }
 
 /*
 GetWorkflowRunStepLog Returns the log for a workflow step, accessed by workflow name, run number, and step name
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowPath Folder + Workflow name
  @param workflowRunNumber Run number of the associated workflow
  @param workflowStepName The name of the step in the associated workflow
- @return ApiGetWorkflowRunStepLogRequest
+ @return WorkflowRunsApiGetWorkflowRunStepLogRequest
 */
-func (a *WorkflowRunsApiService) GetWorkflowRunStepLog(ctx _context.Context, workflowName string, workflowRunNumber int32, workflowStepName string) ApiGetWorkflowRunStepLogRequest {
-	return ApiGetWorkflowRunStepLogRequest{
+func (a *WorkflowRunsApiService) GetWorkflowRunStepLog(ctx context.Context, workflowPath string, workflowRunNumber int32, workflowStepName string) WorkflowRunsApiGetWorkflowRunStepLogRequest {
+	return WorkflowRunsApiGetWorkflowRunStepLogRequest{
 		ApiService:        a,
 		ctx:               ctx,
-		workflowName:      workflowName,
+		workflowPath:      workflowPath,
 		workflowRunNumber: workflowRunNumber,
 		workflowStepName:  workflowStepName,
 	}
@@ -185,29 +178,27 @@ func (a *WorkflowRunsApiService) GetWorkflowRunStepLog(ctx _context.Context, wor
 
 // Execute executes the request
 //  @return *os.File
-func (a *WorkflowRunsApiService) GetWorkflowRunStepLogExecute(r ApiGetWorkflowRunStepLogRequest) (*os.File, *_nethttp.Response, error) {
+func (a *WorkflowRunsApiService) GetWorkflowRunStepLogExecute(r WorkflowRunsApiGetWorkflowRunStepLogRequest) (**os.File, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  *os.File
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue **os.File
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowRunsApiService.GetWorkflowRunStepLog")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/workflows/{workflowName}/runs/{workflowRunNumber}/steps/{workflowStepName}/logs"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowRunNumber"+"}", _neturl.PathEscape(parameterToString(r.workflowRunNumber, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowStepName"+"}", _neturl.PathEscape(parameterToString(r.workflowStepName, "")), -1)
+	localVarPath := localBasePath + "/api/workflows/{workflowPath}/runs/{workflowRunNumber}/steps/{workflowStepName}/logs"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowRunNumber"+"}", url.PathEscape(parameterToString(r.workflowRunNumber, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowStepName"+"}", url.PathEscape(parameterToString(r.workflowStepName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.workflowRunNumber < 1 {
 		return localVarReturnValue, nil, reportError("workflowRunNumber must be greater than 1")
 	}
@@ -232,7 +223,7 @@ func (a *WorkflowRunsApiService) GetWorkflowRunStepLogExecute(r ApiGetWorkflowRu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -242,19 +233,19 @@ func (a *WorkflowRunsApiService) GetWorkflowRunStepLogExecute(r ApiGetWorkflowRu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -266,7 +257,7 @@ func (a *WorkflowRunsApiService) GetWorkflowRunStepLogExecute(r ApiGetWorkflowRu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -276,54 +267,52 @@ func (a *WorkflowRunsApiService) GetWorkflowRunStepLogExecute(r ApiGetWorkflowRu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetWorkflowRunsRequest struct {
-	ctx          _context.Context
+type WorkflowRunsApiGetWorkflowRunsRequest struct {
+	ctx          context.Context
 	ApiService   *WorkflowRunsApiService
-	workflowName string
+	workflowPath string
 }
 
-func (r ApiGetWorkflowRunsRequest) Execute() (WorkflowRunsSummary, *_nethttp.Response, error) {
+func (r WorkflowRunsApiGetWorkflowRunsRequest) Execute() (*WorkflowRunsSummary, *http.Response, error) {
 	return r.ApiService.GetWorkflowRunsExecute(r)
 }
 
 /*
 GetWorkflowRuns Get all the runs of a workflow
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
- @return ApiGetWorkflowRunsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowPath Folder + Workflow name
+ @return WorkflowRunsApiGetWorkflowRunsRequest
 */
-func (a *WorkflowRunsApiService) GetWorkflowRuns(ctx _context.Context, workflowName string) ApiGetWorkflowRunsRequest {
-	return ApiGetWorkflowRunsRequest{
+func (a *WorkflowRunsApiService) GetWorkflowRuns(ctx context.Context, workflowPath string) WorkflowRunsApiGetWorkflowRunsRequest {
+	return WorkflowRunsApiGetWorkflowRunsRequest{
 		ApiService:   a,
 		ctx:          ctx,
-		workflowName: workflowName,
+		workflowPath: workflowPath,
 	}
 }
 
 // Execute executes the request
 //  @return WorkflowRunsSummary
-func (a *WorkflowRunsApiService) GetWorkflowRunsExecute(r ApiGetWorkflowRunsRequest) (WorkflowRunsSummary, *_nethttp.Response, error) {
+func (a *WorkflowRunsApiService) GetWorkflowRunsExecute(r WorkflowRunsApiGetWorkflowRunsRequest) (*WorkflowRunsSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  WorkflowRunsSummary
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WorkflowRunsSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowRunsApiService.GetWorkflowRuns")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/workflows/{workflowName}/runs"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath := localBasePath + "/api/workflows/{workflowPath}/runs"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -342,7 +331,7 @@ func (a *WorkflowRunsApiService) GetWorkflowRunsExecute(r ApiGetWorkflowRunsRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -352,19 +341,19 @@ func (a *WorkflowRunsApiService) GetWorkflowRunsExecute(r ApiGetWorkflowRunsRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -376,7 +365,7 @@ func (a *WorkflowRunsApiService) GetWorkflowRunsExecute(r ApiGetWorkflowRunsRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -386,65 +375,63 @@ func (a *WorkflowRunsApiService) GetWorkflowRunsExecute(r ApiGetWorkflowRunsRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchWorkflowRunRequest struct {
-	ctx               _context.Context
+type WorkflowRunsApiPatchWorkflowRunRequest struct {
+	ctx               context.Context
 	ApiService        *WorkflowRunsApiService
-	workflowName      string
+	workflowPath      string
 	workflowRunNumber int32
 	updateWorkflowRun *UpdateWorkflowRun
 }
 
 // Update properties of workflow run
-func (r ApiPatchWorkflowRunRequest) UpdateWorkflowRun(updateWorkflowRun UpdateWorkflowRun) ApiPatchWorkflowRunRequest {
+func (r WorkflowRunsApiPatchWorkflowRunRequest) UpdateWorkflowRun(updateWorkflowRun UpdateWorkflowRun) WorkflowRunsApiPatchWorkflowRunRequest {
 	r.updateWorkflowRun = &updateWorkflowRun
 	return r
 }
 
-func (r ApiPatchWorkflowRunRequest) Execute() (WorkflowRunEntity, *_nethttp.Response, error) {
+func (r WorkflowRunsApiPatchWorkflowRunRequest) Execute() (*WorkflowRunEntity, *http.Response, error) {
 	return r.ApiService.PatchWorkflowRunExecute(r)
 }
 
 /*
 PatchWorkflowRun Update properties of a workflow
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowPath Folder + Workflow name
  @param workflowRunNumber Run number of the associated workflow
- @return ApiPatchWorkflowRunRequest
+ @return WorkflowRunsApiPatchWorkflowRunRequest
 */
-func (a *WorkflowRunsApiService) PatchWorkflowRun(ctx _context.Context, workflowName string, workflowRunNumber int32) ApiPatchWorkflowRunRequest {
-	return ApiPatchWorkflowRunRequest{
+func (a *WorkflowRunsApiService) PatchWorkflowRun(ctx context.Context, workflowPath string, workflowRunNumber int32) WorkflowRunsApiPatchWorkflowRunRequest {
+	return WorkflowRunsApiPatchWorkflowRunRequest{
 		ApiService:        a,
 		ctx:               ctx,
-		workflowName:      workflowName,
+		workflowPath:      workflowPath,
 		workflowRunNumber: workflowRunNumber,
 	}
 }
 
 // Execute executes the request
 //  @return WorkflowRunEntity
-func (a *WorkflowRunsApiService) PatchWorkflowRunExecute(r ApiPatchWorkflowRunRequest) (WorkflowRunEntity, *_nethttp.Response, error) {
+func (a *WorkflowRunsApiService) PatchWorkflowRunExecute(r WorkflowRunsApiPatchWorkflowRunRequest) (*WorkflowRunEntity, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  WorkflowRunEntity
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WorkflowRunEntity
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowRunsApiService.PatchWorkflowRun")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/workflows/{workflowName}/runs/{workflowRunNumber}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowRunNumber"+"}", _neturl.PathEscape(parameterToString(r.workflowRunNumber, "")), -1)
+	localVarPath := localBasePath + "/api/workflows/{workflowPath}/runs/{workflowRunNumber}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowRunNumber"+"}", url.PathEscape(parameterToString(r.workflowRunNumber, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.workflowRunNumber < 1 {
 		return localVarReturnValue, nil, reportError("workflowRunNumber must be greater than 1")
 	}
@@ -468,7 +455,7 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunExecute(r ApiPatchWorkflowRunRe
 	}
 	// body params
 	localVarPostBody = r.updateWorkflowRun
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -478,19 +465,19 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunExecute(r ApiPatchWorkflowRunRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -502,7 +489,7 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunExecute(r ApiPatchWorkflowRunRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -512,39 +499,39 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunExecute(r ApiPatchWorkflowRunRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchWorkflowRunStepRequest struct {
-	ctx                   _context.Context
+type WorkflowRunsApiPatchWorkflowRunStepRequest struct {
+	ctx                   context.Context
 	ApiService            *WorkflowRunsApiService
-	workflowName          string
+	workflowPath          string
 	workflowRunNumber     int32
 	workflowStepName      string
 	updateWorkflowRunStep *UpdateWorkflowRunStep
 }
 
 // Update properties of workflow run step, e.g. rejecting an approval step. Omitted properties will be ignored.
-func (r ApiPatchWorkflowRunStepRequest) UpdateWorkflowRunStep(updateWorkflowRunStep UpdateWorkflowRunStep) ApiPatchWorkflowRunStepRequest {
+func (r WorkflowRunsApiPatchWorkflowRunStepRequest) UpdateWorkflowRunStep(updateWorkflowRunStep UpdateWorkflowRunStep) WorkflowRunsApiPatchWorkflowRunStepRequest {
 	r.updateWorkflowRunStep = &updateWorkflowRunStep
 	return r
 }
 
-func (r ApiPatchWorkflowRunStepRequest) Execute() (WorkflowRunStep, *_nethttp.Response, error) {
+func (r WorkflowRunsApiPatchWorkflowRunStepRequest) Execute() (*WorkflowRunStep, *http.Response, error) {
 	return r.ApiService.PatchWorkflowRunStepExecute(r)
 }
 
 /*
 PatchWorkflowRunStep Update properties of a workflow run step
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowPath Folder + Workflow name
  @param workflowRunNumber Run number of the associated workflow
  @param workflowStepName The name of the step in the associated workflow
- @return ApiPatchWorkflowRunStepRequest
+ @return WorkflowRunsApiPatchWorkflowRunStepRequest
 */
-func (a *WorkflowRunsApiService) PatchWorkflowRunStep(ctx _context.Context, workflowName string, workflowRunNumber int32, workflowStepName string) ApiPatchWorkflowRunStepRequest {
-	return ApiPatchWorkflowRunStepRequest{
+func (a *WorkflowRunsApiService) PatchWorkflowRunStep(ctx context.Context, workflowPath string, workflowRunNumber int32, workflowStepName string) WorkflowRunsApiPatchWorkflowRunStepRequest {
+	return WorkflowRunsApiPatchWorkflowRunStepRequest{
 		ApiService:        a,
 		ctx:               ctx,
-		workflowName:      workflowName,
+		workflowPath:      workflowPath,
 		workflowRunNumber: workflowRunNumber,
 		workflowStepName:  workflowStepName,
 	}
@@ -552,29 +539,27 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunStep(ctx _context.Context, work
 
 // Execute executes the request
 //  @return WorkflowRunStep
-func (a *WorkflowRunsApiService) PatchWorkflowRunStepExecute(r ApiPatchWorkflowRunStepRequest) (WorkflowRunStep, *_nethttp.Response, error) {
+func (a *WorkflowRunsApiService) PatchWorkflowRunStepExecute(r WorkflowRunsApiPatchWorkflowRunStepRequest) (*WorkflowRunStep, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  WorkflowRunStep
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WorkflowRunStep
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowRunsApiService.PatchWorkflowRunStep")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/workflows/{workflowName}/runs/{workflowRunNumber}/steps/{workflowStepName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowRunNumber"+"}", _neturl.PathEscape(parameterToString(r.workflowRunNumber, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowStepName"+"}", _neturl.PathEscape(parameterToString(r.workflowStepName, "")), -1)
+	localVarPath := localBasePath + "/api/workflows/{workflowPath}/runs/{workflowRunNumber}/steps/{workflowStepName}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowRunNumber"+"}", url.PathEscape(parameterToString(r.workflowRunNumber, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowStepName"+"}", url.PathEscape(parameterToString(r.workflowStepName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.workflowRunNumber < 1 {
 		return localVarReturnValue, nil, reportError("workflowRunNumber must be greater than 1")
 	}
@@ -598,7 +583,7 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunStepExecute(r ApiPatchWorkflowR
 	}
 	// body params
 	localVarPostBody = r.updateWorkflowRunStep
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -608,19 +593,19 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunStepExecute(r ApiPatchWorkflowR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -632,7 +617,7 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunStepExecute(r ApiPatchWorkflowR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -642,61 +627,59 @@ func (a *WorkflowRunsApiService) PatchWorkflowRunStepExecute(r ApiPatchWorkflowR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiRunWorkflowRequest struct {
-	ctx               _context.Context
+type WorkflowRunsApiRunWorkflowRequest struct {
+	ctx               context.Context
 	ApiService        *WorkflowRunsApiService
-	workflowName      string
+	workflowPath      string
 	createWorkflowRun *CreateWorkflowRun
 }
 
 // Workflow run to create
-func (r ApiRunWorkflowRequest) CreateWorkflowRun(createWorkflowRun CreateWorkflowRun) ApiRunWorkflowRequest {
+func (r WorkflowRunsApiRunWorkflowRequest) CreateWorkflowRun(createWorkflowRun CreateWorkflowRun) WorkflowRunsApiRunWorkflowRequest {
 	r.createWorkflowRun = &createWorkflowRun
 	return r
 }
 
-func (r ApiRunWorkflowRequest) Execute() (WorkflowRunEntity, *_nethttp.Response, error) {
+func (r WorkflowRunsApiRunWorkflowRequest) Execute() (*WorkflowRunEntity, *http.Response, error) {
 	return r.ApiService.RunWorkflowExecute(r)
 }
 
 /*
 RunWorkflow Runs the given workflow
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
- @return ApiRunWorkflowRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowPath Folder + Workflow name
+ @return WorkflowRunsApiRunWorkflowRequest
 */
-func (a *WorkflowRunsApiService) RunWorkflow(ctx _context.Context, workflowName string) ApiRunWorkflowRequest {
-	return ApiRunWorkflowRequest{
+func (a *WorkflowRunsApiService) RunWorkflow(ctx context.Context, workflowPath string) WorkflowRunsApiRunWorkflowRequest {
+	return WorkflowRunsApiRunWorkflowRequest{
 		ApiService:   a,
 		ctx:          ctx,
-		workflowName: workflowName,
+		workflowPath: workflowPath,
 	}
 }
 
 // Execute executes the request
 //  @return WorkflowRunEntity
-func (a *WorkflowRunsApiService) RunWorkflowExecute(r ApiRunWorkflowRequest) (WorkflowRunEntity, *_nethttp.Response, error) {
+func (a *WorkflowRunsApiService) RunWorkflowExecute(r WorkflowRunsApiRunWorkflowRequest) (*WorkflowRunEntity, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  WorkflowRunEntity
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WorkflowRunEntity
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkflowRunsApiService.RunWorkflow")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/workflows/{workflowName}/runs"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath := localBasePath + "/api/workflows/{workflowPath}/runs"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/vnd.puppet.relay.v20200615+json"}
@@ -717,7 +700,7 @@ func (a *WorkflowRunsApiService) RunWorkflowExecute(r ApiRunWorkflowRequest) (Wo
 	}
 	// body params
 	localVarPostBody = r.createWorkflowRun
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -727,19 +710,19 @@ func (a *WorkflowRunsApiService) RunWorkflowExecute(r ApiRunWorkflowRequest) (Wo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -751,7 +734,7 @@ func (a *WorkflowRunsApiService) RunWorkflowExecute(r ApiRunWorkflowRequest) (Wo
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

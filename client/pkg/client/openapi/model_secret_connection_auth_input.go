@@ -53,11 +53,11 @@ func (o *SecretConnectionAuthInput) GetFields() map[string]interface{} {
 
 // GetFieldsOk returns a tuple with the Fields field value
 // and a boolean to check if the value has been set.
-func (o *SecretConnectionAuthInput) GetFieldsOk() (*map[string]interface{}, bool) {
+func (o *SecretConnectionAuthInput) GetFieldsOk() (map[string]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Fields, true
+	return o.Fields, true
 }
 
 // SetFields sets field value

@@ -32,9 +32,9 @@ type ConnectionWithDisplayOnceFields struct {
 	Auth         ConnectionAuthStatus   `json:"auth"`
 	Availability ConnectionAvailability `json:"availability"`
 	// The workflows being used by this connection
-	Workflows *[]ConnectionWorkflowSummary `json:"workflows,omitempty"`
+	Workflows []ConnectionWorkflowSummary `json:"workflows,omitempty"`
 	// The additional fields to show to the user
-	DisplayOnceFields *map[string]interface{} `json:"display_once_fields,omitempty"`
+	DisplayOnceFields map[string]interface{} `json:"display_once_fields,omitempty"`
 }
 
 // NewConnectionWithDisplayOnceFields instantiates a new ConnectionWithDisplayOnceFields object
@@ -146,11 +146,11 @@ func (o *ConnectionWithDisplayOnceFields) GetCapabilities() []ConnectionProvider
 
 // GetCapabilitiesOk returns a tuple with the Capabilities field value
 // and a boolean to check if the value has been set.
-func (o *ConnectionWithDisplayOnceFields) GetCapabilitiesOk() (*[]ConnectionProviderCapability, bool) {
+func (o *ConnectionWithDisplayOnceFields) GetCapabilitiesOk() ([]ConnectionProviderCapability, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Capabilities, true
+	return o.Capabilities, true
 }
 
 // SetCapabilities sets field value
@@ -260,12 +260,12 @@ func (o *ConnectionWithDisplayOnceFields) GetWorkflows() []ConnectionWorkflowSum
 		var ret []ConnectionWorkflowSummary
 		return ret
 	}
-	return *o.Workflows
+	return o.Workflows
 }
 
 // GetWorkflowsOk returns a tuple with the Workflows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectionWithDisplayOnceFields) GetWorkflowsOk() (*[]ConnectionWorkflowSummary, bool) {
+func (o *ConnectionWithDisplayOnceFields) GetWorkflowsOk() ([]ConnectionWorkflowSummary, bool) {
 	if o == nil || o.Workflows == nil {
 		return nil, false
 	}
@@ -283,7 +283,7 @@ func (o *ConnectionWithDisplayOnceFields) HasWorkflows() bool {
 
 // SetWorkflows gets a reference to the given []ConnectionWorkflowSummary and assigns it to the Workflows field.
 func (o *ConnectionWithDisplayOnceFields) SetWorkflows(v []ConnectionWorkflowSummary) {
-	o.Workflows = &v
+	o.Workflows = v
 }
 
 // GetDisplayOnceFields returns the DisplayOnceFields field value if set, zero value otherwise.
@@ -292,12 +292,12 @@ func (o *ConnectionWithDisplayOnceFields) GetDisplayOnceFields() map[string]inte
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.DisplayOnceFields
+	return o.DisplayOnceFields
 }
 
 // GetDisplayOnceFieldsOk returns a tuple with the DisplayOnceFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectionWithDisplayOnceFields) GetDisplayOnceFieldsOk() (*map[string]interface{}, bool) {
+func (o *ConnectionWithDisplayOnceFields) GetDisplayOnceFieldsOk() (map[string]interface{}, bool) {
 	if o == nil || o.DisplayOnceFields == nil {
 		return nil, false
 	}
@@ -315,7 +315,7 @@ func (o *ConnectionWithDisplayOnceFields) HasDisplayOnceFields() bool {
 
 // SetDisplayOnceFields gets a reference to the given map[string]interface{} and assigns it to the DisplayOnceFields field.
 func (o *ConnectionWithDisplayOnceFields) SetDisplayOnceFields(v map[string]interface{}) {
-	o.DisplayOnceFields = &v
+	o.DisplayOnceFields = v
 }
 
 func (o ConnectionWithDisplayOnceFields) MarshalJSON() ([]byte, error) {

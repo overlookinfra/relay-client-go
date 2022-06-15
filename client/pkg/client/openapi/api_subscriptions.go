@@ -12,69 +12,62 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // SubscriptionsApiService SubscriptionsApi service
 type SubscriptionsApiService service
 
-type ApiGetWorkflowSubscriptionsRequest struct {
-	ctx          _context.Context
+type SubscriptionsApiGetWorkflowSubscriptionsRequest struct {
+	ctx          context.Context
 	ApiService   *SubscriptionsApiService
-	workflowName string
+	workflowPath string
 }
 
-func (r ApiGetWorkflowSubscriptionsRequest) Execute() (UserWorkflowSubscriptions, *_nethttp.Response, error) {
+func (r SubscriptionsApiGetWorkflowSubscriptionsRequest) Execute() (*UserWorkflowSubscriptions, *http.Response, error) {
 	return r.ApiService.GetWorkflowSubscriptionsExecute(r)
 }
 
 /*
 GetWorkflowSubscriptions Retrieve the current user's workflow subscriptions
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
- @return ApiGetWorkflowSubscriptionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowPath Folder + Workflow name
+ @return SubscriptionsApiGetWorkflowSubscriptionsRequest
 */
-func (a *SubscriptionsApiService) GetWorkflowSubscriptions(ctx _context.Context, workflowName string) ApiGetWorkflowSubscriptionsRequest {
-	return ApiGetWorkflowSubscriptionsRequest{
+func (a *SubscriptionsApiService) GetWorkflowSubscriptions(ctx context.Context, workflowPath string) SubscriptionsApiGetWorkflowSubscriptionsRequest {
+	return SubscriptionsApiGetWorkflowSubscriptionsRequest{
 		ApiService:   a,
 		ctx:          ctx,
-		workflowName: workflowName,
+		workflowPath: workflowPath,
 	}
 }
 
 // Execute executes the request
 //  @return UserWorkflowSubscriptions
-func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r ApiGetWorkflowSubscriptionsRequest) (UserWorkflowSubscriptions, *_nethttp.Response, error) {
+func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r SubscriptionsApiGetWorkflowSubscriptionsRequest) (*UserWorkflowSubscriptions, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  UserWorkflowSubscriptions
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *UserWorkflowSubscriptions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.GetWorkflowSubscriptions")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/subscriptions/workflows/{workflowName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath := localBasePath + "/api/subscriptions/workflows/{workflowPath}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -93,7 +86,7 @@ func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r ApiGetWorkfl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -103,19 +96,19 @@ func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r ApiGetWorkfl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -127,7 +120,7 @@ func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r ApiGetWorkfl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -137,23 +130,23 @@ func (a *SubscriptionsApiService) GetWorkflowSubscriptionsExecute(r ApiGetWorkfl
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetWorkflowsSubscriptionsRequest struct {
-	ctx        _context.Context
+type SubscriptionsApiGetWorkflowsSubscriptionsRequest struct {
+	ctx        context.Context
 	ApiService *SubscriptionsApiService
 }
 
-func (r ApiGetWorkflowsSubscriptionsRequest) Execute() (UserWorkflowsSubscriptions, *_nethttp.Response, error) {
+func (r SubscriptionsApiGetWorkflowsSubscriptionsRequest) Execute() (*UserWorkflowsSubscriptions, *http.Response, error) {
 	return r.ApiService.GetWorkflowsSubscriptionsExecute(r)
 }
 
 /*
 GetWorkflowsSubscriptions List subscriptions for all workflows for the current user
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetWorkflowsSubscriptionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return SubscriptionsApiGetWorkflowsSubscriptionsRequest
 */
-func (a *SubscriptionsApiService) GetWorkflowsSubscriptions(ctx _context.Context) ApiGetWorkflowsSubscriptionsRequest {
-	return ApiGetWorkflowsSubscriptionsRequest{
+func (a *SubscriptionsApiService) GetWorkflowsSubscriptions(ctx context.Context) SubscriptionsApiGetWorkflowsSubscriptionsRequest {
+	return SubscriptionsApiGetWorkflowsSubscriptionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -161,26 +154,24 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptions(ctx _context.Context
 
 // Execute executes the request
 //  @return UserWorkflowsSubscriptions
-func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r ApiGetWorkflowsSubscriptionsRequest) (UserWorkflowsSubscriptions, *_nethttp.Response, error) {
+func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r SubscriptionsApiGetWorkflowsSubscriptionsRequest) (*UserWorkflowsSubscriptions, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  UserWorkflowsSubscriptions
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *UserWorkflowsSubscriptions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.GetWorkflowsSubscriptions")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/subscriptions/workflows"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -199,7 +190,7 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r ApiGetWorkf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -209,19 +200,19 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r ApiGetWorkf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -233,7 +224,7 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r ApiGetWorkf
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -243,61 +234,59 @@ func (a *SubscriptionsApiService) GetWorkflowsSubscriptionsExecute(r ApiGetWorkf
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPutWorkflowSubscriptionsRequest struct {
-	ctx                       _context.Context
+type SubscriptionsApiPutWorkflowSubscriptionsRequest struct {
+	ctx                       context.Context
 	ApiService                *SubscriptionsApiService
-	workflowName              string
+	workflowPath              string
 	userWorkflowSubscriptions *UserWorkflowSubscriptions
 }
 
 // Update workflow subscriptions
-func (r ApiPutWorkflowSubscriptionsRequest) UserWorkflowSubscriptions(userWorkflowSubscriptions UserWorkflowSubscriptions) ApiPutWorkflowSubscriptionsRequest {
+func (r SubscriptionsApiPutWorkflowSubscriptionsRequest) UserWorkflowSubscriptions(userWorkflowSubscriptions UserWorkflowSubscriptions) SubscriptionsApiPutWorkflowSubscriptionsRequest {
 	r.userWorkflowSubscriptions = &userWorkflowSubscriptions
 	return r
 }
 
-func (r ApiPutWorkflowSubscriptionsRequest) Execute() (UserWorkflowSubscriptions, *_nethttp.Response, error) {
+func (r SubscriptionsApiPutWorkflowSubscriptionsRequest) Execute() (*UserWorkflowSubscriptions, *http.Response, error) {
 	return r.ApiService.PutWorkflowSubscriptionsExecute(r)
 }
 
 /*
 PutWorkflowSubscriptions Update the current user's workflow subscriptions
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param workflowName Workflow name
- @return ApiPutWorkflowSubscriptionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workflowPath Folder + Workflow name
+ @return SubscriptionsApiPutWorkflowSubscriptionsRequest
 */
-func (a *SubscriptionsApiService) PutWorkflowSubscriptions(ctx _context.Context, workflowName string) ApiPutWorkflowSubscriptionsRequest {
-	return ApiPutWorkflowSubscriptionsRequest{
+func (a *SubscriptionsApiService) PutWorkflowSubscriptions(ctx context.Context, workflowPath string) SubscriptionsApiPutWorkflowSubscriptionsRequest {
+	return SubscriptionsApiPutWorkflowSubscriptionsRequest{
 		ApiService:   a,
 		ctx:          ctx,
-		workflowName: workflowName,
+		workflowPath: workflowPath,
 	}
 }
 
 // Execute executes the request
 //  @return UserWorkflowSubscriptions
-func (a *SubscriptionsApiService) PutWorkflowSubscriptionsExecute(r ApiPutWorkflowSubscriptionsRequest) (UserWorkflowSubscriptions, *_nethttp.Response, error) {
+func (a *SubscriptionsApiService) PutWorkflowSubscriptionsExecute(r SubscriptionsApiPutWorkflowSubscriptionsRequest) (*UserWorkflowSubscriptions, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  UserWorkflowSubscriptions
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *UserWorkflowSubscriptions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.PutWorkflowSubscriptions")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/subscriptions/workflows/{workflowName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workflowName"+"}", _neturl.PathEscape(parameterToString(r.workflowName, "")), -1)
+	localVarPath := localBasePath + "/api/subscriptions/workflows/{workflowPath}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workflowPath"+"}", url.PathEscape(parameterToString(r.workflowPath, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.userWorkflowSubscriptions == nil {
 		return localVarReturnValue, nil, reportError("userWorkflowSubscriptions is required and must be specified")
 	}
@@ -321,7 +310,7 @@ func (a *SubscriptionsApiService) PutWorkflowSubscriptionsExecute(r ApiPutWorkfl
 	}
 	// body params
 	localVarPostBody = r.userWorkflowSubscriptions
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -331,19 +320,19 @@ func (a *SubscriptionsApiService) PutWorkflowSubscriptionsExecute(r ApiPutWorkfl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -355,7 +344,7 @@ func (a *SubscriptionsApiService) PutWorkflowSubscriptionsExecute(r ApiPutWorkfl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

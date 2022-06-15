@@ -16,7 +16,8 @@ import (
 
 // WorkflowSummary struct for WorkflowSummary
 type WorkflowSummary struct {
-	Name string `json:"name"`
+	Folder string `json:"folder"`
+	Name   string `json:"name"`
 	// User provided friendly workflow description
 	Description *string `json:"description,omitempty"`
 	// If true, this workflow cannot be edited or run directly by the user.
@@ -27,8 +28,9 @@ type WorkflowSummary struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWorkflowSummary(name string) *WorkflowSummary {
+func NewWorkflowSummary(folder string, name string) *WorkflowSummary {
 	this := WorkflowSummary{}
+	this.Folder = folder
 	this.Name = name
 	return &this
 }
@@ -39,6 +41,30 @@ func NewWorkflowSummary(name string) *WorkflowSummary {
 func NewWorkflowSummaryWithDefaults() *WorkflowSummary {
 	this := WorkflowSummary{}
 	return &this
+}
+
+// GetFolder returns the Folder field value
+func (o *WorkflowSummary) GetFolder() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Folder
+}
+
+// GetFolderOk returns a tuple with the Folder field value
+// and a boolean to check if the value has been set.
+func (o *WorkflowSummary) GetFolderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Folder, true
+}
+
+// SetFolder sets field value
+func (o *WorkflowSummary) SetFolder(v string) {
+	o.Folder = v
 }
 
 // GetName returns the Name field value
@@ -131,6 +157,9 @@ func (o *WorkflowSummary) SetImmutable(v bool) {
 
 func (o WorkflowSummary) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["folder"] = o.Folder
+	}
 	if true {
 		toSerialize["name"] = o.Name
 	}

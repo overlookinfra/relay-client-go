@@ -50,11 +50,11 @@ func (o *UserProfileAllOf) GetPreferences() map[string]interface{} {
 
 // GetPreferencesOk returns a tuple with the Preferences field value
 // and a boolean to check if the value has been set.
-func (o *UserProfileAllOf) GetPreferencesOk() (*map[string]interface{}, bool) {
+func (o *UserProfileAllOf) GetPreferencesOk() (map[string]interface{}, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Preferences, true
+	return o.Preferences, true
 }
 
 // SetPreferences sets field value

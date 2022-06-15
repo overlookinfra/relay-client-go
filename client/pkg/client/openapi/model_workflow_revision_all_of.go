@@ -149,11 +149,11 @@ func (o *WorkflowRevisionAllOf) GetSteps() []WorkflowStep {
 
 // GetStepsOk returns a tuple with the Steps field value
 // and a boolean to check if the value has been set.
-func (o *WorkflowRevisionAllOf) GetStepsOk() (*[]WorkflowStep, bool) {
+func (o *WorkflowRevisionAllOf) GetStepsOk() ([]WorkflowStep, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Steps, true
+	return o.Steps, true
 }
 
 // SetSteps sets field value
@@ -173,11 +173,11 @@ func (o *WorkflowRevisionAllOf) GetTriggers() []WorkflowTrigger {
 
 // GetTriggersOk returns a tuple with the Triggers field value
 // and a boolean to check if the value has been set.
-func (o *WorkflowRevisionAllOf) GetTriggersOk() (*[]WorkflowTrigger, bool) {
+func (o *WorkflowRevisionAllOf) GetTriggersOk() ([]WorkflowTrigger, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Triggers, true
+	return o.Triggers, true
 }
 
 // SetTriggers sets field value

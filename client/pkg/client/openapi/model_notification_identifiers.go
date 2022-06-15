@@ -17,7 +17,7 @@ import (
 // NotificationIdentifiers A list of notifications
 type NotificationIdentifiers struct {
 	// The list of notification IDs
-	Ids *[]string `json:"ids,omitempty"`
+	Ids []string `json:"ids,omitempty"`
 }
 
 // NewNotificationIdentifiers instantiates a new NotificationIdentifiers object
@@ -43,12 +43,12 @@ func (o *NotificationIdentifiers) GetIds() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Ids
+	return o.Ids
 }
 
 // GetIdsOk returns a tuple with the Ids field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationIdentifiers) GetIdsOk() (*[]string, bool) {
+func (o *NotificationIdentifiers) GetIdsOk() ([]string, bool) {
 	if o == nil || o.Ids == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *NotificationIdentifiers) HasIds() bool {
 
 // SetIds gets a reference to the given []string and assigns it to the Ids field.
 func (o *NotificationIdentifiers) SetIds(v []string) {
-	o.Ids = &v
+	o.Ids = v
 }
 
 func (o NotificationIdentifiers) MarshalJSON() ([]byte, error) {

@@ -17,14 +17,14 @@ import (
 // ContainerWorkflowStep struct for ContainerWorkflowStep
 type ContainerWorkflowStep struct {
 	// Step names that must complete before this one starts
-	DependsOn *[]string `json:"depends_on,omitempty"`
+	DependsOn []string `json:"depends_on,omitempty"`
 	// A user provided step name. Must be unique within the workflow definition
 	Name       string                  `json:"name"`
 	References *WorkflowDataReferences `json:"references,omitempty"`
 	// An expression evaluated by the backend
 	When interface{} `json:"when,omitempty"`
 	// Command arguments
-	Args *[]string `json:"args,omitempty"`
+	Args []string `json:"args,omitempty"`
 	// Command to issue
 	Command *string `json:"command,omitempty"`
 	// Environment variable data to provide to the container
@@ -32,7 +32,7 @@ type ContainerWorkflowStep struct {
 	// Container image on which step is executed
 	Image string `json:"image"`
 	// Input script to execute
-	Input *[]string `json:"input,omitempty"`
+	Input []string `json:"input,omitempty"`
 	// A URL to a script to run
 	InputFile *string `json:"inputFile,omitempty"`
 	// Variable specification data to provide to the container
@@ -67,12 +67,12 @@ func (o *ContainerWorkflowStep) GetDependsOn() []string {
 		var ret []string
 		return ret
 	}
-	return *o.DependsOn
+	return o.DependsOn
 }
 
 // GetDependsOnOk returns a tuple with the DependsOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContainerWorkflowStep) GetDependsOnOk() (*[]string, bool) {
+func (o *ContainerWorkflowStep) GetDependsOnOk() ([]string, bool) {
 	if o == nil || o.DependsOn == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *ContainerWorkflowStep) HasDependsOn() bool {
 
 // SetDependsOn gets a reference to the given []string and assigns it to the DependsOn field.
 func (o *ContainerWorkflowStep) SetDependsOn(v []string) {
-	o.DependsOn = &v
+	o.DependsOn = v
 }
 
 // GetName returns the Name field value
@@ -188,12 +188,12 @@ func (o *ContainerWorkflowStep) GetArgs() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Args
+	return o.Args
 }
 
 // GetArgsOk returns a tuple with the Args field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContainerWorkflowStep) GetArgsOk() (*[]string, bool) {
+func (o *ContainerWorkflowStep) GetArgsOk() ([]string, bool) {
 	if o == nil || o.Args == nil {
 		return nil, false
 	}
@@ -211,7 +211,7 @@ func (o *ContainerWorkflowStep) HasArgs() bool {
 
 // SetArgs gets a reference to the given []string and assigns it to the Args field.
 func (o *ContainerWorkflowStep) SetArgs(v []string) {
-	o.Args = &v
+	o.Args = v
 }
 
 // GetCommand returns the Command field value if set, zero value otherwise.
@@ -308,12 +308,12 @@ func (o *ContainerWorkflowStep) GetInput() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Input
+	return o.Input
 }
 
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContainerWorkflowStep) GetInputOk() (*[]string, bool) {
+func (o *ContainerWorkflowStep) GetInputOk() ([]string, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
@@ -331,7 +331,7 @@ func (o *ContainerWorkflowStep) HasInput() bool {
 
 // SetInput gets a reference to the given []string and assigns it to the Input field.
 func (o *ContainerWorkflowStep) SetInput(v []string) {
-	o.Input = &v
+	o.Input = v
 }
 
 // GetInputFile returns the InputFile field value if set, zero value otherwise.

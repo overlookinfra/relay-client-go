@@ -17,7 +17,7 @@ import (
 // ContainerMixin Common attributes associated with our containerization framework
 type ContainerMixin struct {
 	// Command arguments
-	Args *[]string `json:"args,omitempty"`
+	Args []string `json:"args,omitempty"`
 	// Command to issue
 	Command *string `json:"command,omitempty"`
 	// Environment variable data to provide to the container
@@ -25,7 +25,7 @@ type ContainerMixin struct {
 	// Container image on which step is executed
 	Image *string `json:"image,omitempty"`
 	// Input script to execute
-	Input *[]string `json:"input,omitempty"`
+	Input []string `json:"input,omitempty"`
 	// A URL to a script to run
 	InputFile *string `json:"inputFile,omitempty"`
 	// Variable specification data to provide to the container
@@ -55,12 +55,12 @@ func (o *ContainerMixin) GetArgs() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Args
+	return o.Args
 }
 
 // GetArgsOk returns a tuple with the Args field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContainerMixin) GetArgsOk() (*[]string, bool) {
+func (o *ContainerMixin) GetArgsOk() ([]string, bool) {
 	if o == nil || o.Args == nil {
 		return nil, false
 	}
@@ -78,7 +78,7 @@ func (o *ContainerMixin) HasArgs() bool {
 
 // SetArgs gets a reference to the given []string and assigns it to the Args field.
 func (o *ContainerMixin) SetArgs(v []string) {
-	o.Args = &v
+	o.Args = v
 }
 
 // GetCommand returns the Command field value if set, zero value otherwise.
@@ -183,12 +183,12 @@ func (o *ContainerMixin) GetInput() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Input
+	return o.Input
 }
 
 // GetInputOk returns a tuple with the Input field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContainerMixin) GetInputOk() (*[]string, bool) {
+func (o *ContainerMixin) GetInputOk() ([]string, bool) {
 	if o == nil || o.Input == nil {
 		return nil, false
 	}
@@ -206,7 +206,7 @@ func (o *ContainerMixin) HasInput() bool {
 
 // SetInput gets a reference to the given []string and assigns it to the Input field.
 func (o *ContainerMixin) SetInput(v []string) {
-	o.Input = &v
+	o.Input = v
 }
 
 // GetInputFile returns the InputFile field value if set, zero value otherwise.

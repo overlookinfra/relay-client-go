@@ -3,19 +3,24 @@ set -euo pipefail
 
 RELAY_API_OPENAPI_URL="${RELAY_API_OPENAPI_URL:-"https://api.relay.sh/openapi/latest"}"
 
+args=( "$@" )
+
+# The 6.0.1-SNAPSHOT was built from
+# https://github.com/OpenAPITools/openapi-generator/tree/c1deedb9388 plus
+# Noah's PR https://github.com/OpenAPITools/openapi-generator/pull/11837
 exec docker run \
   --rm \
   -v "$(dirname "$(go env GOMOD)"):/local" \
   -w /local \
   -v "$(go env GOROOT):/go" \
-  -e GO_POST_PROCESS_FILE="/go/bin/go run golang.org/x/tools/cmd/goimports -w" \
-  gcr.io/nebula-contrib/openapi-generator-cli:latest \
-  generate \
-  -i "${RELAY_API_OPENAPI_URL}" \
-  -g go \
-  -t /local/hack/templates \
-  --enable-post-process-file \
-  --global-property apis,models,supportingFiles,apiDocs=false,modelDocs=false \
-  --additional-properties useOneOfDiscriminatorLookup=true \
-  "$@" \
-  -o /local/pkg/client/openapi
+  gcr.io/nebula-contrib/openapi-generator-cli:6.0.1-SNAPSHOT \
+  /bin/bash -c "rm -f /local/pkg/client/openapi/*.go \
+  && /usr/local/bin/docker-entrypoint.sh generate \
+    -i \"${RELAY_API_OPENAPI_URL}\" \
+    -g go \
+    --enable-post-process-file \
+    --global-property apis,models,supportingFiles,apiDocs=false,modelDocs=false \
+    --additional-properties useOneOfDiscriminatorLookup=true,structPrefix=true \
+    ${args[*]} \
+    -o /local/pkg/client/openapi \
+  && /go/bin/go run golang.org/x/tools/cmd/goimports -w /local/pkg"

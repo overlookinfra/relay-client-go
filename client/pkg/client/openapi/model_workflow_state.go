@@ -17,7 +17,7 @@ import (
 // WorkflowState The state of a workflow
 type WorkflowState struct {
 	// The state of triggers in this workflow
-	Triggers *[]WorkflowTriggerState `json:"triggers,omitempty"`
+	Triggers []WorkflowTriggerState `json:"triggers,omitempty"`
 }
 
 // NewWorkflowState instantiates a new WorkflowState object
@@ -43,12 +43,12 @@ func (o *WorkflowState) GetTriggers() []WorkflowTriggerState {
 		var ret []WorkflowTriggerState
 		return ret
 	}
-	return *o.Triggers
+	return o.Triggers
 }
 
 // GetTriggersOk returns a tuple with the Triggers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowState) GetTriggersOk() (*[]WorkflowTriggerState, bool) {
+func (o *WorkflowState) GetTriggersOk() ([]WorkflowTriggerState, bool) {
 	if o == nil || o.Triggers == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *WorkflowState) HasTriggers() bool {
 
 // SetTriggers gets a reference to the given []WorkflowTriggerState and assigns it to the Triggers field.
 func (o *WorkflowState) SetTriggers(v []WorkflowTriggerState) {
-	o.Triggers = &v
+	o.Triggers = v
 }
 
 func (o WorkflowState) MarshalJSON() ([]byte, error) {

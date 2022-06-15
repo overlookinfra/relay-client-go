@@ -12,72 +12,65 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"os"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // RevisionsApiService RevisionsApi service
 type RevisionsApiService service
 
-type ApiPostRevisionValidateRequest struct {
-	ctx        _context.Context
+type RevisionsApiPostRevisionValidateRequest struct {
+	ctx        context.Context
 	ApiService *RevisionsApiService
 	body       **os.File
 }
 
 // The workflow yaml content
-func (r ApiPostRevisionValidateRequest) Body(body *os.File) ApiPostRevisionValidateRequest {
+func (r RevisionsApiPostRevisionValidateRequest) Body(body *os.File) RevisionsApiPostRevisionValidateRequest {
 	r.body = &body
 	return r
 }
 
-func (r ApiPostRevisionValidateRequest) Execute() (Entity, *_nethttp.Response, error) {
+func (r RevisionsApiPostRevisionValidateRequest) Execute() (*PostRevisionValidate200Response, *http.Response, error) {
 	return r.ApiService.PostRevisionValidateExecute(r)
 }
 
 /*
 PostRevisionValidate Validate a submitted workflow revision
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostRevisionValidateRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return RevisionsApiPostRevisionValidateRequest
 */
-func (a *RevisionsApiService) PostRevisionValidate(ctx _context.Context) ApiPostRevisionValidateRequest {
-	return ApiPostRevisionValidateRequest{
+func (a *RevisionsApiService) PostRevisionValidate(ctx context.Context) RevisionsApiPostRevisionValidateRequest {
+	return RevisionsApiPostRevisionValidateRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Entity
-func (a *RevisionsApiService) PostRevisionValidateExecute(r ApiPostRevisionValidateRequest) (Entity, *_nethttp.Response, error) {
+//  @return PostRevisionValidate200Response
+func (a *RevisionsApiService) PostRevisionValidateExecute(r RevisionsApiPostRevisionValidateRequest) (*PostRevisionValidate200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Entity
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PostRevisionValidate200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RevisionsApiService.PostRevisionValidate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/revisions/validate"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -101,7 +94,7 @@ func (a *RevisionsApiService) PostRevisionValidateExecute(r ApiPostRevisionValid
 	}
 	// body params
 	localVarPostBody = r.body
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -111,19 +104,19 @@ func (a *RevisionsApiService) PostRevisionValidateExecute(r ApiPostRevisionValid
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -135,7 +128,7 @@ func (a *RevisionsApiService) PostRevisionValidateExecute(r ApiPostRevisionValid
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

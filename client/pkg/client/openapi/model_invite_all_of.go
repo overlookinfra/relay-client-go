@@ -22,7 +22,7 @@ type InviteAllOf struct {
 	Acceptor   *UserSummary `json:"acceptor,omitempty"`
 	Inviter    *UserSummary `json:"inviter,omitempty"`
 	// The initial roles to grant to the user
-	Roles *[]RoleSummary `json:"roles,omitempty"`
+	Roles []RoleSummary `json:"roles,omitempty"`
 	// The time that the invite was last sent
 	SentAt NullableTime `json:"sent_at,omitempty"`
 }
@@ -157,12 +157,12 @@ func (o *InviteAllOf) GetRoles() []RoleSummary {
 		var ret []RoleSummary
 		return ret
 	}
-	return *o.Roles
+	return o.Roles
 }
 
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InviteAllOf) GetRolesOk() (*[]RoleSummary, bool) {
+func (o *InviteAllOf) GetRolesOk() ([]RoleSummary, bool) {
 	if o == nil || o.Roles == nil {
 		return nil, false
 	}
@@ -180,7 +180,7 @@ func (o *InviteAllOf) HasRoles() bool {
 
 // SetRoles gets a reference to the given []RoleSummary and assigns it to the Roles field.
 func (o *InviteAllOf) SetRoles(v []RoleSummary) {
-	o.Roles = &v
+	o.Roles = v
 }
 
 // GetSentAt returns the SentAt field value if set, zero value otherwise (both if not set or set to explicit null).

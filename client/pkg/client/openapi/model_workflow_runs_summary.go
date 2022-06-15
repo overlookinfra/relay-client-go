@@ -17,7 +17,7 @@ import (
 // WorkflowRunsSummary The list of workflow runs
 type WorkflowRunsSummary struct {
 	// A list of workflow run summaries
-	Runs *[]WorkflowRunSummary `json:"runs,omitempty"`
+	Runs []WorkflowRunSummary `json:"runs,omitempty"`
 }
 
 // NewWorkflowRunsSummary instantiates a new WorkflowRunsSummary object
@@ -43,12 +43,12 @@ func (o *WorkflowRunsSummary) GetRuns() []WorkflowRunSummary {
 		var ret []WorkflowRunSummary
 		return ret
 	}
-	return *o.Runs
+	return o.Runs
 }
 
 // GetRunsOk returns a tuple with the Runs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkflowRunsSummary) GetRunsOk() (*[]WorkflowRunSummary, bool) {
+func (o *WorkflowRunsSummary) GetRunsOk() ([]WorkflowRunSummary, bool) {
 	if o == nil || o.Runs == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *WorkflowRunsSummary) HasRuns() bool {
 
 // SetRuns gets a reference to the given []WorkflowRunSummary and assigns it to the Runs field.
 func (o *WorkflowRunsSummary) SetRuns(v []WorkflowRunSummary) {
-	o.Runs = &v
+	o.Runs = v
 }
 
 func (o WorkflowRunsSummary) MarshalJSON() ([]byte, error) {

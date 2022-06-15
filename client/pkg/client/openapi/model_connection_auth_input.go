@@ -22,7 +22,9 @@ type ConnectionAuthInput struct {
 
 // SecretConnectionAuthInputAsConnectionAuthInput is a convenience function that returns SecretConnectionAuthInput wrapped in ConnectionAuthInput
 func SecretConnectionAuthInputAsConnectionAuthInput(v *SecretConnectionAuthInput) ConnectionAuthInput {
-	return ConnectionAuthInput{SecretConnectionAuthInput: v}
+	return ConnectionAuthInput{
+		SecretConnectionAuthInput: v,
+	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
@@ -30,7 +32,7 @@ func (dst *ConnectionAuthInput) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
-	err = json.Unmarshal(data, &jsonDict)
+	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
 		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
 	}
@@ -59,34 +61,7 @@ func (dst *ConnectionAuthInput) UnmarshalJSON(data []byte) error {
 		}
 	}
 
-	match := 0
-	// try to unmarshal data into SecretConnectionAuthInput
-	err = json.Unmarshal(data, &dst.SecretConnectionAuthInput)
-	if err == nil {
-		jsonSecretConnectionAuthInput, err := json.Marshal(dst.SecretConnectionAuthInput)
-		if err == nil {
-			if string(jsonSecretConnectionAuthInput) == "" || string(jsonSecretConnectionAuthInput) == "{}" { // empty struct
-				dst.SecretConnectionAuthInput = nil
-			} else {
-				match++
-			}
-		} else {
-			dst.SecretConnectionAuthInput = nil
-		}
-	} else {
-		dst.SecretConnectionAuthInput = nil
-	}
-
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.SecretConnectionAuthInput = nil
-
-		return fmt.Errorf("Data matches more than one schema in oneOf(ConnectionAuthInput)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(ConnectionAuthInput)")
-	}
+	return nil
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
@@ -100,6 +75,9 @@ func (src ConnectionAuthInput) MarshalJSON() ([]byte, error) {
 
 // Get the actual instance
 func (obj *ConnectionAuthInput) GetActualInstance() interface{} {
+	if obj == nil {
+		return nil
+	}
 	if obj.SecretConnectionAuthInput != nil {
 		return obj.SecretConnectionAuthInput
 	}

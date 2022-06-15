@@ -12,52 +12,47 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
-)
-
-// Linger please
-var (
-	_ _context.Context
 )
 
 // NotificationsApiService NotificationsApi service
 type NotificationsApiService service
 
-type ApiGetNotificationsRequest struct {
-	ctx        _context.Context
+type NotificationsApiGetNotificationsRequest struct {
+	ctx        context.Context
 	ApiService *NotificationsApiService
 	attributes *string
 	state      *string
 }
 
 // The notification attribute to filter results on
-func (r ApiGetNotificationsRequest) Attributes(attributes string) ApiGetNotificationsRequest {
+func (r NotificationsApiGetNotificationsRequest) Attributes(attributes string) NotificationsApiGetNotificationsRequest {
 	r.attributes = &attributes
 	return r
 }
 
 // The notification state to filter results on
-func (r ApiGetNotificationsRequest) State(state string) ApiGetNotificationsRequest {
+func (r NotificationsApiGetNotificationsRequest) State(state string) NotificationsApiGetNotificationsRequest {
 	r.state = &state
 	return r
 }
 
-func (r ApiGetNotificationsRequest) Execute() (NotificationsResponse, *_nethttp.Response, error) {
+func (r NotificationsApiGetNotificationsRequest) Execute() (*NotificationsResponse, *http.Response, error) {
 	return r.ApiService.GetNotificationsExecute(r)
 }
 
 /*
 GetNotifications Get a list of notifications
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetNotificationsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return NotificationsApiGetNotificationsRequest
 */
-func (a *NotificationsApiService) GetNotifications(ctx _context.Context) ApiGetNotificationsRequest {
-	return ApiGetNotificationsRequest{
+func (a *NotificationsApiService) GetNotifications(ctx context.Context) NotificationsApiGetNotificationsRequest {
+	return NotificationsApiGetNotificationsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -65,26 +60,24 @@ func (a *NotificationsApiService) GetNotifications(ctx _context.Context) ApiGetN
 
 // Execute executes the request
 //  @return NotificationsResponse
-func (a *NotificationsApiService) GetNotificationsExecute(r ApiGetNotificationsRequest) (NotificationsResponse, *_nethttp.Response, error) {
+func (a *NotificationsApiService) GetNotificationsExecute(r NotificationsApiGetNotificationsRequest) (*NotificationsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationsResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *NotificationsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationsApiService.GetNotifications")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/notifications"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.attributes != nil {
 		localVarQueryParams.Add("attributes", parameterToString(*r.attributes, ""))
@@ -109,7 +102,7 @@ func (a *NotificationsApiService) GetNotificationsExecute(r ApiGetNotificationsR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -119,19 +112,19 @@ func (a *NotificationsApiService) GetNotificationsExecute(r ApiGetNotificationsR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -143,7 +136,7 @@ func (a *NotificationsApiService) GetNotificationsExecute(r ApiGetNotificationsR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -153,57 +146,55 @@ func (a *NotificationsApiService) GetNotificationsExecute(r ApiGetNotificationsR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostAllNotificationDoneRequest struct {
-	ctx                     _context.Context
+type NotificationsApiPostAllNotificationDoneRequest struct {
+	ctx                     context.Context
 	ApiService              *NotificationsApiService
 	notificationIdentifiers *NotificationIdentifiers
 }
 
 // Notifications to mark as done
-func (r ApiPostAllNotificationDoneRequest) NotificationIdentifiers(notificationIdentifiers NotificationIdentifiers) ApiPostAllNotificationDoneRequest {
+func (r NotificationsApiPostAllNotificationDoneRequest) NotificationIdentifiers(notificationIdentifiers NotificationIdentifiers) NotificationsApiPostAllNotificationDoneRequest {
 	r.notificationIdentifiers = &notificationIdentifiers
 	return r
 }
 
-func (r ApiPostAllNotificationDoneRequest) Execute() (InlineResponse2002, *_nethttp.Response, error) {
+func (r NotificationsApiPostAllNotificationDoneRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PostAllNotificationDoneExecute(r)
 }
 
 /*
 PostAllNotificationDone Mark multiple notifications as done
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostAllNotificationDoneRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return NotificationsApiPostAllNotificationDoneRequest
 */
-func (a *NotificationsApiService) PostAllNotificationDone(ctx _context.Context) ApiPostAllNotificationDoneRequest {
-	return ApiPostAllNotificationDoneRequest{
+func (a *NotificationsApiService) PostAllNotificationDone(ctx context.Context) NotificationsApiPostAllNotificationDoneRequest {
+	return NotificationsApiPostAllNotificationDoneRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *NotificationsApiService) PostAllNotificationDoneExecute(r ApiPostAllNotificationDoneRequest) (InlineResponse2002, *_nethttp.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *NotificationsApiService) PostAllNotificationDoneExecute(r NotificationsApiPostAllNotificationDoneRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2002
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationsApiService.PostAllNotificationDone")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/notifications/done"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/vnd.puppet.relay.v20200615+json"}
@@ -224,7 +215,7 @@ func (a *NotificationsApiService) PostAllNotificationDoneExecute(r ApiPostAllNot
 	}
 	// body params
 	localVarPostBody = r.notificationIdentifiers
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -234,19 +225,19 @@ func (a *NotificationsApiService) PostAllNotificationDoneExecute(r ApiPostAllNot
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -258,7 +249,7 @@ func (a *NotificationsApiService) PostAllNotificationDoneExecute(r ApiPostAllNot
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -268,57 +259,55 @@ func (a *NotificationsApiService) PostAllNotificationDoneExecute(r ApiPostAllNot
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostAllNotificationReadRequest struct {
-	ctx                     _context.Context
+type NotificationsApiPostAllNotificationReadRequest struct {
+	ctx                     context.Context
 	ApiService              *NotificationsApiService
 	notificationIdentifiers *NotificationIdentifiers
 }
 
 // Notifications to mark as read
-func (r ApiPostAllNotificationReadRequest) NotificationIdentifiers(notificationIdentifiers NotificationIdentifiers) ApiPostAllNotificationReadRequest {
+func (r NotificationsApiPostAllNotificationReadRequest) NotificationIdentifiers(notificationIdentifiers NotificationIdentifiers) NotificationsApiPostAllNotificationReadRequest {
 	r.notificationIdentifiers = &notificationIdentifiers
 	return r
 }
 
-func (r ApiPostAllNotificationReadRequest) Execute() (InlineResponse2002, *_nethttp.Response, error) {
+func (r NotificationsApiPostAllNotificationReadRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PostAllNotificationReadExecute(r)
 }
 
 /*
 PostAllNotificationRead Mark multiple notifications as read
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostAllNotificationReadRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return NotificationsApiPostAllNotificationReadRequest
 */
-func (a *NotificationsApiService) PostAllNotificationRead(ctx _context.Context) ApiPostAllNotificationReadRequest {
-	return ApiPostAllNotificationReadRequest{
+func (a *NotificationsApiService) PostAllNotificationRead(ctx context.Context) NotificationsApiPostAllNotificationReadRequest {
+	return NotificationsApiPostAllNotificationReadRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *NotificationsApiService) PostAllNotificationReadExecute(r ApiPostAllNotificationReadRequest) (InlineResponse2002, *_nethttp.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *NotificationsApiService) PostAllNotificationReadExecute(r NotificationsApiPostAllNotificationReadRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2002
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationsApiService.PostAllNotificationRead")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/notifications/read"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/vnd.puppet.relay.v20200615+json"}
@@ -339,7 +328,7 @@ func (a *NotificationsApiService) PostAllNotificationReadExecute(r ApiPostAllNot
 	}
 	// body params
 	localVarPostBody = r.notificationIdentifiers
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -349,19 +338,19 @@ func (a *NotificationsApiService) PostAllNotificationReadExecute(r ApiPostAllNot
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -373,7 +362,7 @@ func (a *NotificationsApiService) PostAllNotificationReadExecute(r ApiPostAllNot
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -383,25 +372,25 @@ func (a *NotificationsApiService) PostAllNotificationReadExecute(r ApiPostAllNot
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostNotificationDoneRequest struct {
-	ctx            _context.Context
+type NotificationsApiPostNotificationDoneRequest struct {
+	ctx            context.Context
 	ApiService     *NotificationsApiService
 	notificationId string
 }
 
-func (r ApiPostNotificationDoneRequest) Execute() (InlineResponse2002, *_nethttp.Response, error) {
+func (r NotificationsApiPostNotificationDoneRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PostNotificationDoneExecute(r)
 }
 
 /*
 PostNotificationDone Mark notification as done
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param notificationId The notification ID
- @return ApiPostNotificationDoneRequest
+ @return NotificationsApiPostNotificationDoneRequest
 */
-func (a *NotificationsApiService) PostNotificationDone(ctx _context.Context, notificationId string) ApiPostNotificationDoneRequest {
-	return ApiPostNotificationDoneRequest{
+func (a *NotificationsApiService) PostNotificationDone(ctx context.Context, notificationId string) NotificationsApiPostNotificationDoneRequest {
+	return NotificationsApiPostNotificationDoneRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		notificationId: notificationId,
@@ -409,28 +398,26 @@ func (a *NotificationsApiService) PostNotificationDone(ctx _context.Context, not
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *NotificationsApiService) PostNotificationDoneExecute(r ApiPostNotificationDoneRequest) (InlineResponse2002, *_nethttp.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *NotificationsApiService) PostNotificationDoneExecute(r NotificationsApiPostNotificationDoneRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2002
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationsApiService.PostNotificationDone")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/notifications/done/{notificationId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"notificationId"+"}", _neturl.PathEscape(parameterToString(r.notificationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"notificationId"+"}", url.PathEscape(parameterToString(r.notificationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -449,7 +436,7 @@ func (a *NotificationsApiService) PostNotificationDoneExecute(r ApiPostNotificat
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -459,19 +446,19 @@ func (a *NotificationsApiService) PostNotificationDoneExecute(r ApiPostNotificat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -483,7 +470,7 @@ func (a *NotificationsApiService) PostNotificationDoneExecute(r ApiPostNotificat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -493,25 +480,25 @@ func (a *NotificationsApiService) PostNotificationDoneExecute(r ApiPostNotificat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostNotificationReadRequest struct {
-	ctx            _context.Context
+type NotificationsApiPostNotificationReadRequest struct {
+	ctx            context.Context
 	ApiService     *NotificationsApiService
 	notificationId string
 }
 
-func (r ApiPostNotificationReadRequest) Execute() (InlineResponse2002, *_nethttp.Response, error) {
+func (r NotificationsApiPostNotificationReadRequest) Execute() (*PostAccountContacts200Response, *http.Response, error) {
 	return r.ApiService.PostNotificationReadExecute(r)
 }
 
 /*
 PostNotificationRead Mark notification as read
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param notificationId The notification ID
- @return ApiPostNotificationReadRequest
+ @return NotificationsApiPostNotificationReadRequest
 */
-func (a *NotificationsApiService) PostNotificationRead(ctx _context.Context, notificationId string) ApiPostNotificationReadRequest {
-	return ApiPostNotificationReadRequest{
+func (a *NotificationsApiService) PostNotificationRead(ctx context.Context, notificationId string) NotificationsApiPostNotificationReadRequest {
+	return NotificationsApiPostNotificationReadRequest{
 		ApiService:     a,
 		ctx:            ctx,
 		notificationId: notificationId,
@@ -519,28 +506,26 @@ func (a *NotificationsApiService) PostNotificationRead(ctx _context.Context, not
 }
 
 // Execute executes the request
-//  @return InlineResponse2002
-func (a *NotificationsApiService) PostNotificationReadExecute(r ApiPostNotificationReadRequest) (InlineResponse2002, *_nethttp.Response, error) {
+//  @return PostAccountContacts200Response
+func (a *NotificationsApiService) PostNotificationReadExecute(r NotificationsApiPostNotificationReadRequest) (*PostAccountContacts200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InlineResponse2002
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PostAccountContacts200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NotificationsApiService.PostNotificationRead")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/notifications/read/{notificationId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"notificationId"+"}", _neturl.PathEscape(parameterToString(r.notificationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"notificationId"+"}", url.PathEscape(parameterToString(r.notificationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -559,7 +544,7 @@ func (a *NotificationsApiService) PostNotificationReadExecute(r ApiPostNotificat
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -569,19 +554,19 @@ func (a *NotificationsApiService) PostNotificationReadExecute(r ApiPostNotificat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v InlineResponseDefault
+		var v GetAccessDefaultResponse
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			newErr.error = err.Error()
@@ -593,7 +578,7 @@ func (a *NotificationsApiService) PostNotificationReadExecute(r ApiPostNotificat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

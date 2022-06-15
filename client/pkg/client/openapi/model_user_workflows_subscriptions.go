@@ -17,7 +17,7 @@ import (
 // UserWorkflowsSubscriptions An object containing an array of workflow subscriptions
 type UserWorkflowsSubscriptions struct {
 	// A list of all workflow subscriptions
-	Workflows *[]UserWorkflowSubscriptionsSummary `json:"workflows,omitempty"`
+	Workflows []UserWorkflowSubscriptionsSummary `json:"workflows,omitempty"`
 }
 
 // NewUserWorkflowsSubscriptions instantiates a new UserWorkflowsSubscriptions object
@@ -43,12 +43,12 @@ func (o *UserWorkflowsSubscriptions) GetWorkflows() []UserWorkflowSubscriptionsS
 		var ret []UserWorkflowSubscriptionsSummary
 		return ret
 	}
-	return *o.Workflows
+	return o.Workflows
 }
 
 // GetWorkflowsOk returns a tuple with the Workflows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserWorkflowsSubscriptions) GetWorkflowsOk() (*[]UserWorkflowSubscriptionsSummary, bool) {
+func (o *UserWorkflowsSubscriptions) GetWorkflowsOk() ([]UserWorkflowSubscriptionsSummary, bool) {
 	if o == nil || o.Workflows == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *UserWorkflowsSubscriptions) HasWorkflows() bool {
 
 // SetWorkflows gets a reference to the given []UserWorkflowSubscriptionsSummary and assigns it to the Workflows field.
 func (o *UserWorkflowsSubscriptions) SetWorkflows(v []UserWorkflowSubscriptionsSummary) {
-	o.Workflows = &v
+	o.Workflows = v
 }
 
 func (o UserWorkflowsSubscriptions) MarshalJSON() ([]byte, error) {
