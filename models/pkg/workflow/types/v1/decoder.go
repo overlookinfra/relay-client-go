@@ -5,7 +5,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/puppetlabs/relay-core/pkg/expr/serialize"
+	"github.com/puppetlabs/relay-core/pkg/spec"
 	yaml "gopkg.in/yaml.v3"
 )
 
@@ -120,14 +120,14 @@ func yamlWorkflowDataToWorkflowData(ywd *YAMLWorkflowData) (*WorkflowData, error
 			env.Steps = append(env.Steps, &WorkflowStep{
 				Name:      step.Name,
 				DependsOn: step.DependsOn,
-				When:      serialize.JSONTree{Tree: when},
+				When:      spec.JSONTree{Tree: when},
 				Variant:   &ApprovalWorkflowStep{},
 			})
 		default:
 			env.Steps = append(env.Steps, &WorkflowStep{
 				Name:      step.Name,
 				DependsOn: step.DependsOn,
-				When:      serialize.JSONTree(step.When),
+				When:      spec.JSONTree(step.When),
 				Variant: &ContainerWorkflowStep{
 					ContainerMixin: ContainerMixin{
 						Image:     step.Image,
@@ -147,10 +147,10 @@ func yamlWorkflowDataToWorkflowData(ywd *YAMLWorkflowData) (*WorkflowData, error
 		et := &WorkflowDataTrigger{
 			Name: trigger.Name,
 			Binding: &WorkflowDataTriggerBinding{
-				Key:        serialize.JSONTree(trigger.Binding.Key),
+				Key:        spec.JSONTree(trigger.Binding.Key),
 				Parameters: makeJSONTreeMap(trigger.Binding.Parameters),
 			},
-			When: serialize.JSONTree(trigger.When),
+			When: spec.JSONTree(trigger.When),
 		}
 
 		switch trigger.Source.Type {
@@ -202,14 +202,14 @@ func makeStepType(step YAMLWorkflowStep) (WorkflowStepType, error) {
 	}
 }
 
-func makeJSONTreeMap(ym map[string]serialize.YAMLTree) map[string]serialize.JSONTree {
+func makeJSONTreeMap(ym map[string]spec.YAMLTree) map[string]spec.JSONTree {
 	if ym == nil {
 		return nil
 	}
 
-	jm := make(map[string]serialize.JSONTree, len(ym))
+	jm := make(map[string]spec.JSONTree, len(ym))
 	for k, v := range ym {
-		jm[k] = serialize.JSONTree(v)
+		jm[k] = spec.JSONTree(v)
 	}
 
 	return jm

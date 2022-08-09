@@ -7,9 +7,8 @@ import (
 	"time"
 
 	"github.com/puppetlabs/leg/stringutil"
-	"github.com/puppetlabs/relay-core/pkg/expr/parse"
-	"github.com/puppetlabs/relay-core/pkg/expr/serialize"
 	"github.com/puppetlabs/relay-core/pkg/manager/input"
+	"github.com/puppetlabs/relay-core/pkg/spec"
 	cron "github.com/robfig/cron/v3"
 	yaml "gopkg.in/yaml.v3"
 )
@@ -57,17 +56,17 @@ type YAMLWorkflowTrigger struct {
 	Name    string                     `yaml:"name" json:"name"`
 	Source  YAMLWorkflowTriggerSource  `yaml:"source" json:"source"`
 	Binding YAMLWorkflowTriggerBinding `yaml:"binding" json:"binding"`
-	When    serialize.YAMLTree         `yaml:"when" json:"when,omitempty"`
+	When    spec.YAMLTree              `yaml:"when" json:"when,omitempty"`
 }
 
 type YAMLContainerMixin struct {
-	Image     string                        `yaml:"image" json:"image,omitempty"`
-	Spec      map[string]serialize.YAMLTree `yaml:"spec" json:"spec,omitempty"`
-	Env       map[string]serialize.YAMLTree `yaml:"env,omitempty" json:"env,omitempty"`
-	Input     []string                      `yaml:"input,omitempty" json:"input,omitempty"`
-	InputFile string                        `yaml:"inputFile,omitempty" json:"inputFile,omitempty"`
-	Command   string                        `yaml:"command,omitempty" json:"command,omitempty"`
-	Args      []string                      `yaml:"args,omitempty" json:"args,omitempty"`
+	Image     string                   `yaml:"image" json:"image,omitempty"`
+	Spec      map[string]spec.YAMLTree `yaml:"spec" json:"spec,omitempty"`
+	Env       map[string]spec.YAMLTree `yaml:"env,omitempty" json:"env,omitempty"`
+	Input     []string                 `yaml:"input,omitempty" json:"input,omitempty"`
+	InputFile string                   `yaml:"inputFile,omitempty" json:"inputFile,omitempty"`
+	Command   string                   `yaml:"command,omitempty" json:"command,omitempty"`
+	Args      []string                 `yaml:"args,omitempty" json:"args,omitempty"`
 }
 
 type YAMLWorkflowStep struct {
@@ -75,12 +74,12 @@ type YAMLWorkflowStep struct {
 	Type               string `yaml:"type,omitempty" json:"type,omitempty"`
 	YAMLContainerMixin `yaml:",inline"`
 	DependsOn          stringutil.StringArray `yaml:"dependsOn,omitempty" json:"depends_on,omitempty"`
-	When               serialize.YAMLTree     `yaml:"when,omitempty" json:"when,omitempty"`
+	When               spec.YAMLTree          `yaml:"when,omitempty" json:"when,omitempty"`
 }
 
 type YAMLWorkflowTriggerBinding struct {
-	Key        serialize.YAMLTree            `yaml:"key" json:"key,omitempty"`
-	Parameters map[string]serialize.YAMLTree `yaml:"parameters" json:"parameters,omitempty"`
+	Key        spec.YAMLTree            `yaml:"key" json:"key,omitempty"`
+	Parameters map[string]spec.YAMLTree `yaml:"parameters" json:"parameters,omitempty"`
 }
 
 type YAMLWorkflowTriggerSource struct {
@@ -166,12 +165,12 @@ type WorkflowDataTrigger struct {
 	Name    string                      `yaml:"name" json:"name"`
 	Source  *WorkflowDataTriggerSource  `yaml:"source" json:"source,omitempty"`
 	Binding *WorkflowDataTriggerBinding `yaml:"binding" json:"binding,omitempty"`
-	When    serialize.JSONTree          `yaml:"when" json:"when,omitempty"`
+	When    spec.JSONTree               `yaml:"when" json:"when,omitempty"`
 }
 
 type WorkflowDataTriggerBinding struct {
-	Key        serialize.JSONTree `yaml:"key" json:"key,omitempty"`
-	Parameters ExpressionMap      `yaml:"parameters" json:"parameters,omitempty"`
+	Key        spec.JSONTree `yaml:"key" json:"key,omitempty"`
+	Parameters ExpressionMap `yaml:"parameters" json:"parameters,omitempty"`
 }
 
 type WorkflowParameters map[string]*WorkflowParameter
@@ -300,15 +299,7 @@ type WorkflowRunParameter struct {
 	Value interface{} `json:"value"`
 }
 
-type ExpressionMap map[string]serialize.JSONTree
-
-func (em ExpressionMap) AsParseTree() parse.Tree {
-	m := make(map[string]interface{}, len(em))
-	for k, v := range em {
-		m[k] = v.Tree
-	}
-	return parse.Tree(m)
-}
+type ExpressionMap map[string]spec.JSONTree
 
 type WorkflowStepVariant interface {
 	// This private marker method prevents out-of-package implementation of this type, making it an actual variant type.
@@ -367,9 +358,9 @@ func (sv *ApprovalWorkflowStep) StepType() string {
 }
 
 type WorkflowStep struct {
-	Name      string             `yaml:"name" json:"name"`
-	DependsOn []string           `yaml:"dependsOn" json:"depends_on"`
-	When      serialize.JSONTree `yaml:"when" json:"when,omitempty"`
+	Name      string        `yaml:"name" json:"name"`
+	DependsOn []string      `yaml:"dependsOn" json:"depends_on"`
+	When      spec.JSONTree `yaml:"when" json:"when,omitempty"`
 	Variant   WorkflowStepVariant
 }
 
@@ -449,10 +440,10 @@ func (wts WorkflowTriggerSource) MarshalJSON() ([]byte, error) {
 
 func (ws *WorkflowStep) UnmarshalJSON(data []byte) error {
 	type common struct {
-		Name      string             `json:"name"`
-		Type      WorkflowStepType   `json:"type"`
-		DependsOn []string           `json:"depends_on"`
-		When      serialize.JSONTree `json:"when"`
+		Name      string           `json:"name"`
+		Type      WorkflowStepType `json:"type"`
+		DependsOn []string         `json:"depends_on"`
+		When      spec.JSONTree    `json:"when"`
 	}
 
 	var c common
@@ -478,10 +469,10 @@ func (ws *WorkflowStep) UnmarshalJSON(data []byte) error {
 
 func (ws WorkflowStep) MarshalJSON() ([]byte, error) {
 	type common struct {
-		Name      string             `json:"name"`
-		Type      WorkflowStepType   `json:"type"`
-		DependsOn []string           `json:"depends_on"`
-		When      serialize.JSONTree `json:"when"`
+		Name      string           `json:"name"`
+		Type      WorkflowStepType `json:"type"`
+		DependsOn []string         `json:"depends_on"`
+		When      spec.JSONTree    `json:"when"`
 	}
 
 	var es interface{}
