@@ -2,7 +2,7 @@ package v1
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -24,6 +24,6 @@ func TestWorkflowRunEngineMapping(t *testing.T) {
 	require.Equal(t, "valid-workflow", manifest.Namespace.GetName())
 	require.Equal(t, "valid-workflow-run-name", manifest.WorkflowRun.GetName())
 
-	require.NoError(t, json.NewEncoder(ioutil.Discard).Encode(manifest.Namespace))
-	require.NoError(t, json.NewEncoder(ioutil.Discard).Encode(manifest.WorkflowRun))
+	require.NoError(t, json.NewEncoder(io.Discard).Encode(manifest.Namespace))
+	require.NoError(t, json.NewEncoder(io.Discard).Encode(manifest.WorkflowRun))
 }
