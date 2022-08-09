@@ -96,9 +96,8 @@ func (m *DefaultRunEngineMapper) ToRuntimeObjectsManifest() (*RunKubernetesObjec
 
 	manifest.WorkflowRun = &v1beta1.Run{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      m.runName,
-			Namespace: m.namespace,
-			// TODO
+			Name:        m.runName,
+			Namespace:   m.namespace,
 			Annotations: annotations,
 		},
 		Spec: v1beta1.RunSpec{
