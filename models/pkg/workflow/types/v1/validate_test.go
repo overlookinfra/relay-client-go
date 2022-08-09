@@ -1,7 +1,7 @@
 package v1_test
 
 import (
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -17,7 +17,7 @@ func TestFixtureValidation(t *testing.T) {
 
 	for _, file := range fs {
 		t.Run(filepath.Base(file), func(t *testing.T) {
-			b, err := ioutil.ReadFile(file)
+			b, err := os.ReadFile(file)
 			require.NoError(t, err)
 
 			err = v1.ValidateYAML(string(b))
@@ -104,7 +104,7 @@ func TestFixtureValidationForTriggers(t *testing.T) {
 	}
 	for _, test := range tcs {
 		t.Run(test.Name, func(t *testing.T) {
-			b, err := ioutil.ReadFile(test.File)
+			b, err := os.ReadFile(test.File)
 			require.NoError(t, err)
 
 			err = v1.ValidateYAML(string(b))

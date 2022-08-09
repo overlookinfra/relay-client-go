@@ -2,7 +2,7 @@ package v1
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"testing"
 
 	"github.com/puppetlabs/relay-core/pkg/expr/serialize"
@@ -48,5 +48,5 @@ func TestWebhookTriggerMapping(t *testing.T) {
 	require.Len(t, manifest.WebhookTrigger.Spec.Spec, 1)
 	require.Len(t, manifest.WebhookTrigger.Spec.Env, 2)
 
-	require.NoError(t, json.NewEncoder(ioutil.Discard).Encode(manifest.WebhookTrigger))
+	require.NoError(t, json.NewEncoder(io.Discard).Encode(manifest.WebhookTrigger))
 }

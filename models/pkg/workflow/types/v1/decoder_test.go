@@ -2,7 +2,6 @@ package v1
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -102,7 +101,7 @@ func TestYAMLDecoder(t *testing.T) {
 		basename := filepath.Base(file)
 
 		t.Run(basename, func(t *testing.T) {
-			b, err := ioutil.ReadFile(file)
+			b, err := os.ReadFile(file)
 			require.NoError(t, err)
 
 			wd, err := yd.Decode(ctx, b)

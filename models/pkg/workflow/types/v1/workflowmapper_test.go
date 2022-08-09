@@ -3,7 +3,7 @@ package v1
 import (
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"os"
 	"testing"
 
@@ -60,6 +60,6 @@ func TestWorkflowMapper(t *testing.T) {
 	require.Equal(t, "hi", mapping.Workflow.Spec.Parameters[0].Name)
 	require.Equal(t, 5, mapping.Workflow.Spec.Parameters[0].Value.Value().(int))
 
-	require.NoError(t, json.NewEncoder(ioutil.Discard).Encode(mapping.Namespace))
-	require.NoError(t, json.NewEncoder(ioutil.Discard).Encode(mapping.Workflow))
+	require.NoError(t, json.NewEncoder(io.Discard).Encode(mapping.Namespace))
+	require.NoError(t, json.NewEncoder(io.Discard).Encode(mapping.Workflow))
 }

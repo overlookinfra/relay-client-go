@@ -3,7 +3,7 @@ package v1
 import (
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"time"
 
 	"github.com/puppetlabs/leg/stringutil"
@@ -338,7 +338,7 @@ func (c *ContainerMixin) LoadInputFile(ctx context.Context, im input.FileManager
 		return err
 	}
 
-	content, err := ioutil.ReadAll(inputFileReader)
+	content, err := io.ReadAll(inputFileReader)
 	if err != nil {
 		return err
 	}

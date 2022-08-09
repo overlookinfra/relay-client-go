@@ -2,7 +2,6 @@ package asset
 
 import (
 	"io"
-	"io/ioutil"
 )
 
 func Asset(name string) (io.ReadCloser, error) {
@@ -16,7 +15,7 @@ func AssetString(name string) (string, error) {
 	}
 	defer asset.Close()
 
-	b, err := ioutil.ReadAll(asset)
+	b, err := io.ReadAll(asset)
 	if err != nil {
 		return "", err
 	}
